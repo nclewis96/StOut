@@ -2,7 +2,6 @@ image: trevorlbrooks/stoutpipeline
 cache:
     paths:
     
-before_script:
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
@@ -17,10 +16,15 @@ variables:
 backend:
     tags:
         -  test
+    before_script:
+        - cd backend/stout
+        - mvn clean install
     script:
-        - ""		
+        - "" 
 frontend:
     tags:
         - test
+    before_script: 
+      - cd webapp
     script:
         - ""
