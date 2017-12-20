@@ -30,7 +30,7 @@ frontend:
         - test
     before_script: 
       - cd webApp
-      - npm install -g bower 
+      - npm install -g bower phantomjs-prebuilt 
       - npm install
       - bower install --allow-root
     script:
