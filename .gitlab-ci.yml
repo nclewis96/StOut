@@ -14,6 +14,7 @@ variables:
     MYSQL_ROOT_PASSWORD: mysql
 
 backend:
+    image: maven:latest
     tags:
         -  test
     before_script:
@@ -25,6 +26,6 @@ frontend:
     tags:
         - test
     before_script: 
-      - cd webapp
+      - cd webApp
     script:
         - ""
