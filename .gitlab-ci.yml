@@ -1,4 +1,4 @@
-
+image: trevorlbrooks/stoutpipeline 
 # Select what we should cache between builds
 cache:
   paths:
@@ -16,13 +16,11 @@ variables:
   MYSQL_ROOT_PASSWORD: mysql
 
 backend:
-	image: trevorlbrooks/stoutpipeline 
 	tags:
 		- test
 	script:
 		
 frontend:
-	image: trevorlbrooks/stoutpipeline 
   tags:
   - test
   script:
