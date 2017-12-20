@@ -19,8 +19,9 @@ backend:
 	tags:
 		- test
 	script:
-		
+    - ""		
 frontend:
   tags:
   - test
   script:
+    - ""
