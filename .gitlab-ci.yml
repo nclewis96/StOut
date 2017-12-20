@@ -23,7 +23,7 @@ backend:
         - cd backend/stout
         - mvn clean install
     script:
-        - "" 
+        - mvn test 
 frontend:
     stage: test
     tags:
