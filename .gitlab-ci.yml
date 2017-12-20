@@ -2,7 +2,7 @@ image: trevorlbrooks/stoutpipeline
 cache:
     paths:
       - webApp/node_modules/    
-      - /root/.m2/repository/
+      - ~/.m2/repository/
 stages:
   - test
 
