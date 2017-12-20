@@ -1,0 +1,28 @@
+
+# Select what we should cache between builds
+cache:
+  paths:
+
+before_script:
+
+# Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
+# See http://docs.gitlab.com/ce/ci/services/README.html for examples.
+services:
+  - mysql:5.7
+# Set any variables we need
+variables:
+  # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
+  MYSQL_DATABASE: StOut
+  MYSQL_ROOT_PASSWORD: mysql
+
+backend:
+	image: trevorlbrooks/stoutpipeline 
+	tags:
+		- test
+	script:
+		
+frontend:
+	image: trevorlbrooks/stoutpipeline 
+  tags:
+  - test
+  script:
