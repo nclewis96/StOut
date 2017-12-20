@@ -6,10 +6,6 @@ cache:
 stages:
   - test
 
-# Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
-# See http://docs.gitlab.com/ce/ci/services/README.html for examples.
-services:
-    - mysql:5.7
 # Set any variables we need
 variables:
     # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
@@ -19,6 +15,8 @@ variables:
 backend:
     image: maven:latest
     stage: test
+    services:
+      - mysql:5.7
     tags:
         -  test
     before_script:
@@ -34,6 +32,6 @@ frontend:
       - cd webApp
       - npm install -g bower 
       - npm install
-      - bower install
+      - bower install --allow-root
     script:
         - npm test
