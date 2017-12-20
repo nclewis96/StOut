@@ -1,7 +1,7 @@
 image: trevorlbrooks/stoutpipeline 
 cache:
     paths:
-      - node_modules/    
+      - webApp/node_modules/    
       - /root/.m2/repository/
 stages:
   - test
@@ -24,6 +24,8 @@ backend:
         - mvn clean install
     script:
         - mvn test 
+    after_script:
+        - cd ..
 frontend:
     stage: test
     tags:
@@ -34,4 +36,6 @@ frontend:
       - npm install
       - bower install --allow-root
     script:
-        - npm test
+      - npm test
+    after_script: 
+      - cd ..
