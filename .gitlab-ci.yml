@@ -1,9 +1,4 @@
 image: trevorlbrooks/stoutpipeline 
-# Select what we should cache between builds
-cache:
-  paths:
-
-before_script:
 
 # Bring in any services we need http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 # See http://docs.gitlab.com/ce/ci/services/README.html for examples.
