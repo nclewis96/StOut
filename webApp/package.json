@@ -40,5 +40,8 @@
   "engines": {
     "node": ">= 0.12.0"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "cas-authentication": "0.0.8"
+  }
 }
