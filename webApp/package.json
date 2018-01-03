@@ -1,7 +1,7 @@
 {
-  "name": "ember-quickstart",
+  "name": "StOut",
   "version": "0.0.0",
-  "description": "Small description for ember-quickstart goes here",
+  "description": "Student Outcomes tracking for Montana Tech",
   "license": "MIT",
   "author": "",
   "directories": {
@@ -34,6 +34,7 @@
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
+    "ember-simple-auth": "1.4.2",
     "ember-welcome-page": "^1.0.3",
     "loader.js": "^4.0.10"
   },
@@ -41,7 +42,5 @@
     "node": ">= 0.12.0"
   },
   "private": true,
-  "dependencies": {
-    "cas-authentication": "0.0.8"
-  }
+  "dependencies": {}
 }
