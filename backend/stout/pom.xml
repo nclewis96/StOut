@@ -25,28 +25,38 @@
     </properties>
 
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.dropwizard</groupId>
-                <artifactId>dropwizard-bom</artifactId>
-                <version>${dropwizard.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-              <groupId>org.junit.platform</groupId>
-              <artifactId>junit-platform-console</artifactId>
-              <version>1.0.2</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
+      <dependencies>
         <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-core</artifactId>
+          <groupId>io.dropwizard</groupId>
+          <artifactId>dropwizard-bom</artifactId>
+          <version>${dropwizard.version}</version>
+          <type>pom</type>
+          <scope>import</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+          <groupId>org.junit.platform</groupId>
+          <artifactId>junit-platform-console</artifactId>
+          <version>1.0.2</version>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.dropwizard</groupId>
+        <artifactId>dropwizard-core</artifactId>
+        <version>${dropwizard.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.dropwizard</groupId>
+        <artifactId>dropwizard-hibernate</artifactId>
+        <version>${dropwizard.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.36</version>
+      </dependency>
+      </dependencies>
 
     <build>
         <plugins>
