@@ -7,4 +7,16 @@ import javax.validation.constraints.*;
 
 public class StOutConfiguration extends Configuration {
     // TODO: implement service configuration
+    @NotEmpty
+    private String service;
+
+    @JsonProperty
+    public String getService() {
+        return service;
+    }
+
+    @JsonProperty
+    public void setService(String service) {
+        this.service = service;
+    }
 }
