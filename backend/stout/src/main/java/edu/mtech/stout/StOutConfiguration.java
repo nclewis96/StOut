@@ -10,6 +10,9 @@ public class StOutConfiguration extends Configuration {
     @NotEmpty
     private String service;
 
+    @NotEmpty
+    private String casURL;
+
     @JsonProperty
     public String getService() {
         return service;
@@ -18,5 +21,15 @@ public class StOutConfiguration extends Configuration {
     @JsonProperty
     public void setService(String service) {
         this.service = service;
+    }
+
+    @JsonProperty
+    public String getCasURL() {
+        return casURL;
+    }
+
+    @JsonProperty
+    public void setCasURL(String casURL) {
+        this.casURL = casURL;
     }
 }
