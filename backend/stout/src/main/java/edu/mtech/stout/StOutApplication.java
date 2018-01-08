@@ -3,6 +3,8 @@ package edu.mtech.stout;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.jdbi.*;
+import org.skife.jdbi.v2.DBI;
 
 public class StOutApplication extends Application<StOutConfiguration> {
 
@@ -25,9 +27,9 @@ public class StOutApplication extends Application<StOutConfiguration> {
                     final Environment environment) {
         // TODO: implement application
         final DBIFactory factory = new DBIFactory();
-        final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "mysql");
-        final UserDAO dao = jdbi.onDemand(UserDAO.class);
-        environment.jersey().register(new UserResource(dao));
+        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
+        //final UserDAO dao = jdbi.onDemand(UserDAO.class);
+        //environment.jersey().register(new UserResource(dao));
     }
 
 }

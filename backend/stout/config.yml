@@ -7,10 +7,10 @@ logging:
     edu.mtech.stout: DEBUG
   appenders:
     - type: file
-      currentLogFileName: ./logs/stout.log
+      currentLogFilename: ./logs/stout.log
       #date and compress logs for previous days.
       archivedLogFilenamePattern: ./logs/stout-%d.log.gz
-      archivedFilecount: 5
+      archivedFileCount: 5
       timeZone: UTC
 
 database:
