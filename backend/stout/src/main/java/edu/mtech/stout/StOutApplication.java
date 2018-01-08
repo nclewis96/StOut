@@ -24,6 +24,10 @@ public class StOutApplication extends Application<StOutConfiguration> {
     public void run(final StOutConfiguration configuration,
                     final Environment environment) {
         // TODO: implement application
+        final DBIFactory factory = new DBIFactory();
+        final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "mysql");
+        final UserDAO dao = jdbi.onDemand(UserDAO.class);
+        environment.jersey().register(new UserResource(dao));
     }
 
 }

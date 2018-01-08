@@ -18,4 +18,9 @@ database:
   user: stout
   password: pass?
   url: jdbc:mysql://localhost:3306/Stout
+  maxWaitForConnection: 1s
+  minSize: 4
+  maxSize: 10
+  checkConnectionWhileIdle: false
+  evictionInterval: 10s
 

@@ -6,6 +6,25 @@ import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 
 public class StOutConfiguration extends Configuration {
+    /********************************************************************
+     * DATABASE
+     ********************************************************************/
+    @Valid
+    @NotNull
+    private DataSourceFactory database = new DataSourceFactory();
+
+    @JsonProperty("database")
+    public void setDataSourceFactory(DataSourceFactory factory){
+      this.database = factory; 
+    }
+
+    @JsonProperty("database")
+    public DataSourceFactory getDataSourceFactory(){
+      return database;
+    }
+    /*******************************************************************
+     * CAS Auth and Service Config
+     ********************************************************************/
     // TODO: implement service configuration
     @NotEmpty
     private String service;
