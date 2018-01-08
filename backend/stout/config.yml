@@ -5,6 +5,13 @@ logging:
   level: INFO
   loggers:
     edu.mtech.stout: DEBUG
+  appenders:
+    - type: file
+      currentLogFileName: ./logs/stout.log
+      #date and compress logs for previous days.
+      archivedLogFilenamePattern: ./logs/stout-%d.log.gz
+      archivedFilecount: 5
+      timeZone: UTC
 
 database:
   driverClass: com.mysql.jdbc.Driver 
