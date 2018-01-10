@@ -6,6 +6,8 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.jdbi.*;
 import org.skife.jdbi.v2.DBI;
 
+import edu.mtech.stout.resources.Login;
+
 public class StOutApplication extends Application<StOutConfiguration> {
 
     public static void main(final String[] args) throws Exception {
@@ -30,6 +32,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
         //final UserDAO dao = jdbi.onDemand(UserDAO.class);
         //environment.jersey().register(new UserResource(dao));
+        environment.jersey().register(new Login(configuration));
     }
 
 }
