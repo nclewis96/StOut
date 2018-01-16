@@ -12,5 +12,13 @@ public class CASValidator{
     this.client = client;
   }
 
-
+  public String validateTicket(String ticket){
+    WebTarget webResource = client.target(config.getCasURL()).path("validate");
+    webResource = webResource.queryParam("ticket", ticket);
+    webResource = webResource.queryParam("service", config.getService());
+    Invocation.Builder invocationBuilder = webResource.request(MediaType.APPLICATION_XML);
+    Response response = invocationBuilder.get();
+    response.readEntity();
+    return "";
+  }
 }

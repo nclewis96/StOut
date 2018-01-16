@@ -1,5 +1,5 @@
 service: katie.mtech.edu/tbrooks/StOut/backend
-casURL: https://mtlbsso.mtech.edu/idp/profile/cas/login
+casURL: https://mtlbsso.mtech.edu/idp/profile/cas/serviceValidate
 
 logging:
   level: INFO
