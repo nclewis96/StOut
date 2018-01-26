@@ -1,0 +1,20 @@
+<header>
+	<img class="MTechLogo" src="/assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
+	<h1>StOut</h1>
+</header>
+
+{{! Nav component given user}}
+{{nav-primary items=model.roles}}
+
+{{outlet}}
+
+<footer>
+    <button id="home-button" {{action "home-button"}}>
+        Home
+    </button>
+	<img class="MTechLogo" src="/assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
+	<h1>StOut</h1>
+	<button id="logout-button" {{action "logout-button"}}>
+        Logout
+    </button>
+</footer>
