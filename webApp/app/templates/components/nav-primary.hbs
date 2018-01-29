@@ -4,7 +4,9 @@
 <ul class="nav-horizontal">
 	{{#each items as |role|}}
 		<li class="li-horizontal">
-		{{#link-to (to-lowercase role.roleName) }}{{role.roleName}}{{/link-to}}
+			{{#link-to (to-lowercase role.roleName)}}
+				{{role.roleName}}
+			{{/link-to}}
 		</li>
 	{{/each}}
 </ul>

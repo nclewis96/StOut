@@ -10,31 +10,46 @@ export default Ember.Route.extend({
 			},	{
 				roleName: 'Faculty'
 			}],
-			admin: [
-			{
-				actionName: 'Admin action'
-			},	
-			{
-				actionName: 'Admin action2'
-			},	
-			{
-				actionName: 'Admin action3'
-			}
-			],
-			programCoordinator: [{
-				actionName: 'Program-coordinator action'
-			},	{
-				actionName: 'Program-coordinator action2'
-			},	{
-				actionName: 'Program-coordinator action3'
-			}],
-			faculty: [{
-				actionName: 'Faculty action'
-			},	{
-				actionName: 'Faculty action2'
-			},	{
-				actionName: 'Faculty action3'
-			}],
+			admin: {
+				name: 'admin',
+				actionList: [{
+					actionName: 'Users'
+				},	{
+					actionName: 'Courses'
+				},	{
+					actionName: 'Outcomes'
+				},	{
+					actionName: 'Students'
+				},	{
+					actionName: 'Reports'
+				}]
+			},
+			programCoordinator:	{
+				name: 'program-coordinator',
+				actionList:	[{
+					actionName: 'Assessments'
+				},	{
+					actionName: 'Outcomes'
+				},	{
+					actionName: 'Courses'
+				},	{
+					actionName: 'Instructors'
+				},	{
+					actionName: 'Reports'
+				}]
+			},
+			faculty: 	{
+				name: 'faculty',
+				actionList:	[{
+					actionName: 'Courses'
+				},	{
+					actionName: 'Metrics'
+				},	{
+					actionName: 'Students'
+				},	{
+					actionName: 'Reports'
+				}]
+			},
 			selectedRole: false
 		};
 	}
