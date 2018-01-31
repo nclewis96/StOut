@@ -8,6 +8,8 @@ export default Ember.Route.extend({
 			},	{
 				roleName: 'Program-Coordinator'
 			},	{
+				roleName: 'Observer'
+			},	{
 				roleName: 'Faculty'
 			}],
 			selectedRole: false

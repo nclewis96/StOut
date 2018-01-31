@@ -28,6 +28,11 @@ Router.map(function() {
     this.route('students');
     this.route('reports');
   });
+  this.route('observer', function() {
+    this.route('courses');
+    this.route('outcomes');
+    this.route('reports');
+  });
 });
 
 export default Router;
