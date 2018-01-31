@@ -9,12 +9,8 @@
 {{outlet}}
 
 <footer>
-    <button id="home-button" {{action "home-button"}}>
-        Home
-    </button>
+    {{#link-to "home"}}Home{{/link-to}}
 	<img class="MTechLogo" src="/assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
 	<h1>StOut</h1>
-	<button id="logout-button" {{action "logout-button"}}>
-        Logout
-    </button>
+	{{#link-to "home"}}Logout{{/link-to}}
 </footer>

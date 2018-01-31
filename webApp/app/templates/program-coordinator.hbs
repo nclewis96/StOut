@@ -1,4 +1,9 @@
 {{! Nav component given user role}} 
 {{nav-secondary items=model.programCoordinator}}
 
-{{outlet}}
+<div>
+	{{#if component.data}}
+		{{!render}}
+	{{/if}}
+	{{outlet}}
+</div>

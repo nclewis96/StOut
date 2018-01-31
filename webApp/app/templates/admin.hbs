@@ -1,3 +1,9 @@
 {{! Nav component given user role}} 
 {{nav-secondary items=model.admin}}
-{{outlet}}
+
+<div>
+	{{#if component.data}}
+		{{!render}}
+	{{/if}}
+	{{outlet}}
+</div>
