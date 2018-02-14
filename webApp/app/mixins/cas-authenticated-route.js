@@ -32,7 +32,7 @@ export default Ember.Mixin.create({
     let ticket = this.paramsFor('application').ticket;
     console.log(ticket);
     if (this.get('session.isAuthenticated')) {return this._super(...arguments);}
-    return this.get('session').authenticate('authenticator:oauth2').then(() => {
+    return this.get('session').authenticate('authenticator:oauth2', ticket).then(() => {
       return this._super(...arguments);
     }).catch(() => {
       // Reference: http://stackoverflow.com/a/39054607/414097
