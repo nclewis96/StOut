@@ -21,13 +21,14 @@ public class CASValidator{
   public String validateTicket(String ticket) {
     CASResponse casResponse;
 
-    WebTarget webResource = client.target(config.getCasURL()).path("validate");
+    WebTarget webResource = client.target(config.getCasURL()).path("");
     webResource = webResource.queryParam("ticket", ticket);
     webResource = webResource.queryParam("service", config.getService());
     webResource = webResource.queryParam("format", "JSON");
     Invocation.Builder invocationBuilder = webResource.request(MediaType.APPLICATION_JSON);
     Response response = invocationBuilder.get();
     casResponse = response.readEntity(CASResponse.class);
-    return casResponse.getUsername();
+    return "";
+    //return casResponse.getUsername();
   }
 }
