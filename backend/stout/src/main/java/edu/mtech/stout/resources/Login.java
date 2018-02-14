@@ -12,13 +12,19 @@ import edu.mtech.stout.client.CASValidator;
 @Produces(MediaType.APPLICATION_JSON)
 
 public class Login{
-  
+
+  private CASValidator cas;
+
+  public Login(CASValidator cas){
+    this.cas = cas;
+  }
+
   @GET
   public AuthenticationObject attemptLogin(@QueryParam("ticket") String ticket){
+    AuthenticationObject auth = new AuthenticationObject();
     // Call casURL/validate
-    //  Get Params: service, ticket
-    //  service: set as config
-    //  ticket passed into this as part of the get param
-    return null;
+    String username = cas.validateTicket(ticket);
+    auth.setJwt(username);
+    return auth;
   }
 }

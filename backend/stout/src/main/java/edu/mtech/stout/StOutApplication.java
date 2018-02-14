@@ -35,10 +35,10 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final DBIFactory factory = new DBIFactory();
     final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
     final Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).build(getName());
-    environment.jersey().register(new CASValidator(configuration, client));
-    //final UserDAO dao = jdbi.onDemand(UserDAO.class);
-    //environment.jersey().register(new UserResource(dao));
-    environment.jersey().register(new Login());
+    CASValidator cas = new CASValidator(configuration, client);
+    environment.jersey().register(cas);
+    environment.jersey().register(new Login(cas));
+
   }
 
 }
