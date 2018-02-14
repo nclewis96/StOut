@@ -3,7 +3,7 @@ import OAuth2PasswordGrant from 'ember-simple-auth/authenticators/oauth2-passwor
 
 export default OAuth2PasswordGrant.extend({
   serverTokenEndpoint: 'https://mtlbsso.mtech.edu/idp/profile/cas',
-  backendEndpoint: 'https://katie.mtech.edu/login',
+  backendEndpoint: 'http://katie.mtech.edu:8080/login',
   session: Ember.inject.service(),
   authenticate : function(ticket){
     let backendEndpoint = this.get('backendEndpoint');
@@ -13,9 +13,7 @@ export default OAuth2PasswordGrant.extend({
         contentType: 'application/json',
         url: backendEndpoint,
         data: JSON.stringify({
-          data: {
-            ticket: ticket,
-          }
+            ticket: ticket
         })
       }).done((response) => {
         Ember.run(() => {
