@@ -1,8 +1,8 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:admin/users', 'Unit | Route | admin/users', {
+moduleFor('route:admin.users', 'Unit | Route | admin.users', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+  // needs: ['controller:users']
 });
 
 test('it exists', function(assert) {

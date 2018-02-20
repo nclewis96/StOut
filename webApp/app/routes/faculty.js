@@ -15,6 +15,6 @@ export default Ember.Route.extend({
 					actionName: 'Reports'
 				}]
 			}
-		}
+		};
 	}
 });
