@@ -1,15 +1,15 @@
 package edu.mtech.stout.api;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.xml.bind.annotation.XmlElement;
 
 public class CASResponse{
 
   private String username;
-  @JsonProperty
+  @XmlElement(name="cas:user")
   public void setUsername(String user){
     this.username = username;
   }
 
-  @JsonProperty
+
   public String getUsername(){
     return username;
   }

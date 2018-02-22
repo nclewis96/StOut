@@ -1,7 +1,6 @@
 package edu.mtech.stout.client;
 
 import edu.mtech.stout.StOutConfiguration;
-import edu.mtech.stout.api.CASResponse;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
@@ -19,7 +18,7 @@ public class CASValidator{
   }
 
   public String validateTicket(String ticket) {
-    CASResponse casResponse;
+    //CASResponse casResponse;
 
     WebTarget webResource = client.target(config.getCasURL()).path("");
     webResource = webResource.queryParam("ticket", ticket);
@@ -27,8 +26,11 @@ public class CASValidator{
     webResource = webResource.queryParam("format", "JSON");
     Invocation.Builder invocationBuilder = webResource.request(MediaType.APPLICATION_JSON);
     Response response = invocationBuilder.get();
-    casResponse = response.readEntity(CASResponse.class);
-    return "";
-    //return casResponse.getUsername();
+    String casResponse = response.readEntity(String.class);
+    if (casResponse.indexOf("<cas:user>") < 0){
+      return null;
+    }
+    casResponse = casResponse.substring(casResponse.indexOf("<cas:user>")+10, casResponse.indexOf("</cas:user>"));
+    return casResponse.trim();
   }
 }

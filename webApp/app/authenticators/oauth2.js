@@ -17,7 +17,7 @@ export default OAuth2PasswordGrant.extend({
         })
       }).done((response) => {
         Ember.run(() => {
-          resolve({ user: response.user });
+          resolve({ username: response.username, jwt:response.jwt });
         });
       }).fail((xhr/* , status, error */) => {
         var response = xhr.responseText;

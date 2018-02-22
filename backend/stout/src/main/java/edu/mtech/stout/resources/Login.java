@@ -2,18 +2,14 @@ package edu.mtech.stout.resources;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import edu.mtech.stout.api.AuthenticationObject;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.Ticket;
+import io.dropwizard.jersey.params.NonEmptyStringParam;
 
 @Path("/login/")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class Login{
 
   private CASValidator cas;
@@ -23,12 +19,31 @@ public class Login{
   }
 
   @POST
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
   public AuthenticationObject attemptLogin(@NotNull @Valid Ticket ticket){
     AuthenticationObject auth = new AuthenticationObject();
     // Call casURL/validate
     String username = cas.validateTicket(ticket.getTicket());
+    if(username == null){
+      return null;
+    }
+    auth.setUsername(username);
+    auth.createJwt();
+    return auth;
+  }
 
-    auth.setJwt(username);
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public AuthenticationObject refreshJWT(@QueryParam("jwt") NonEmptyStringParam jwt){
+    AuthenticationObject token = new AuthenticationObject();
+    token.setJwt(jwt.get().get());
+    AuthenticationObject auth = new AuthenticationObject();
+    String user = token.getUsername();
+    if(user != null) {
+      auth.setUsername(user);
+      auth.createJwt();
+    }
     return auth;
   }
 }

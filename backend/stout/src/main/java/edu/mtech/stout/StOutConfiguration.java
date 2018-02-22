@@ -53,6 +53,9 @@ public class StOutConfiguration extends Configuration {
   @NotEmpty
   private String casURL;
 
+  @NotEmpty
+  private String jwtSecret;
+
   @JsonProperty
   public String getService() {
     return service;
@@ -71,5 +74,15 @@ public class StOutConfiguration extends Configuration {
   @JsonProperty
   public void setCasURL(String casURL) {
     this.casURL = casURL;
+  }
+
+  @JsonProperty
+  public String getJwtSecret() {
+    return jwtSecret;
+  }
+
+  @JsonProperty
+  public void setJwtSecret(String jwtSecret) {
+    this.jwtSecret = jwtSecret;
   }
 }

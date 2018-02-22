@@ -12,6 +12,7 @@ import javax.ws.rs.client.Client;
 
 import edu.mtech.stout.resources.Login;
 import edu.mtech.stout.client.CASValidator;
+import edu.mtech.stout.api.AuthenticationObject;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import javax.servlet.DispatcherType;
@@ -61,7 +62,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     CASValidator cas = new CASValidator(configuration, client);
     environment.jersey().register(cas);
     environment.jersey().register(new Login(cas));
-
+    AuthenticationObject.setSecret(configuration.getJwtSecret());
+    AuthenticationObject.setService(configuration.getService());
   }
-
 }

@@ -18,7 +18,6 @@ export default Ember.Mixin.create({
       */
   session: Ember.inject.service('session'),
   routing: Ember.inject.service('-routing'),
-  casTicket: 1,
   /**
       Checks whether the session is authenticated, and if it is not, attempts to authenticate it, and if that fails,
       redirects to the login URL. (Sending back to this page after a successful transition)
@@ -30,15 +29,12 @@ export default Ember.Mixin.create({
       */
   beforeModel(/*transition*/) {
     let ticket = this.paramsFor('application').ticket;
-    if (this.get('session.isAuthenticated')) {return this._super(...arguments);}
+    if (this.get('session.authenticated.jwt') !== undefined) {return this._super(...arguments);}
     return this.get('session').authenticate('authenticator:oauth2', ticket).then(() => {
       return this._super(...arguments);
     }).catch(() => {
       // Reference: http://stackoverflow.com/a/39054607/414097
-      //let routing = this.get('routing');
-      //let params = Object.values(transition.params).filter(param => Object.values(param).length);
-      //let url = routing.generateURL(transition.targetName, params, transition.queryParams);
       window.location = "https://mtlbsso.mtech.edu/idp/profile/cas/login?service=https://katie.mtech.edu/~tbrooks/AbOut/secret";
     });
-  }
+  },
 });
