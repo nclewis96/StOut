@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'ember-quickstart',
+    modulePrefix: 'StOut',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
@@ -22,6 +22,11 @@ module.exports = function(environment) {
       // when it is created
     }
   };
+
+//  ENV['simple-auth'] = {
+//    store: 'simple-auth-session-store:cookie',
+//    routeAfterAuthentication: '/'
+//  };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -43,7 +48,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.rootURL = '/~jbanderson/AbOut/';
   }
 
   return ENV;

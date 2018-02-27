@@ -1,4 +1,26 @@
+service: katie.mtech.edu/tbrooks/StOut/backend
+casURL: https://mtlbsso.mtech.edu/idp/profile/cas/serviceValidate
+
 logging:
   level: INFO
   loggers:
     edu.mtech.stout: DEBUG
+  appenders:
+    - type: file
+      currentLogFilename: ./logs/stout.log
+      #date and compress logs for previous days.
+      archivedLogFilenamePattern: ./logs/stout-%d.log.gz
+      archivedFileCount: 5
+      timeZone: UTC
+
+database:
+  driverClass: com.mysql.jdbc.Driver 
+  user: stout
+  password: pass?
+  url: jdbc:mysql://localhost:3306/Stout
+  maxWaitForConnection: 1s
+  minSize: 4
+  maxSize: 10
+  checkConnectionWhileIdle: false
+  evictionInterval: 10s
+
