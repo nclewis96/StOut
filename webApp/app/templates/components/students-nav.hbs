@@ -1,14 +1,14 @@
 <ul class="nav-sideBar">
 	{{#each Nav.program as |program|}}
 		<ul>
-			<p>{{program.programName}}</p>
+			<p>{{program.name}}</p>
 			{{#each program.semester as |semester|}}
 				<ul>
-					<p>{{semester.semesterName}}</p>
-					{{#each semester.course as |course|}}
+					<p>{{semester.name}}</p>
+					{{#each semester.student as |student|}}
 						<ul>
 							<li {{action navSelection}}>
-								{{course.courseName}}
+								{{student.name}}
 							</li>			
 						</ul>
 					{{/each}}					
