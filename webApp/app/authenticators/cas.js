@@ -1,11 +1,13 @@
 import Ember from 'ember';
-import OAuth2PasswordGrant from 'ember-simple-auth/authenticators/oauth2-password-grant';
+import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
+import ENV from '../config/environment';
 
-export default OAuth2PasswordGrant.extend({
-  serverTokenEndpoint: 'https://mtlbsso.mtech.edu/idp/profile/cas',
-  backendEndpoint: 'http://katie.mtech.edu:8080/login',
+export default BaseAuthenticator.extend({
+  serverTokenEndpoint: ENV.APP.casURL,
+  backendEndpoint: ENV.APP.backendURL + '/login',
   session: Ember.inject.service(),
-  authenticate : function(ticket){
+  authenticate : function(data){
+    "use strict";
     let backendEndpoint = this.get('backendEndpoint');
     return new Ember.RSVP.Promise((resolve, reject) => {
       Ember.$.ajax({
@@ -13,7 +15,8 @@ export default OAuth2PasswordGrant.extend({
         contentType: 'application/json',
         url: backendEndpoint,
         data: JSON.stringify({
-            ticket: ticket
+            jwt: data.jwt,
+            ticket: data.ticket
         })
       }).done((response) => {
         Ember.run(() => {
@@ -26,6 +29,18 @@ export default OAuth2PasswordGrant.extend({
         });
       });
     });
-  }
+  },
+  restore(data) {
+    "use strict";
+
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      if (!Ember.isEmpty(data.jwt)) {
+        resolve(data.user);
+      }
+      else {
+        reject();
+      }
+    });
+}
 });
 
