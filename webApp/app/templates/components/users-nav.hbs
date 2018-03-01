@@ -1,0 +1,15 @@
+<ul class="nav-sideBar">
+	{{#each Nav.program as |program|}}
+		<ul>
+			<p>{{program.programName}}</p>
+			{{#each program.users as |users|}}
+				<ul>
+					<li {{action navSelection}}>
+						{{users.userName}}
+					</li>			
+				</ul>
+			{{/each}}
+		</ul>
+	{{/each}}
+</ul>
+{{yield}}
