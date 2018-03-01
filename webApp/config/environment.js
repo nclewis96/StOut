@@ -24,8 +24,7 @@ module.exports = function(environment) {
   };
 
   ENV['simple-auth'] = {
-    store: 'simple-auth-session-store:adaptive',
-    routeAfterAuthentication: '/secret'
+    store: 'simple-auth-session-store:adaptive'
   };
 
   if (environment === 'development') {

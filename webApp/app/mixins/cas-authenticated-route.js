@@ -36,11 +36,11 @@ export default Ember.Mixin.create({
     if(session.get('data') !== undefined){
       data.jwt = session.get('data.jwt');
     }
-    console.log(data);
     if (this.get('session.isAuthenticated')) {return this._super(...arguments);}
     return this.get('session').authenticate('authenticator:cas', data).then(() => {
       return this._super(...arguments);
     }).catch(() => {
+      session.get('store').clear();
       // Reference: http://stackoverflow.com/a/39054607/414097
       window.location = `${ENV.APP.casURL}/login?service=${ENV.APP.frontendURL}/secret`;
     });

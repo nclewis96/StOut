@@ -5,18 +5,6 @@ export default Ember.Controller.extend({
   currentUser: service(),
   queryParams: ['ticket'],
   ticket: null,
-  restoredSession: false,
-  _loginWithToken: function(jwt) {
-    (function(controller) {
-      controller.get('session').authenticate('authenticator:cas', {
-        jwt: jwt
-      }).then(function() {
-        controller.send('login');
-      }).catch(function(/* reason */) {
-        controller.get('session.store').clear();
-      });
-    }) (this);
-  },
   init() {
     "use strict";
     
@@ -27,12 +15,11 @@ export default Ember.Controller.extend({
     if (store) {
       store.restore().then((data) => {
         if (Ember.isPresent(data.authenticated.jwt)) {
-          this._loginWithToken(data.authenticated.jwt);
+          this.send('login');
         }
       }).catch(() => {
+        this.get('session.store').clear();
       }).finally(() => {
-            let restored = this.get('restoredSession');
-            restored = true;
       });
     }
   },
@@ -41,7 +28,6 @@ export default Ember.Controller.extend({
     login() {
       let session = this.get('session');
       let user = session.get('data.authenticated');
-
       session.get('store').persist(user);
     }
     }
