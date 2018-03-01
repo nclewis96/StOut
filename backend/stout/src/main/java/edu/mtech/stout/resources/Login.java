@@ -4,6 +4,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import edu.mtech.stout.api.AuthenticationObject;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.Ticket;
@@ -22,15 +24,26 @@ public class Login{
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public AuthenticationObject attemptLogin(@NotNull @Valid Ticket ticket){
-    AuthenticationObject auth = new AuthenticationObject();
-    // Call casURL/validate
-    String username = cas.validateTicket(ticket.getTicket());
-    if(username == null){
-      return null;
+    if(ticket.getTicket() != null) {
+      AuthenticationObject auth = new AuthenticationObject();
+      // Call casURL/validate
+      String username = cas.validateTicket(ticket.getTicket());
+      if (username == null) {
+        return null;
+      }
+      auth.setUsername(username);
+      auth.createJwt();
+      return auth;
+    } else if (ticket.getJwt() != null){
+      AuthenticationObject auth = new AuthenticationObject();
+      auth.setJwt(ticket.getJwt());
+      auth.setUsername(auth.retrieveUsername());
+      auth.createJwt();
+      return auth;
     }
-    auth.setUsername(username);
-    auth.createJwt();
-    return auth;
+    else{
+      throw new ForbiddenException();
+    }
   }
 
   @GET

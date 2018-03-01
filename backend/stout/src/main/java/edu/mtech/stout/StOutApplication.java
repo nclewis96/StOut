@@ -12,6 +12,8 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.client.*;
+import io.dropwizard.sslreload.SslReloadBundle;
+
 
 import io.dropwizard.assets.AssetsBundle;
 
@@ -58,6 +60,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     );
     bootstrap.addBundle(new AssetsBundle());
     bootstrap.addBundle(hibernateBundle);
+    bootstrap.addBundle(new SslReloadBundle());
   }
 
   @Override
