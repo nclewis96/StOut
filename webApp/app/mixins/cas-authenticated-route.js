@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from '../config/environment';
 //https://centerforopenscience.github.io/ember-osf/files/addon_mixins_cas-authenticated-route.js.html
 /**
  * Replacement for Ember-simple-auth AuthenticatedRouteMixin. Instead of redirecting to an internal route,
@@ -28,13 +29,20 @@ export default Ember.Mixin.create({
       @public
       */
   beforeModel(/*transition*/) {
-    let ticket = this.paramsFor('application').ticket;
-    if (this.get('session.authenticated.jwt') !== undefined) {return this._super(...arguments);}
-    return this.get('session').authenticate('authenticator:oauth2', ticket).then(() => {
+    let session = this.get('session');
+    let data = {
+      ticket : this.paramsFor('application').ticket,
+    };
+    if(session.get('data') !== undefined){
+      data.jwt = session.get('data.jwt');
+    }
+    if (this.get('session.isAuthenticated')) {return this._super(...arguments);}
+    return this.get('session').authenticate('authenticator:cas', data).then(() => {
       return this._super(...arguments);
     }).catch(() => {
+      session.get('store').clear();
       // Reference: http://stackoverflow.com/a/39054607/414097
-      window.location = "https://mtlbsso.mtech.edu/idp/profile/cas/login?service=https://katie.mtech.edu/~tbrooks/AbOut/secret";
+      window.location = `${ENV.APP.casURL}/login?service=${ENV.APP.frontendURL}/secret`;
     });
   },
 });

@@ -81,11 +81,15 @@ public class AuthenticationObject{
       return false;
     }
 
-    public String getUsername(){
+    public String retrieveUsername(){
       username = null;
       if(decodeJwt()){
         username = decodedJWT.getClaims().get("username").asString();
       }
+      return username;
+    }
+
+    public String getUsername(){
       return username;
     }
 

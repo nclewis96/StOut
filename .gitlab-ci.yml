@@ -29,7 +29,7 @@ backend:
 frontend:
     stage: test
     tags:
-        - test
+        - gl-runner-vm
     before_script: 
       - cd webApp
       - npm install bower phantomjs-prebuilt 
