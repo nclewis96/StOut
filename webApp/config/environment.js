@@ -23,10 +23,9 @@ module.exports = function(environment) {
     }
   };
 
-//  ENV['simple-auth'] = {
-//    store: 'simple-auth-session-store:cookie',
-//    routeAfterAuthentication: '/'
-//  };
+  ENV['simple-auth'] = {
+    store: 'simple-auth-session-store:adaptive'
+  };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -48,8 +47,18 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.rootURL = '/~jbanderson/AbOut/';
+    ENV.rootURL = '/~tbrooks/AbOut';
+    ENV.APP.casURL = 'https://mtlbsso.mtech.edu/idp/profile/cas';
+    ENV.APP.backendURL = 'https://csdept29.mtech.edu:30120';
+    ENV.APP.frontendURL = 'https://katie.mtech.edu' + ENV.rootURL;
   }
 
+  if (environment === 'jbanderson') {
+    ENV.rootURL = '/~jbanderson/AbOut/';
+    ENV.APP.casURL = 'https://mtlbsso.mtech.edu/idp/profile/cas';
+    ENV.APP.backendURL = 'https://csdept29.mtech.edu:30120';
+    ENV.APP.frontendURL = 'https://katie.mtech.edu' + ENV.rootURL;
+  }
+  
   return ENV;
 };

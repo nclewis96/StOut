@@ -3,21 +3,21 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 	model() {
 		return 	{
-			program: [
+			programs: [
 			{
-				semester: [
+				semesters: [
 				{
 					course:	[
 					{
-						courseName: 'MathyStuffy',
-						sectionNum: '01',
-						courseID:'32345'
+						name: 'MathyStuffy',
+						num: '01',
+						id:'32345'
 					}],
-					semesterName: 'Fall 2017',
-					semesterID: '32323'
+					name: 'Fall 2017',
+					id: '32323'
 				}],
-				programName: 'Computer Sciences',
-				programID: '3232'
+				name: 'Computer Sciences',
+				id: '3232'
 			}]
 		};
 	}

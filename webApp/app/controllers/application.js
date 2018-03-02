@@ -1,11 +1,34 @@
 import Ember from 'ember';
+const { inject: { service } } = Ember;
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
+  currentUser: service(),
   queryParams: ['ticket'],
   ticket: null,
-  login: function(){
-    this.get('session').authenticate('authenticator:oauth2');
+  init() {
+    "use strict";
+    
+    this._super(...arguments);
+    let session = this.get('session');
+    let store = session.get('store');
+
+    if (store) {
+      store.restore().then((data) => {
+        if (Ember.isPresent(data.authenticated.jwt)) {
+          this.send('login');
+        }
+      }).catch(() => {
+        this.get('session.store').clear();
+      }).finally(() => {
+      });
+    }
   },
 
-
+  actions:{
+    login() {
+      let session = this.get('session');
+      let user = session.get('data.authenticated');
+      session.get('store').persist(user);
+    }
+    }
 });

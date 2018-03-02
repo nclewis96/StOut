@@ -3,15 +3,15 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 	model() {
 		return 	{
-			program: [
+			programs: [
 			{
 				users: [
 				{
-					userName: 'Jesse Anderson',
-					userId: '3232'
+					name: 'Jesse Anderson',
+					id: '3232'
 				}],
-			programName: 'Computer Science',
-			programID: '32382'
+			name: 'Computer Science',
+			id: '32382'
 			}]
 		};
 	}
