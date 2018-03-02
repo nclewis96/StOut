@@ -5,27 +5,30 @@ import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/users")
+@Path("/user/{userId}")
 @Produces(MediaType.APPLICATION_JSON)
-public class DaoCreateTest {
+public class UserResource {
 
   UserDAO dao = null;
 
-  public DaoCreateTest(UserDAO dao) {
+  public UserResource(UserDAO dao) {
     this.dao = dao;
   }
 
-  @POST
+  @GET
   @UnitOfWork
-  public User createUser(User user) {
-    return dao.create(user);
+  public edu.mtech.stout.core.User getPerson(@PathParam("userId") LongParam userId) {
+    return findSafely(userId.get());
   }
 
+  private edu.mtech.stout.core.User findSafely(long personId) {
+    return dao.findById(personId).orElseThrow(() -> new NotFoundException("No such user."));
+  }
 }

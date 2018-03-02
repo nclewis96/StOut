@@ -17,10 +17,9 @@ import javax.ws.rs.client.Client;
 import edu.mtech.stout.resources.Login;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.AuthenticationObject;
-import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.resources.DaoCreateTest;
-import edu.mtech.stout.resources.DaoTest;
+import edu.mtech.stout.resources.UserResourceList;
+import edu.mtech.stout.resources.UserResource;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
@@ -34,7 +33,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
   }
 
   private final HibernateBundle<StOutConfiguration> hibernateBundle =
-    new HibernateBundle<StOutConfiguration>(User.class) {
+    new HibernateBundle<StOutConfiguration>(edu.mtech.stout.core.User.class) {
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
         return configuration.getDataSourceFactory();
@@ -88,8 +87,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     CASValidator cas = new CASValidator(configuration, client);
     environment.jersey().register(cas);
     environment.jersey().register(new Login(cas));
-    environment.jersey().register(new DaoTest(userDao));
-    environment.jersey().register(new DaoCreateTest(userDao));
+    environment.jersey().register(new UserResource(userDao));
+    environment.jersey().register(new UserResourceList(userDao));
     AuthenticationObject.setSecret(configuration.getJwtSecret());
     AuthenticationObject.setService(configuration.getService());
   }
