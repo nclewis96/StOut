@@ -12,11 +12,15 @@ DROP TABLE IF EXISTS Course_Prefix;
 DROP TABLE IF EXISTS Program_Permissions;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Permission_Set;
-DROP TABLE IF EXISTS Student_Outcome;
 DROP TABLE IF EXISTS Semester_Type;
 DROP TABLE IF EXISTS Program;
 DROP TABLE IF EXISTS Semester_Type;
 DROP TABLE IF EXISTS Job_Title;
+DROP TABLE IF EXISTS Config;
+DROP TABLE IF EXISTS Scale;
+DROP TABLE IF EXISTS Perf_Indicator;
+DROP TABLE IF EXISTS Offering_Assign;
+DROP TABLE IF EXISTS Student_Assign;                      
 
 SET time_zone = "-06:00";
 
@@ -24,6 +28,46 @@ CREATE TABLE `Course_Outcome` (
   `course_id` int(11) NOT NULL,
   `outcome_id` int(11) NOT NULL,
   PRIMARY KEY (`course_id`, `outcome_id`)
+);
+
+CREATE TABLE `Config` (
+  `key` varchar(100) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`key`)
+);
+
+CREATE TABLE `Scale` (
+	`scale_id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(100) NOT NULL,
+	`desc` varchar(100) NOT NULL,
+	`program_id` int(11) NOT NULL,
+	PRIMARY KEY(`scale_id`)
+);
+
+CREATE TABLE `Perf_Indicator`(
+	`perf_indicator_id` int(11) NOT NULL AUTO_INCREMENT,
+	`scale_id` int(11) NOT NULL,
+	`name` varchar(100) NOT NULL,
+	`desc` varchar(100),
+	`rating` int(11) NOT NULL,
+	PRIMARY KEY (`perf_indicator_id`)
+);
+
+CREATE TABLE `Offering_Assign` (
+	`assign_id` int(11) NOT NULL AUTO_INCREMENT,
+	`offering_id` int(11) NOT NULL,
+	`score` int(11) NOT NULL,
+	`name` varchar(100) NOT NULL,
+	`desc` varchar(100) NOT NULL,
+	`max_score` int(11)  NOT NULL,
+	PRIMARY KEY(`assign_id`)
+);
+
+CREATE TABLE `Student_Assign` (
+	`assign_id` int(11) NOT NULL,
+	`student_id` int(11) NOT NULL,
+	`score` int(11) NOT NULL
+	PRIMARY KEY(`assign_id`, `student_id`)
 );
 
 CREATE TABLE `Offering` (
