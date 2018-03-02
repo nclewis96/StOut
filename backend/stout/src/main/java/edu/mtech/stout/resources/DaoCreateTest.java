@@ -18,7 +18,7 @@ public class DaoCreateTest {
 
   UserDAO dao = null;
 
-  public DaoCreateTest(UserDAO dao){
+  public DaoCreateTest(UserDAO dao) {
     this.dao = dao;
   }
 

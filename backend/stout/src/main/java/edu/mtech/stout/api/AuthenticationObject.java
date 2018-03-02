@@ -1,4 +1,5 @@
 package edu.mtech.stout.api;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -7,11 +8,12 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AuthenticationObject{
+public class AuthenticationObject {
 
   @JsonProperty
   private String jwt;
@@ -25,12 +27,12 @@ public class AuthenticationObject{
   private static String secret = "";
 
   @JsonProperty
-  public String getJwt(){
+  public String getJwt() {
     return jwt;
   }
 
   @JsonProperty
-  public void setJwt(String jwt){
+  public void setJwt(String jwt) {
     this.jwt = jwt;
   }
 
@@ -52,59 +54,59 @@ public class AuthenticationObject{
     }
   }
 
-    private boolean verifyJwt(){
-      try {
-        Algorithm algorithm = Algorithm.HMAC512(secret);
-        JWTVerifier verifier = JWT.require(algorithm)
-          .withIssuer(service)
-          .build(); //Reusable verifier instance
-        decodedJWT = verifier.verify(this.jwt);
-      } catch (UnsupportedEncodingException exception){
-        //UTF-8 encoding not supported
-        return false;
-      } catch (JWTVerificationException exception){
-        //Invalid signature/claims
-        return false;
-      }
-      return true;
+  private boolean verifyJwt() {
+    try {
+      Algorithm algorithm = Algorithm.HMAC512(secret);
+      JWTVerifier verifier = JWT.require(algorithm)
+        .withIssuer(service)
+        .build(); //Reusable verifier instance
+      decodedJWT = verifier.verify(this.jwt);
+    } catch (UnsupportedEncodingException exception) {
+      //UTF-8 encoding not supported
+      return false;
+    } catch (JWTVerificationException exception) {
+      //Invalid signature/claims
+      return false;
     }
+    return true;
+  }
 
-    private boolean decodeJwt() {
-      if(verifyJwt()) {
+  private boolean decodeJwt() {
+    if (verifyJwt()) {
       try {
         this.decodedJWT = JWT.decode(jwt);
       } catch (JWTDecodeException exception) {
         return false;
       }
       return true;
-      }
-      return false;
     }
-
-    public String retrieveUsername(){
-      username = null;
-      if(decodeJwt()){
-        username = decodedJWT.getClaims().get("username").asString();
-      }
-      return username;
-    }
-
-    public String getUsername(){
-      return username;
-    }
-
-    @JsonProperty
-    public void setUsername(String username) {
-      this.username = username;
-    }
-
-    public static void setService(String newService){
-      service = newService;
-    }
-
-    public static void setSecret(String newSecret){
-      secret = newSecret;
-    }
-
+    return false;
   }
+
+  public String retrieveUsername() {
+    username = null;
+    if (decodeJwt()) {
+      username = decodedJWT.getClaims().get("username").asString();
+    }
+    return username;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  @JsonProperty
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public static void setService(String newService) {
+    service = newService;
+  }
+
+  public static void setSecret(String newSecret) {
+    secret = newSecret;
+  }
+
+}
 

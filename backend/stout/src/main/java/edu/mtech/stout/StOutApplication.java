@@ -1,9 +1,5 @@
 package edu.mtech.stout;
 
-import edu.mtech.stout.core.User;
-import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.resources.DaoCreateTest;
-import edu.mtech.stout.resources.DaoTest;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -13,8 +9,6 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.client.*;
 import io.dropwizard.sslreload.SslReloadBundle;
-
-
 import io.dropwizard.assets.AssetsBundle;
 
 import javax.servlet.FilterRegistration;
@@ -23,12 +17,15 @@ import javax.ws.rs.client.Client;
 import edu.mtech.stout.resources.Login;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.AuthenticationObject;
+import edu.mtech.stout.core.User;
+import edu.mtech.stout.db.UserDAO;
+import edu.mtech.stout.resources.DaoCreateTest;
+import edu.mtech.stout.resources.DaoTest;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
-import java.util.Map;
-
 
 public class StOutApplication extends Application<StOutConfiguration> {
 
@@ -65,7 +62,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
 
   @Override
   public void run(final StOutConfiguration configuration,
-      final Environment environment) {
+                  final Environment environment) {
 
     // Enable CORS headers
     final FilterRegistration.Dynamic cors =

@@ -1,4 +1,5 @@
 package edu.mtech.stout.api;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Ticket {
@@ -10,22 +11,22 @@ public class Ticket {
   private String jwt;
 
   @JsonProperty
-  public void setTicket(String ticket){
+  public void setTicket(String ticket) {
     this.ticket = ticket;
   }
 
   @JsonProperty
-  public String getTicket(){
+  public String getTicket() {
     return ticket;
   }
 
   @JsonProperty
-  public void setJwt(String jwt){
+  public void setJwt(String jwt) {
     this.jwt = jwt;
   }
 
   @JsonProperty
-  public String getJwt(){
+  public String getJwt() {
     return jwt;
   }
 }
