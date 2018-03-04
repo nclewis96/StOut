@@ -17,10 +17,10 @@ public class CASValidator {
     this.client = client;
   }
 
-  public String validateTicket(String ticket) {
+  public String validateTicket(String ticket, String service) {
     WebTarget webResource = client.target(config.getCasURL()).path("");
     webResource = webResource.queryParam("ticket", ticket);
-    webResource = webResource.queryParam("service", config.getService());
+    webResource = webResource.queryParam("service", service);
     webResource = webResource.queryParam("format", "JSON");
     Invocation.Builder invocationBuilder = webResource.request(MediaType.APPLICATION_JSON);
     Response response = invocationBuilder.get();

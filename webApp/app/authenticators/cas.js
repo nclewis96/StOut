@@ -15,8 +15,9 @@ export default BaseAuthenticator.extend({
         contentType: 'application/json',
         url: backendEndpoint,
         data: JSON.stringify({
-            jwt: data.jwt,
-            ticket: data.ticket
+          jwt: data.jwt,
+          ticket: data.ticket,
+          service: ENV.APP.frontendURL + '/secret'
         })
       }).done((response) => {
         Ember.run(() => {
@@ -41,6 +42,6 @@ export default BaseAuthenticator.extend({
         reject();
       }
     });
-}
+  }
 });
 

@@ -27,7 +27,7 @@ public class Login {
     if (ticket.getTicket() != null) {
       AuthenticationObject auth = new AuthenticationObject();
       // Call casURL/validate
-      String username = cas.validateTicket(ticket.getTicket());
+      String username = cas.validateTicket(ticket.getTicket(), ticket.getService());
       if (username == null) {
         return null;
       }
