@@ -34,7 +34,6 @@ Router.map(function() {
     this.route('reports');
   });
   this.route('secret');
-  this.route('login');
 });
 
 export default Router;
