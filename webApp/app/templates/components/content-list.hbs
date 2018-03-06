@@ -1,25 +1,27 @@
-{{#program-listitem programs=model.programs as |program|}}
-	{{#if program.semesters}}
-		{{#semester-listitem semesters=program.semesters as |semester|}}
-			{{#if semester.courses}}
-				{{#each semester.courses as |course|}}
-					<li>{{course.name}}</li>
-				{{/each}}
-			{{/if}}
-			{{#if semester.students}}
-				{{#each semester.students as |student|}}
-					<li>{{student.name}}</li>
-				{{/each}}
-			{{/if}}
-		{{/semester-listitem}}
-	{{/if}}
-	{{#if program.users}}
-		{{#each program.users as |users|}}
-			<li {{action 'listSelected'}}>{{users.name}}</li>
-		{{/each}}
-	{{/if}}
-{{/program-listitem}}
-<div>
+<div id="content-list">
+	{{#program-listitem programs=model.programs as |program|}}
+		{{#if program.semesters}}
+			{{#semester-listitem semesters=program.semesters as |semester|}}
+				{{#if semester.courses}}
+					{{#each semester.courses as |course|}}
+						<li {{action 'listSelected' course}}>{{course.name}}</li>
+					{{/each}}
+				{{/if}}
+				{{#if semester.students}}
+					{{#each semester.students as |student|}}
+						<li {{action 'listSelected' student}}>{{student.name}}</li>
+					{{/each}}
+				{{/if}}
+			{{/semester-listitem}}
+		{{/if}}
+		{{#if program.users}}
+			{{#each program.users as |user|}}
+				<li {{action 'listSelected' user}}>{{user.name}}</li>
+			{{/each}}
+		{{/if}}
+	{{/program-listitem}}
+</div>
+<div id="main-content">
 	<p>The counter is {{counter}}</p>
 </div>
 

@@ -1,5 +1,5 @@
 body {
-	background-color: yellowgreen;
+	background-color: white;
 	margin: 0px;
 }
 
@@ -22,22 +22,18 @@ h1 {
 }
 
 #home-button {
-	height: 2em;
+	height: 2.4em;
 	display: inline-block;
-}
-
-#logout-button {
-	height: 2em;
-	display: inline-block;
+	background-color: #a2a2a2;
 }
 
 .nav-div	{
 	display: grid;
-	grid-template-columns: 5em 1fr 5em;
+	grid-template-columns: 5em 1fr;
 }
 .nav-horizontal {
 	list-style-type: none;
-	margin: 0;
+	margin: -2px;
 	padding: 0;
 	position: relative;
 	display: flex;
@@ -46,7 +42,7 @@ h1 {
 	background-color: #00ee00;
 	min-height: 20px;
 	height: auto;
-	width: 100%
+	width: 100%;
 }
 
 .li-horizontal {
@@ -82,10 +78,10 @@ li a {
 }
 
 
-footer {
+#footer {
 	background-color: green;
 	display: grid;
-	grid-template-columns: 5em 3em 1fr 5em;
+	grid-template-columns: 5em 3em 1fr;
 	width: 100%;
 	position: fixed;
 	bottom: 0px;

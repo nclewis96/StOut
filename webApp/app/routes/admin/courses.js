@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 			{
 				semesters: [
 				{
-					course:	[
+					courses:	[
 					{
 						name: 'MathyStuffy',
 						num: '01',
