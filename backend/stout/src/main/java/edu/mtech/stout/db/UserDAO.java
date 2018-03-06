@@ -21,4 +21,11 @@ public class UserDAO extends AbstractDAO<User> {
     return persist(user);
   }
 
+  public User update(User user) {return update(user);}
+
+  public boolean delete(int userId) {return delete(userId);};
+
+  public List<User> findAll() {
+    return list(namedQuery("edu.mtech.stout.core.User.findAll"));
+  }
 }

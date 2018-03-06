@@ -1,15 +1,12 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.Status;
 import edu.mtech.stout.db.UserDAO;
 import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/user/{userId}")
@@ -24,11 +21,38 @@ public class UserResource {
 
   @GET
   @UnitOfWork
-  public edu.mtech.stout.core.User getPerson(@PathParam("userId") LongParam userId) {
+  public User getUser(@PathParam("userId") LongParam userId) {
     return findSafely(userId.get());
   }
 
-  private edu.mtech.stout.core.User findSafely(long personId) {
-    return dao.findById(personId).orElseThrow(() -> new NotFoundException("No such user."));
+  private User findSafely(long userId) {
+    return dao.findById(userId).orElseThrow(() -> new NotFoundException("No such user."));
+  }
+
+  @POST
+  @UnitOfWork
+  public User updateUser(@PathParam("userId") LongParam userId, User user){
+    return dao.update(user);
+  }
+
+  @DELETE
+  @UnitOfWork
+  public Status deleteUser(@PathParam("userId") LongParam userId){
+    Status status = new Status();
+    status.setId(userId.get().intValue());
+    status.setAction("DELETE");
+    status.setResource("User");
+
+    boolean success = dao.delete(userId.get().intValue());
+
+    if(success){
+      status.setMessage("Successfully deleted user");
+      status.setStatus(200);
+    }else{
+      status.setMessage("Error deleting user");
+      status.setStatus(500);
+    }
+
+    return status;
   }
 }
