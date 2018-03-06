@@ -8,6 +8,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.mtech.stout.core.User;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
@@ -20,6 +21,9 @@ public class AuthenticationObject {
 
   @JsonProperty
   private String username;
+
+  @JsonProperty
+  private User user;
 
   private DecodedJWT decodedJWT = null;
 
@@ -108,5 +112,13 @@ public class AuthenticationObject {
     secret = newSecret;
   }
 
+  @JsonProperty
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
 }
 

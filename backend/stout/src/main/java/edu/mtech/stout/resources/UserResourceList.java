@@ -3,7 +3,6 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.db.UserDAO;
 import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

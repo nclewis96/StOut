@@ -13,6 +13,11 @@ import java.util.Set;
       name = "edu.mtech.stout.core.User.findAll",
       query = "SELECT * FROM Users",
       resultClass = User.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.User.findByUsername",
+      query = "SELECT * FROM Users WHERE username = ?",
+      resultClass = User.class
     )
   })
 

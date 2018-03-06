@@ -17,6 +17,16 @@ public class UserDAO extends AbstractDAO<User> {
     return Optional.ofNullable(get(id));
   }
 
+  public Optional<User> findByUsername(String username) {
+    List<User> userList = list(namedQuery("edu.mtech.stout.core.User.findByUsername")
+                        .setParameter(0, username));
+    Optional<User> user = Optional.empty();
+    if(!userList.isEmpty()){
+      user = Optional.of(userList.get(0));
+    }
+    return user;
+  }
+
   public User create(User user) {
     return persist(user);
   }

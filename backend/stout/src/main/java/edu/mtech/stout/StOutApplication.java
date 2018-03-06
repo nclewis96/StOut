@@ -86,7 +86,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).build(getName());
     CASValidator cas = new CASValidator(configuration, client);
     environment.jersey().register(cas);
-    environment.jersey().register(new Login(cas));
+    environment.jersey().register(new Login(cas, userDao));
     environment.jersey().register(new UserResource(userDao));
     environment.jersey().register(new UserResourceList(userDao));
     AuthenticationObject.setSecret(configuration.getJwtSecret());
