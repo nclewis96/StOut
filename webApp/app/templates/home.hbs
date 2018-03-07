@@ -1,12 +1,2 @@
-
-{{!#if data.selectedRole}} 
-    {{! nav-secondary items=data.selectedRole.data}}
-{{!/if }}
-
-
-<div class="data-content">
-    <nav id="nav-tertiary">
-    {{!Nav Component given first two navs}}
-    </nav>
-    {{!Data, form, or actions component}}
-</div>
+{{! Display user related navigation info, roles, or other various non-main content features.}}
+{{outlet}}
