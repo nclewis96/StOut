@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.mtech.stout.core.User;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -120,5 +121,6 @@ public class AuthenticationObject {
   public void setUser(User user) {
     this.user = user;
   }
+
 }
 

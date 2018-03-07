@@ -1,10 +1,18 @@
 package edu.mtech.stout;
 
+import edu.mtech.stout.auth.StOutAuthenticator;
+import edu.mtech.stout.auth.StOutAuthorizer;
+import edu.mtech.stout.core.User;
+import edu.mtech.stout.filter.UserAuthFilter;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.client.*;
@@ -22,6 +30,7 @@ import edu.mtech.stout.resources.UserResourceList;
 import edu.mtech.stout.resources.UserResource;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
@@ -79,10 +88,23 @@ public class StOutApplication extends Application<StOutConfiguration> {
     // unauthenticated preflight requests should be permitted by spec
     cors.setInitParameter(CrossOriginFilter.CHAIN_PREFLIGHT_PARAM, Boolean.FALSE.toString());
 
-    // TODO: implement application
-    //final DBIFactory factory = new DBIFactory();
-    //final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
+    //Set up DAO objects
     final UserDAO userDao = new UserDAO(hibernateBundle.getSessionFactory());
+
+    //Set up auth
+    UserDAO authDao = new UserDAO(hibernateBundle.getSessionFactory());
+    StOutAuthenticator stOutAuthenticator = new UnitOfWorkAwareProxyFactory(hibernateBundle)
+      .create(StOutAuthenticator.class, UserDAO.class, authDao);
+    environment.jersey().register(new AuthDynamicFeature(
+      new UserAuthFilter.Builder<User>()
+        .setAuthenticator(stOutAuthenticator)
+        .setAuthorizer(new StOutAuthorizer())
+        .setPrefix("Bearer")
+        .buildAuthFilter()));
+    environment.jersey().register(RolesAllowedDynamicFeature.class);
+    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+
+    //Set up routes
     final Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).build(getName());
     CASValidator cas = new CASValidator(configuration, client);
     environment.jersey().register(cas);
