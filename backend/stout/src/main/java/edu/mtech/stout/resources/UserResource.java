@@ -6,6 +6,7 @@ import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -36,6 +37,7 @@ public class UserResource {
   }
 
   @DELETE
+  @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
   public Status deleteUser(@PathParam("userId") LongParam userId){
     Status status = new Status();
