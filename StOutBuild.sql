@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS Course;
 DROP TABLE IF EXISTS Course_Prefix;
 DROP TABLE IF EXISTS Program_Permissions;
 DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Permission_Set;
+DROP TABLE IF EXISTS Roles;
 DROP TABLE IF EXISTS Semester_Type;
 DROP TABLE IF EXISTS Program;
 DROP TABLE IF EXISTS Job_Title;
@@ -120,7 +120,7 @@ CREATE TABLE `Offering` (
   `course_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `semester_id` int(11) NOT NULL,
-  `section_num` int(11) NOT NULL,
+  `section_num` varcher(4)  NOT NULL,
   `locked` BIT,
   PRIMARY KEY(`offering_id`)
 );
@@ -156,10 +156,9 @@ CREATE TABLE `Users` (
   PRIMARY KEY(`user_id`)
 );
 
-CREATE TABLE `Permission_Set` (
+CREATE TABLE `Roles` (
   `permission_id` int(11) NOT NULL AUTO_INCREMENT,
-  `table` varchar(100) NOT NULL,
-  `permission_level` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY(`permission_id`)
 );
 
@@ -247,7 +246,7 @@ ALTER TABLE `Users`
 	ADD CONSTRAINT `jobTitleUser` FOREIGN KEY (`job_title_id`) REFERENCES `Job_Title` (`job_title_id`) ON UPDATE CASCADE;
 
 Alter TABLE `Program_Permissions`
-	ADD CONSTRAINT `permsPP` FOREIGN KEY (`permission_id`) REFERENCES `Permission_Set` (`permission_id`) ON UPDATE CASCADE,
+	ADD CONSTRAINT `permsPP` FOREIGN KEY (`permission_id`) REFERENCES `Roles` (`permission_id`) ON UPDATE CASCADE,
     ADD CONSTRAINT `userPerms` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON UPDATE CASCADE,
     ADD CONSTRAINT `progPerms` FOREIGN KEY (`program_id`) REFERENCES `Program` (`program_id`) ON UPDATE CASCADE;
     
