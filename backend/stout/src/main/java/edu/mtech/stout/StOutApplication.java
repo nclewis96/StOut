@@ -1,16 +1,18 @@
 package edu.mtech.stout;
 
+import edu.mtech.stout.api.AuthenticationObject;
 import edu.mtech.stout.auth.StOutAuthenticator;
 import edu.mtech.stout.auth.StOutAuthorizer;
+import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.core.User;
-import edu.mtech.stout.db.OfferingDAO;
-import edu.mtech.stout.db.OutcomeDAO;
-import edu.mtech.stout.db.ProgramDAO;
+import edu.mtech.stout.db.*;
 import edu.mtech.stout.filter.UserAuthFilter;
 import edu.mtech.stout.resources.*;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
@@ -18,21 +20,13 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.dropwizard.client.*;
 import io.dropwizard.sslreload.SslReloadBundle;
-import io.dropwizard.assets.AssetsBundle;
-
-import javax.servlet.FilterRegistration;
-import javax.ws.rs.client.Client;
-
-import edu.mtech.stout.client.CASValidator;
-import edu.mtech.stout.api.AuthenticationObject;
-import edu.mtech.stout.db.UserDAO;
-
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.ws.rs.client.Client;
 import java.util.EnumSet;
 
 public class StOutApplication extends Application<StOutConfiguration> {
@@ -89,10 +83,14 @@ public class StOutApplication extends Application<StOutConfiguration> {
     cors.setInitParameter(CrossOriginFilter.CHAIN_PREFLIGHT_PARAM, Boolean.FALSE.toString());
 
     //Set up DAO objects
+    final AssignDAO assignDAO = new AssignDAO(hibernateBundle.getSessionFactory());
     final UserDAO userDao = new UserDAO(hibernateBundle.getSessionFactory());
     final ProgramDAO programDao = new ProgramDAO(hibernateBundle.getSessionFactory());
     final OfferingDAO offeringDao = new OfferingDAO(hibernateBundle.getSessionFactory());
     final OutcomeDAO outcomeDao = new OutcomeDAO(hibernateBundle.getSessionFactory());
+    final MetricDAO metricDao = new MetricDAO(hibernateBundle.getSessionFactory());
+    final ScaleDAO scaleDAO = new ScaleDAO(hibernateBundle.getSessionFactory());
+    final SemesterDAO semesterDAO = new SemesterDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     UserDAO authDao = new UserDAO(hibernateBundle.getSessionFactory());
