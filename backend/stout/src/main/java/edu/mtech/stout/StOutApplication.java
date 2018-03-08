@@ -3,7 +3,11 @@ package edu.mtech.stout;
 import edu.mtech.stout.auth.StOutAuthenticator;
 import edu.mtech.stout.auth.StOutAuthorizer;
 import edu.mtech.stout.core.User;
+import edu.mtech.stout.db.OfferingDAO;
+import edu.mtech.stout.db.OutcomeDAO;
+import edu.mtech.stout.db.ProgramDAO;
 import edu.mtech.stout.filter.UserAuthFilter;
+import edu.mtech.stout.resources.*;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
@@ -21,12 +25,9 @@ import io.dropwizard.assets.AssetsBundle;
 import javax.servlet.FilterRegistration;
 import javax.ws.rs.client.Client;
 
-import edu.mtech.stout.resources.Login;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.AuthenticationObject;
 import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.resources.UserResourceList;
-import edu.mtech.stout.resources.UserResource;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
@@ -89,6 +90,9 @@ public class StOutApplication extends Application<StOutConfiguration> {
 
     //Set up DAO objects
     final UserDAO userDao = new UserDAO(hibernateBundle.getSessionFactory());
+    final ProgramDAO programDao = new ProgramDAO(hibernateBundle.getSessionFactory());
+    final OfferingDAO offeringDao = new OfferingDAO(hibernateBundle.getSessionFactory());
+    final OutcomeDAO outcomeDao = new OutcomeDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     UserDAO authDao = new UserDAO(hibernateBundle.getSessionFactory());
@@ -110,6 +114,12 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new Login(cas, userDao));
     environment.jersey().register(new UserResource(userDao));
     environment.jersey().register(new UserResourceList(userDao));
+    environment.jersey().register(new ProgramResource(programDao));
+    environment.jersey().register(new ProgramResourceList(programDao));
+    environment.jersey().register(new OfferingResource(offeringDao));
+    environment.jersey().register(new OfferingResourceList(offeringDao));
+    environment.jersey().register(new OutcomeResource(outcomeDao));
+    environment.jersey().register(new OutcomeResourceList(outcomeDao));
     AuthenticationObject.setSecret(configuration.getJwtSecret());
     AuthenticationObject.setService(configuration.getService());
   }
