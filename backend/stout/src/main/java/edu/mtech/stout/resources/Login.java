@@ -57,7 +57,7 @@ public class Login {
       auth.setUser(user.get());
       return auth;
     } else {
-      throw new ForbiddenException();
+      throw new NotAuthorizedException("Login with CAS or use a JWT.");
     }
   }
 
