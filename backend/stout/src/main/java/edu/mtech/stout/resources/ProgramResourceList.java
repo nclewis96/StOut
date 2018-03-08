@@ -23,14 +23,14 @@ public class ProgramResourceList {
   }
 
   @POST
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Administrator", "Program_Coordinator"})
   @UnitOfWork
   public Program createProgram(Program program) {
     return dao.create(program);
   }
 
   @GET
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Administrator", "Program_Coordinator"})
   @UnitOfWork
   public List<Program> getProgramList(){
     return dao.findAll();

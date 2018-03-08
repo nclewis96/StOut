@@ -1,7 +1,7 @@
 package edu.mtech.stout.resources;
 
-import edu.mtech.stout.core.Outcome;
-import edu.mtech.stout.db.OutcomeDAO;
+import edu.mtech.stout.core.Scale;
+import edu.mtech.stout.db.ScaleDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.annotation.security.RolesAllowed;
@@ -12,27 +12,27 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/outcomes")
+@Path("/scales")
 @Produces(MediaType.APPLICATION_JSON)
-public class OutcomeResourceList {
+public class ScaleResourceList {
 
-  OutcomeDAO dao = null;
+  ScaleDAO dao = null;
 
-  public OutcomeResourceList(OutcomeDAO dao) {
+  public ScaleResourceList(ScaleDAO dao) {
     this.dao = dao;
   }
 
   @POST
   @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
-  public Outcome createOutcome(Outcome program) {
-    return dao.create(program);
+  public Scale createScale(Scale scale) {
+    return dao.create(scale);
   }
 
   @GET
   @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
-  public List<Outcome> getOutcomeList(){
+  public List<Scale> getScaleList(){
     return dao.findAll();
   }
 
