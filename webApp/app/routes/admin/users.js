@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
+import CasAuthenticatedRouteMixin from '../../mixins/cas-authenticated-route';
+export default Ember.Route.extend(CasAuthenticatedRouteMixin, {
 	model() {
 		return 	{
 			programs: [

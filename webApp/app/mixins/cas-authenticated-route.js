@@ -41,7 +41,7 @@ export default Ember.Mixin.create({
       return this._super(...arguments);
     }).catch((status) => {
       session.get('store').clear();
-      if(status.code === 401){
+      if(status.code === "401" || status.code === 401){
         // Reference: http://stackoverflow.com/a/39054607/414097
         window.location = `${ENV.APP.casURL}/login?service=${ENV.APP.frontendURL}/secret`;
       }else {
