@@ -47,11 +47,18 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.rootURL = '/~tbrooks/AbOut';
+    ENV.rootURL = '/~jbanderson/AbOut';
     ENV.APP.casURL = 'https://mtlbsso.mtech.edu/idp/profile/cas';
     ENV.APP.backendURL = 'https://csdept29.mtech.edu:30120';
     ENV.APP.frontendURL = 'https://katie.mtech.edu' + ENV.rootURL;
   }
 
+  if (environment === 'jbanderson') {
+    ENV.rootURL = '/~jbanderson/AbOut/';
+    ENV.APP.casURL = 'https://mtlbsso.mtech.edu/idp/profile/cas';
+    ENV.APP.backendURL = 'https://csdept29.mtech.edu:30120';
+    ENV.APP.frontendURL = 'https://katie.mtech.edu' + ENV.rootURL;
+  }
+  
   return ENV;
 };
