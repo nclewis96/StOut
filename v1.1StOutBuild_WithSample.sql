@@ -79,11 +79,11 @@ Value ('1','Faculty'),
 FK: FOREIGN KEY (`job_title_id`) REFERENCES `Job_Title` (`job_title_id`) ON UPDATE CASCADE;
 */
 INSERT INTO Users (job_title_id, name, username) 
-VALUES ('3','abdul', 'eggz' ),
-('2','Trevor', 'Dataless'),
-('2','Nathan', 'Nate'),
-('2','Nathan', 'Sisune'),
-('1','Jeff', 'Jeff') ;
+VALUES ('3','Abdulrahman Alduraiweesh', 'aealduraiweeh' ),
+('2','Trevor Brooks', 'tbrooks'),
+('2','Nathan Lewis', 'nlewis'),
+('2','Jesse Anderson', 'janderson'),
+('1','Jeff Braun', 'jbraun') ;
 
 /*Semester Type PK: symester_type_id*/
 INSERT INTO Semester_Type (text, startMonth)
