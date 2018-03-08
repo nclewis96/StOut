@@ -3,11 +3,11 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 	model() {
 		return {
-			program: [
+			programs: [
 			{
-				semester: [
+				semesters: [
 				{
-					student: [
+					students: [
 					{
 						name: 'This person is a student',
 						id: '32478'
