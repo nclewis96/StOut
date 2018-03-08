@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS Course;
 DROP TABLE IF EXISTS Course_Prefix;
 DROP TABLE IF EXISTS Program_Permissions;
 DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Permission_Set;
+DROP TABLE IF EXISTS Roles;
 DROP TABLE IF EXISTS Semester_Type;
 DROP TABLE IF EXISTS Program;
 DROP TABLE IF EXISTS Job_Title;
@@ -19,7 +19,8 @@ DROP TABLE IF EXISTS Config;
 DROP TABLE IF EXISTS Scale;
 DROP TABLE IF EXISTS Perf_Indicator;
 DROP TABLE IF EXISTS Offering_Assign;
-DROP TABLE IF EXISTS Student_Assign;                      
+DROP TABLE IF EXISTS Student_Assign;
+DROP TABLE IF EXISTS Outcome_Assign;              
 
 SET time_zone = "-06:00";
 
@@ -98,7 +99,7 @@ CREATE TABLE `Offering_Student` (
   `student_id` int(11) NOT NULL AUTO_INCREMENT,
   `offering_id` int(11) NOT NULL,	
   `student_name` varchar(100) NOT NULL,
-  PRIMARY KEY(`offering_id`, `student_id`)
+  PRIMARY KEY(`student_id`)
 );
 
 CREATE TABLE `Semester_Type` (
@@ -120,7 +121,7 @@ CREATE TABLE `Offering` (
   `course_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `semester_id` int(11) NOT NULL,
-  `section_num` int(11) NOT NULL,
+  `section_num` varchar(4)  NOT NULL,
   `locked` BIT,
   PRIMARY KEY(`offering_id`)
 );
@@ -138,7 +139,7 @@ CREATE TABLE `Offering_Assign` (
 CREATE TABLE `Student_Assign` (
 	`assign_id` int(11) NOT NULL,
 	`student_id` int(11) NOT NULL,
-	`score` int(11) NOT NULL
+	`score` int(11) NOT NULL,
 	PRIMARY KEY(`assign_id`, `student_id`)
 );
 
@@ -156,10 +157,9 @@ CREATE TABLE `Users` (
   PRIMARY KEY(`user_id`)
 );
 
-CREATE TABLE `Permission_Set` (
+CREATE TABLE `Roles` (
   `permission_id` int(11) NOT NULL AUTO_INCREMENT,
-  `table` varchar(100) NOT NULL,
-  `permission_level` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY(`permission_id`)
 );
 
@@ -247,7 +247,7 @@ ALTER TABLE `Users`
 	ADD CONSTRAINT `jobTitleUser` FOREIGN KEY (`job_title_id`) REFERENCES `Job_Title` (`job_title_id`) ON UPDATE CASCADE;
 
 Alter TABLE `Program_Permissions`
-	ADD CONSTRAINT `permsPP` FOREIGN KEY (`permission_id`) REFERENCES `Permission_Set` (`permission_id`) ON UPDATE CASCADE,
+	ADD CONSTRAINT `permsPP` FOREIGN KEY (`permission_id`) REFERENCES `Roles` (`permission_id`) ON UPDATE CASCADE,
     ADD CONSTRAINT `userPerms` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON UPDATE CASCADE,
     ADD CONSTRAINT `progPerms` FOREIGN KEY (`program_id`) REFERENCES `Program` (`program_id`) ON UPDATE CASCADE;
     
@@ -256,6 +256,3 @@ ALTER TABLE `Scale`
 	
 ALTER TABLE `Perf_Indicator` 
 	ADD CONSTRAINT `piScale` FOREIGN KEY (`scale_id`) REFERENCES `Scale`(`scale_id`) ON UPDATE CASCADE;
-
-
-	
