@@ -1,28 +1,40 @@
 <div id="content-list">
+	<h2 {{action 'onRenderButtonClick' '' ''}}>{{subRoute}}</h2>
 	{{#program-listitem programs=model.programs as |program|}}
 		{{#if program.semesters}}
 			{{#semester-listitem semesters=program.semesters as |semester|}}
 				{{#if semester.courses}}
 					{{#each semester.courses as |course|}}
-						<li {{action 'listSelected' course}}>{{course.name}}</li>
+						<li {{action 'onItemClicked' course}}>{{course.name}}</li>
 					{{/each}}
 				{{/if}}
 				{{#if semester.students}}
 					{{#each semester.students as |student|}}
-						<li {{action 'listSelected' student}}>{{student.name}}</li>
+						<li {{action 'onItemClicked' student}}>{{student.name}}</li>
 					{{/each}}
 				{{/if}}
 			{{/semester-listitem}}
 		{{/if}}
 		{{#if program.users}}
 			{{#each program.users as |user|}}
-				<li {{action 'listSelected' user}}>{{user.name}}</li>
+				<li {{action 'onItemClicked' user}}>{{user.name}}</li>
 			{{/each}}
 		{{/if}}
 	{{/program-listitem}}
+	<button {{action 'onEditClicked'}}> Edit </button>
+	<button {{action 'onRenderButtonClick' 'form' 'test'}}> Test </button>
 </div>
 <div id="main-content">
-	<p>The counter is {{counter}}</p>
+	{{#if renderType}}
+        {{component
+            renderedComponent
+            data=data
+            permission=permission
+            onRenderButtonClick=(action 'onRenderButtonClick')
+        }}
+    {{else}}
+        <h3>Select something from the left</h3>
+    {{/if}}
 </div>
 
 {{yield}}
