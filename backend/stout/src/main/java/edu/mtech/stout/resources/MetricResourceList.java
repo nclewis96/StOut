@@ -1,37 +1,38 @@
 package edu.mtech.stout.resources;
 
-import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.core.User;
+import edu.mtech.stout.core.Metric;
+import edu.mtech.stout.db.MetricDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
-import javax.annotation.security.DenyAll;
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/users")
+@Path("/metrics")
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResourceList {
+public class MetricResourceList {
 
-  UserDAO dao = null;
+  MetricDAO dao = null;
 
-  public UserResourceList(UserDAO dao) {
+  public MetricResourceList(MetricDAO dao) {
     this.dao = dao;
   }
 
   @POST
   @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
-  public User createUser(User user) {
-    return dao.create(user);
+  public Metric createMetric(Metric metric) {
+    return dao.create(metric);
   }
 
   @GET
   @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
-  public List<User> getUserList(){
+  public List<Metric> getMetricList(){
     return dao.findAll();
   }
 
