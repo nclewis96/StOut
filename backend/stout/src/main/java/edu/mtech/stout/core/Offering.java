@@ -2,8 +2,6 @@ package edu.mtech.stout.core;
 
 import javax.persistence.*;
 import java.util.Objects;
-import edu.mtech.stout.db.OfferingDAO;
-import edu.mtech.stout.db.OutcomeDAO;
 
 @Entity
 @Table(name = "Offering")
@@ -12,12 +10,12 @@ import edu.mtech.stout.db.OutcomeDAO;
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Offering.findAll",
       query = "SELECT * FROM Offering",
-      resultClass = OutcomeDAO.class
+      resultClass = Outcome.class
     ),
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Offering.findByCourse",
       query = "SELECT * FROM Offering WHERE course = ?",
-      resultClass = OutcomeDAO.class
+      resultClass = Outcome.class
     )
   })
 
