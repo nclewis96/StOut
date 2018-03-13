@@ -3,11 +3,15 @@ package edu.mtech.stout;
 import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.*;
+
 import javax.validation.constraints.*;
+
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
 import io.dropwizard.client.JerseyClientConfiguration;
 
 public class StOutConfiguration extends Configuration {
@@ -27,6 +31,7 @@ public class StOutConfiguration extends Configuration {
   public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClient) {
     this.jerseyClient = jerseyClient;
   }
+
   /********************************************************************
    * DATABASE
    ********************************************************************/
@@ -35,14 +40,15 @@ public class StOutConfiguration extends Configuration {
   private DataSourceFactory database = new DataSourceFactory();
 
   @JsonProperty("database")
-  public void setDataSourceFactory(DataSourceFactory factory){
-    this.database = factory; 
+  public void setDataSourceFactory(DataSourceFactory factory) {
+    this.database = factory;
   }
 
   @JsonProperty("database")
-  public DataSourceFactory getDataSourceFactory(){
+  public DataSourceFactory getDataSourceFactory() {
     return database;
   }
+
   /*******************************************************************
    * CAS Auth and Service Config
    ********************************************************************/

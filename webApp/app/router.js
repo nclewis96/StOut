@@ -7,8 +7,35 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('home');
+  this.route('admin', function() {
+    this.route('users');
+    this.route('courses');
+    this.route('outcomes');
+    this.route('students');
+    this.route('reports');
+  });
+  this.route('program-coordinator', function() {
+    this.route('assessments');
+    this.route('outcomes');
+    this.route('courses');
+    this.route('instructors');
+    this.route('reports');
+  });
+  this.route('faculty', function() {
+    this.route('courses');
+    this.route('metrics');
+    this.route('students');
+    this.route('reports');
+  });
+  this.route('observer', function() {
+    this.route('courses');
+    this.route('outcomes');
+    this.route('reports');
+  });
   this.route('secret');
-  this.route('login');
+  this.route('unauthorizedUser');
+  this.route('unauthorized-user');
 });
 
 export default Router;

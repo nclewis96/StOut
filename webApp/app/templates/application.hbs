@@ -1,5 +1,18 @@
-TESTING
-<br/>
-<div id='content'>
+<header>
+	<img class="MTechLogo" src="assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
+	<h1>StOut</h1>
+</header>
+
+{{! Nav component given user}}
+{{nav-primary items=model.roles}}
+
 {{outlet}}
+
+<div id="footer">
+	<li id="home-button">
+		{{#link-to "home"}}Home{{/link-to}}
+	</li>
+	<img class="MTechLogo" src="assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
+	<h1>StOut</h1>
 </div>
+

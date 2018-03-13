@@ -15,17 +15,18 @@ export default BaseAuthenticator.extend({
         contentType: 'application/json',
         url: backendEndpoint,
         data: JSON.stringify({
-            jwt: data.jwt,
-            ticket: data.ticket
+          jwt: data.jwt,
+          ticket: data.ticket,
+          service: ENV.APP.frontendURL + '/secret'
         })
       }).done((response) => {
         Ember.run(() => {
-          resolve({ username: response.username, jwt:response.jwt });
+          resolve({ username: response.username, jwt:response.jwt, user: response.user });
         });
       }).fail((xhr/* , status, error */) => {
         var response = xhr.responseText;
         Ember.run(() => {
-          reject(response);
+          reject(JSON.parse(response));
         });
       });
     });
@@ -41,6 +42,6 @@ export default BaseAuthenticator.extend({
         reject();
       }
     });
-}
+  }
 });
 

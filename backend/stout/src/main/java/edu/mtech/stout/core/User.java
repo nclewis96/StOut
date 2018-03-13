@@ -13,6 +13,11 @@ import java.util.Set;
       name = "edu.mtech.stout.core.User.findAll",
       query = "SELECT * FROM Users",
       resultClass = User.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.User.findByUsername",
+      query = "SELECT * FROM Users WHERE username = ?",
+      resultClass = User.class
     )
   })
 
@@ -33,16 +38,16 @@ public class User implements Principal {
   private long jobTitle;
 
 
-    //private final Set<String> roles;
+  //private final Set<String> roles;
 
-    public User(){
-      //this.roles = null;
-    }
+  public User() {
+    //this.roles = null;
+  }
 
-    public User(String name) {
-        this.name = name;
-        //this.roles = null;
-    }
+  public User(String name) {
+    this.name = name;
+    //this.roles = null;
+  }
 
   public long getId() {
     return id;
@@ -52,14 +57,14 @@ public class User implements Principal {
     this.id = id;
   }
 
-    public User(String name, Set<String> roles) {
-        this.name = name;
-        //this.roles = roles;
-    }
+  public User(String name, Set<String> roles) {
+    this.name = name;
+    //this.roles = roles;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
   public void setName(String name) {
     this.name = name;
@@ -73,9 +78,9 @@ public class User implements Principal {
     this.username = username;
   }
 
-    //public Set<String> getRoles() {
-    //    return roles;
-    //}
+  //public Set<String> getRoles() {
+  //    return roles;
+  //}
 
   public long getJobTitle() {
     return jobTitle;

@@ -1,0 +1,13 @@
+<li id="home-button">
+	{{#link-to "home"}}Home{{/link-to}}
+</li>
+<ul class="nav-horizontal">
+	{{#each items as |role|}}
+		<li class="li-horizontal">
+			{{#link-to (to-lowercase role.roleName)}}
+				{{role.roleName}}
+			{{/link-to}}
+		</li>
+	{{/each}}
+</ul>
+{{yield}}
