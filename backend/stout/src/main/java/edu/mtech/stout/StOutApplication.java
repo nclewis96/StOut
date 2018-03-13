@@ -4,7 +4,7 @@ import edu.mtech.stout.api.AuthenticationObject;
 import edu.mtech.stout.auth.StOutAuthenticator;
 import edu.mtech.stout.auth.StOutAuthorizer;
 import edu.mtech.stout.client.CASValidator;
-import edu.mtech.stout.core.User;
+import edu.mtech.stout.core.*;
 import edu.mtech.stout.db.*;
 import edu.mtech.stout.filter.UserAuthFilter;
 import edu.mtech.stout.resources.*;
@@ -36,7 +36,9 @@ public class StOutApplication extends Application<StOutConfiguration> {
   }
 
   private final HibernateBundle<StOutConfiguration> hibernateBundle =
-    new HibernateBundle<StOutConfiguration>(edu.mtech.stout.core.User.class) {
+    new HibernateBundle<StOutConfiguration>(User.class, Role.class, Assign.class,
+      Metric.class, Offering.class, Outcome.class, Program.class,
+      Scale.class, Semester.class) {
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
         return configuration.getDataSourceFactory();
@@ -91,6 +93,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final MetricDAO metricDao = new MetricDAO(hibernateBundle.getSessionFactory());
     final ScaleDAO scaleDao = new ScaleDAO(hibernateBundle.getSessionFactory());
     final SemesterDAO semesterDao = new SemesterDAO(hibernateBundle.getSessionFactory());
+    final RoleDAO roleDao = new RoleDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     UserDAO authDao = new UserDAO(hibernateBundle.getSessionFactory());
@@ -107,12 +110,11 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).build(getName());
     CASValidator cas = new CASValidator(configuration, client);
     environment.jersey().register(cas);
-    environment.jersey().register(new Login(cas, userDao));
+    environment.jersey().register(new Login(cas, userDao, roleDao));
     AuthenticationObject.setSecret(configuration.getJwtSecret());
     AuthenticationObject.setService(configuration.getService());
 
     //Set up routes
-
     environment.jersey().register(new UserResource(userDao));
     environment.jersey().register(new UserResourceList(userDao));
     environment.jersey().register(new ProgramResource(programDao));
@@ -125,6 +127,5 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new MetricResourceList(metricDao));
     environment.jersey().register(new SemesterResourceList(semesterDao));
     environment.jersey().register(new ScaleResourceList(scaleDao));
-
   }
 }

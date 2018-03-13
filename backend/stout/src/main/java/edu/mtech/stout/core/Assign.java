@@ -5,12 +5,12 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "Assign")
+@Table(name = "Offering_Assign")
 @NamedNativeQueries(
   {
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Assign.findAll",
-      query = "SELECT * FROM Assign",
+      query = "SELECT * FROM Offering_Assign",
       resultClass = Assign.class
     )
   })

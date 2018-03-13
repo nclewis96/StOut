@@ -8,8 +8,10 @@ import javax.ws.rs.core.MediaType;
 import edu.mtech.stout.api.AuthenticationObject;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.Ticket;
+import edu.mtech.stout.core.Role;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.UserDAO;
+import edu.mtech.stout.db.RoleDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.NonEmptyStringParam;
 
@@ -20,10 +22,12 @@ public class Login {
 
   private CASValidator cas;
   private UserDAO userDao;
+  private RoleDAO roleDao;
 
-  public Login(CASValidator cas, UserDAO userDao) {
+  public Login(CASValidator cas, UserDAO userDao, RoleDAO roleDao) {
     this.cas = cas;
     this.userDao = userDao;
+    this.roleDao = roleDao;
   }
 
   @POST
@@ -54,6 +58,7 @@ public class Login {
         throw new ForbiddenException();
       }
       auth.createJwt();
+      auth.setRoleList(roleDao.getByUserId(user.get().getId()));
       auth.setUser(user.get());
       return auth;
     } else {
@@ -76,6 +81,7 @@ public class Login {
     if (user != null) {
       auth.setUsername(user);
       auth.setUser(userObj.get());
+      auth.setRoleList(roleDao.getByUserId(userObj.get().getId()));
       auth.createJwt();
     }
     return auth;

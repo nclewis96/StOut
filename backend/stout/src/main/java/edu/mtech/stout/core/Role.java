@@ -3,38 +3,31 @@ package edu.mtech.stout.core;
 import javax.persistence.*;
 import java.util.Objects;
 
+
 @Entity
-@Table(name = "Programs")
+@Table(name = "Roles")
 @NamedNativeQueries(
   {
     @NamedNativeQuery(
-      name = "edu.mtech.stout.core.Program.findAll",
-      query = "SELECT * FROM Programs",
-      resultClass = Program.class
+      name = "edu.mtech.stout.core.Role.findAll",
+      query = "SELECT * FROM Roles",
+      resultClass = Role.class
     ),
     @NamedNativeQuery(
-      name = "edu.mtech.stout.core.Program.findByName",
-      query = "SELECT * FROM Programs WHERE name = ?",
-      resultClass = Program.class
+      name = "edu.mtech.stout.core.Role.getByUserId",
+      query = "SELECT * FROM Roles WHERE permission_id in (SELECT Roles.permission_id" +
+        " FROM Roles JOIN Program_Permissions ON Roles.permission_id = Program_Permissions.permission_id " +
+        "JOIN Users ON Users.user_id = Program_Permissions.user_id WHERE Users.user_id = ?)",
+      resultClass = Role.class
     )
   })
-
-public class Program{
-
+public class Role {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "user_id")
+  @Column(name = "permission_id")
   private long id;
-
-  @Column(name = "name", nullable = false)
+  @Column(name = "name")
   private String name;
-
-  public Program() {
-  }
-
-  public Program(String name) {
-    this.name = name;
-  }
 
   public long getId() {
     return id;
@@ -57,11 +50,11 @@ public class Program{
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Program)) {
+    if (!(o instanceof Role)) {
       return false;
     }
 
-    final Program that = (Program) o;
+    final Role that = (Role) o;
 
     return Objects.equals(this.id, that.id) &&
       Objects.equals(this.name, that.name);
@@ -72,6 +65,3 @@ public class Program{
     return Objects.hash(id, name);
   }
 }
-
-
-

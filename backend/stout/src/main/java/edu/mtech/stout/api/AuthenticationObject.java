@@ -8,12 +8,14 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.mtech.stout.core.Role;
 import edu.mtech.stout.core.User;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class AuthenticationObject {
 
@@ -25,6 +27,9 @@ public class AuthenticationObject {
 
   @JsonProperty
   private User user;
+
+  @JsonProperty
+  private List<Role> roleList;
 
   private DecodedJWT decodedJWT = null;
 
@@ -122,5 +127,12 @@ public class AuthenticationObject {
     this.user = user;
   }
 
+  public List<Role> getRoleList() {
+    return roleList;
+  }
+
+  public void setRoleList(List<Role> roleList) {
+    this.roleList = roleList;
+  }
 }
 

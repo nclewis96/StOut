@@ -8,7 +8,7 @@ import java.util.Objects;
 @NamedNativeQueries(
   {
     @NamedNativeQuery(
-      name = "edu.mtech.stout.core.Outcome.findAll",
+      name = "edu.mtech.stout.core.Semester.findAll",
       query = "SELECT * FROM Semester",
       resultClass = Semester.class
     )
