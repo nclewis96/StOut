@@ -19,7 +19,8 @@ DROP TABLE IF EXISTS Config;
 DROP TABLE IF EXISTS Scale;
 DROP TABLE IF EXISTS Perf_Indicator;
 DROP TABLE IF EXISTS Offering_Assign;
-DROP TABLE IF EXISTS Student_Assign;                      
+DROP TABLE IF EXISTS Student_Assign;
+DROP TABLE IF EXISTS Outcome_Assign;              
 
 SET time_zone = "-06:00";
 
@@ -98,7 +99,7 @@ CREATE TABLE `Offering_Student` (
   `student_id` int(11) NOT NULL AUTO_INCREMENT,
   `offering_id` int(11) NOT NULL,	
   `student_name` varchar(100) NOT NULL,
-  PRIMARY KEY(`offering_id`, `student_id`)
+  PRIMARY KEY(`student_id`)
 );
 
 CREATE TABLE `Semester_Type` (
@@ -120,7 +121,7 @@ CREATE TABLE `Offering` (
   `course_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `semester_id` int(11) NOT NULL,
-  `section_num` varcher(4)  NOT NULL,
+  `section_num` varchar(4)  NOT NULL,
   `locked` BIT,
   PRIMARY KEY(`offering_id`)
 );
@@ -138,7 +139,7 @@ CREATE TABLE `Offering_Assign` (
 CREATE TABLE `Student_Assign` (
 	`assign_id` int(11) NOT NULL,
 	`student_id` int(11) NOT NULL,
-	`score` int(11) NOT NULL
+	`score` int(11) NOT NULL,
 	PRIMARY KEY(`assign_id`, `student_id`)
 );
 
@@ -255,6 +256,3 @@ ALTER TABLE `Scale`
 	
 ALTER TABLE `Perf_Indicator` 
 	ADD CONSTRAINT `piScale` FOREIGN KEY (`scale_id`) REFERENCES `Scale`(`scale_id`) ON UPDATE CASCADE;
-
-
-	
