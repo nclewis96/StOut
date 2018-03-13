@@ -1,28 +1,34 @@
 <div id="content-list">
 	<h2 {{action 'onRenderButtonClick' '' ''}}>{{subRoute}}</h2>
-	{{#program-listitem programs=model.programs as |program|}}
-		{{#if program.semesters}}
-			{{#semester-listitem semesters=program.semesters as |semester|}}
-				{{#if semester.courses}}
-					{{#each semester.courses as |course|}}
-						<li {{action 'onItemClicked' course}}>{{course.name}}</li>
-					{{/each}}
-				{{/if}}
-				{{#if semester.students}}
-					{{#each semester.students as |student|}}
-						<li {{action 'onItemClicked' student}}>{{student.name}}</li>
-					{{/each}}
-				{{/if}}
-			{{/semester-listitem}}
-		{{/if}}
-		{{#if program.users}}
-			{{#each program.users as |user|}}
-				<li {{action 'onItemClicked' user}}>{{user.name}}</li>
-			{{/each}}
-		{{/if}}
-	{{/program-listitem}}
-	<button {{action 'onEditClicked'}}> Edit </button>
-	<button {{action 'onRenderButtonClick' 'form' 'test'}}> Test </button>
+	
+	<div id="tree-list">
+		{{#program-listitem programs=model.programs as |program|}}
+			{{#if program.semesters}}
+				{{#semester-listitem semesters=program.semesters as |semester|}}
+					{{#if semester.courses}}
+						{{#each semester.courses as |course|}}
+							<li {{action 'onItemClicked' course}}>{{course.name}}</li>
+						{{/each}}
+					{{/if}}
+					{{#if semester.students}}
+						{{#each semester.students as |student|}}
+							<li {{action 'onItemClicked' student}}>{{student.name}}</li>
+						{{/each}}
+					{{/if}}
+				{{/semester-listitem}}
+			{{/if}}
+			{{#if program.users}}
+				{{#each program.users as |user|}}
+					<li {{action 'onItemClicked' user}}>{{user.name}}</li>
+				{{/each}}
+			{{/if}}
+		{{/program-listitem}}
+	</div>
+	
+	<div id="list-buttons">
+		<button {{action 'onEditClicked'}}> Edit </button>
+		<button {{action 'onRenderButtonClick' 'form' 'test'}}> Test </button>
+	</div>
 </div>
 <div id="main-content">
 	{{#if renderType}}
