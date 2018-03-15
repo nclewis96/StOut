@@ -1,5 +1,5 @@
 {{#each items.actionList as |role|}}
-    <div class="li-horizontal">
+    <div class={{if (is-active-route currentPath role.actionName) "active-nav-secondary li-horizontal" "li-horizontal"}}>
 		{{#link-to (to-lowercase (concat  items.name "." role.actionName))}}
 			{{role.actionName}}
 		{{/link-to}}

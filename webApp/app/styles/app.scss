@@ -5,11 +5,15 @@ body {
 
 header {
 	display: grid;
-	grid-template-columns: 5em 1fr 5em;
-	align-items: end;
+	grid-template-columns: 1fr 10fr;
+	align-items: center;
 	position: relative;
 	width: 100%;
 	height: auto;
+	h1{
+		font-size: 3em;
+	}
+
 }
 
 h1 {
@@ -47,6 +51,31 @@ h1 {
 	min-height: 20px;
 	height: auto;
 	width: 100%;
+
+	&.secondary-nav{
+		background-color: green;
+	}
+
+	.li-horizontal {
+		margin: 0px 5px 0px 5px;
+		font-weight: 600;
+
+		a {
+			display: block;
+			padding: 0.5em 0.5em;
+			text-decoration: none;
+			color: rgba(255,255,255,.95);
+		}
+		:hover {
+			text-decoration: underline;
+		}
+		#active-nav-secondary {
+			border-bottom: white 2px solid;
+		}
+		#active-nav-primary {
+			border-bottom: white 5px solid;
+		}
+	}
 }
 
 .data-content {
@@ -64,29 +93,6 @@ h1 {
 #header-div {
 	background: linear-gradient(#0e0, green);
 	box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
-
-	#active-nav-primary {
-	border-bottom: white 5px solid;
-	}
-
-	#active-nav-secondary {
-		border-bottom: white 2px solid;
-	}
-
-	.li-horizontal {
-		margin: 0px 5px 0px 5px;
-		font-weight: 600;
-
-		a {
-			display: block;
-			padding: 0.5em 0.5em;
-			text-decoration: none;
-			color: rgba(255,255,255,.95);
-		}
-		:hover {
-			text-decoration: underline;
-		}
-	}
 }
 
 #footer {
