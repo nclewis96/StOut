@@ -21,12 +21,12 @@ export default BaseAuthenticator.extend({
         })
       }).done((response) => {
         Ember.run(() => {
-          resolve({ username: response.username, jwt:response.jwt });
+          resolve({ username: response.username, jwt:response.jwt, user: response.user });
         });
       }).fail((xhr/* , status, error */) => {
         var response = xhr.responseText;
         Ember.run(() => {
-          reject(response);
+          reject(JSON.parse(response));
         });
       });
     });

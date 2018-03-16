@@ -1,37 +1,38 @@
 package edu.mtech.stout.resources;
 
-import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.core.User;
+import edu.mtech.stout.core.Scale;
+import edu.mtech.stout.db.ScaleDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
-import javax.annotation.security.DenyAll;
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/users")
+@Path("/scales")
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResourceList {
+public class ScaleResourceList {
 
-  UserDAO dao = null;
+  ScaleDAO dao = null;
 
-  public UserResourceList(UserDAO dao) {
+  public ScaleResourceList(ScaleDAO dao) {
     this.dao = dao;
   }
 
   @POST
   @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
-  public User createUser(User user) {
-    return dao.create(user);
+  public Scale createScale(Scale scale) {
+    return dao.create(scale);
   }
 
   @GET
   @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
-  public List<User> getUserList(){
+  public List<Scale> getScaleList(){
     return dao.findAll();
   }
 
