@@ -102,7 +102,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new AuthDynamicFeature(
       new UserAuthFilter.Builder<User>()
         .setAuthenticator(stOutAuthenticator)
-        .setAuthorizer(new StOutAuthorizer())
+        .setAuthorizer(new StOutAuthorizer(roleDao))
         .setPrefix("Bearer")
         .buildAuthFilter()));
     environment.jersey().register(RolesAllowedDynamicFeature.class);
