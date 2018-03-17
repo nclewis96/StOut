@@ -1,0 +1,99 @@
+<h4>This is a register form</h4>
+
+{{#lf-form rules=rules as |validate isValid|}}
+
+{{lf-input
+
+	name="firstName"
+	label="First Name"
+	property=model.firstName
+	on-update=(action (mut model.firstName))
+	validate=validate
+}}
+
+{{lf-input
+    label="Last Name"
+    name="lastName"
+    property=model.lastname
+    on-update=(action (mut formData.lastName))
+    validate=validate
+  }}
+
+
+{{lf-input
+    label="Mtech Username"
+    name="mtechUserName"
+    property=model.mtechusername
+    on-update=(action (mut formData.mtechusername))
+    validate=validate
+  }}
+
+
+
+{{lf-select
+
+	label="User type"
+	property=model.userType
+	name="userType"
+	content=userTypes
+	labelPath="label"
+	valuePath="value"
+	validate=validate
+	on-update=(action (mut model.userType))
+}}
+
+
+{{#if showFaculty}}
+	{{lf-input
+	name="companyName"
+	property=model.companyName
+	label="Company Name"
+	on-update=(action (mut model.companyName))
+	validate=validate
+}}
+
+
+
+{{lf-select
+
+        label="Status"
+        property=model.statusType
+        name="statusType"
+        content=statusTypes
+        labelPath="label"
+        valuePath="value"
+        validate=validate
+        on-update=(action (mut model.statusType))
+}}
+
+
+
+{{/if}}
+
+
+
+
+
+
+{{#if showAdmin}}
+        {{lf-input
+        name="universityName"
+        property=model.universityName
+        label="University Name"
+        on-update=(action (mut model.universityName))
+        validate=validate
+}}
+{{/if}}
+
+
+<button class="btn btn-primary">
+	Register
+</button>
+
+
+
+
+
+
+
+{{/lf-form}}
