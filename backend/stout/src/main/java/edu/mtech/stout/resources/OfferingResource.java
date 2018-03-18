@@ -1,0 +1,60 @@
+package edu.mtech.stout.resources;
+
+import edu.mtech.stout.api.Status;
+import edu.mtech.stout.core.Offering;
+import edu.mtech.stout.db.OfferingDAO;
+import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.LongParam;
+
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+
+@Path("/offering/{offeringId}")
+@Produces(MediaType.APPLICATION_JSON)
+public class OfferingResource {
+
+  OfferingDAO dao = null;
+
+  public OfferingResource(OfferingDAO dao) {
+    this.dao = dao;
+  }
+
+  @GET
+  @UnitOfWork
+  public Offering getOffering(@PathParam("offeringId") LongParam offeringId) {
+    return findSafely(offeringId.get());
+  }
+
+  private Offering findSafely(long offeringId) {
+    return dao.findById(offeringId).orElseThrow(() -> new NotFoundException("No such offering."));
+  }
+
+  @POST
+  @UnitOfWork
+  public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering){
+    return dao.update(offering);
+  }
+
+  @DELETE
+  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @UnitOfWork
+  public Status deleteOffering(@PathParam("offeringId") LongParam offeringId){
+    Status status = new Status();
+    status.setId(offeringId.get().intValue());
+    status.setAction("DELETE");
+    status.setResource("Offering");
+
+    boolean success = dao.delete(offeringId.get().intValue());
+
+    if(success){
+      status.setMessage("Successfully deleted offering");
+      status.setStatus(200);
+    }else{
+      status.setMessage("Error deleting offering");
+      status.setStatus(500);
+    }
+
+    return status;
+  }
+}

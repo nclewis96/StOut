@@ -3,14 +3,13 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.db.UserDAO;
 import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.annotation.security.DenyAll;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,9 +22,17 @@ public class UserResourceList {
   }
 
   @POST
+  @RolesAllowed({"Admin", "Program_Coordinator"})
   @UnitOfWork
   public User createUser(User user) {
     return dao.create(user);
+  }
+
+  @GET
+  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @UnitOfWork
+  public List<User> getUserList(){
+    return dao.findAll();
   }
 
 }

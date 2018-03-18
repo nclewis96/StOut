@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.security.Principal;
 import java.util.Set;
@@ -12,6 +13,11 @@ import java.util.Set;
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.User.findAll",
       query = "SELECT * FROM Users",
+      resultClass = User.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.User.findByUsername",
+      query = "SELECT * FROM Users WHERE username = ?",
       resultClass = User.class
     )
   })
@@ -32,7 +38,6 @@ public class User implements Principal {
   @Column(name = "job_title_id", nullable = false)
   private long jobTitle;
 
-
   //private final Set<String> roles;
 
   public User() {
@@ -41,7 +46,6 @@ public class User implements Principal {
 
   public User(String name) {
     this.name = name;
-    //this.roles = null;
   }
 
   public long getId() {
@@ -73,9 +77,6 @@ public class User implements Principal {
     this.username = username;
   }
 
-  //public Set<String> getRoles() {
-  //    return roles;
-  //}
 
   public long getJobTitle() {
     return jobTitle;
@@ -84,6 +85,8 @@ public class User implements Principal {
   public void setJobTitle(long jobTitle) {
     this.jobTitle = jobTitle;
   }
+
+
 
   @Override
   public boolean equals(Object o) {

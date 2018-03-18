@@ -2,12 +2,12 @@ import Ember from 'ember';
 const { inject: { service } } = Ember;
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
-  currentUser: service(),
+  currentUser: service('currentUser'),
   queryParams: ['ticket'],
   ticket: null,
   init() {
     "use strict";
-    
+
     this._super(...arguments);
     let session = this.get('session');
     let store = session.get('store');
@@ -29,6 +29,8 @@ export default Ember.Controller.extend({
       let session = this.get('session');
       let user = session.get('data.authenticated');
       session.get('store').persist(user);
+      this.set('currentUser', user);
+      console.log("Welcome back, " + user.user.name);
     }
-    }
+  }
 });
