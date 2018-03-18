@@ -17,7 +17,7 @@
 		{{/if}}
 		{{#if program.users}}
 			{{#each program.users as |user|}}
-				<li {{action 'onItemClicked' user}}>{{user.name}}</li>
+				<li {{action 'onRenderButtonClick' 'display' 'users'}}>{{user.name}}</li>
 			{{/each}}
 		{{/if}}
 	{{/program-listitem}}
