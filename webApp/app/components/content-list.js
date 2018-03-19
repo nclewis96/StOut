@@ -5,19 +5,19 @@ export default Ember.Component.extend({
 	idName: 'content-container',
 	routing: Ember.inject.service('-routing'),
 	subRoute: Ember.computed(function() {
-		return this.get('routing.currentRouteName').split(".")[1]
+		return this.get('routing.currentRouteName').split(".")[1];
 	}),
     renderType: null,
 	controlType: null,
     permission: Ember.computed(function() {
-		return this.get('routing.currentRouteName').split(".")[0]
+		return this.get('routing.currentRouteName').split(".")[0];
 	}),
     data: null,
     renderActions: null,
 	renderedComponent: Ember.computed('renderType', function() {
         return `${this.get('renderType')}-container`;
     }),
-	
+
 	actions:  {
         onItemClicked(data) {
             this.setProperties({

@@ -1,3 +1,4 @@
+<div id="header-div">
 <header>
 	<img class="MTechLogo" src="assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
 	<h1>StOut</h1>
@@ -5,14 +6,14 @@
 
 {{! Nav component given user}}
 {{nav-primary items=model.roles}}
+</div>
 
 {{outlet}}
 
 <div id="footer">
-	<li id="home-button">
+	<div id="home-button">
 		{{#link-to "home"}}Home{{/link-to}}
-	</li>
+	</div>
 	<img class="MTechLogo" src="assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
 	<h1>StOut</h1>
 </div>
-
