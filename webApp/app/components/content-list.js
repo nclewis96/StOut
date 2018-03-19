@@ -14,16 +14,15 @@ export default Ember.Component.extend({
 	}),
     data: null,
     renderActions: null,
-	renderedComponent: Ember.computed('renderType', 'controlType', function() {
-        return `${this.get('renderType')}-${this.get('controlType')}`;
+	renderedComponent: Ember.computed('renderType', function() {
+        return `${this.get('renderType')}-container`;
     }),
 	
 	actions:  {
         onItemClicked(data) {
             this.setProperties({
                 data: data,
-                renderType: 'display',
-				controlType: 'container'
+                renderType: 'display'
             });
         },
         onEditClicked() {
