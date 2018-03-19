@@ -23,7 +23,7 @@ export default Ember.Component.extend({
             this.setProperties({
                 data: data,
                 renderType: 'display',
-				controlType: this.get('routing.currentRouteName').split(".")[0]
+				controlType: 'container'
             });
         },
         onEditClicked() {

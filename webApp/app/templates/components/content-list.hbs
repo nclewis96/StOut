@@ -1,6 +1,6 @@
 <div id="content-list">
 	<h2 {{action 'onRenderButtonClick' '' ''}}>{{subRoute}}</h2>
-	<h3>{{renderedComponent}}</h3>
+	<h3>{{renderedComponent}} (Test info)</h3>
 	{{#program-listitem programs=model.programs as |program|}}
 		{{#if program.semesters}}
 			{{#semester-listitem semesters=program.semesters as |semester|}}
@@ -32,6 +32,7 @@
             renderedComponent
             data=data
             subRoute=subRoute
+			permission=permission
             onRenderButtonClick=(action 'onRenderButtonClick')
         }}
     {{else}}
