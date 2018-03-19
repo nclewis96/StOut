@@ -1,5 +1,21 @@
-service: katie.mtech.edu/tbrooks/StOut/backend
+service: https://katie.mtech.edu/~tbrooks/AbOut/secret
 casURL: https://mtlbsso.mtech.edu/idp/profile/cas/serviceValidate
+jwtSecret: kYp3s6v9y$B&E)H@McQeThWmZq4t7w!z%C*F-JaNdRgUjXn2r5u8x/A?D(G+KbPe
+
+server:
+  #type: simple
+  applicationContextPath: /
+  applicationConnectors:
+    - type: https
+      port: 30120
+      keyStorePath: /opt/lets/keystore.jks
+      keyStorePassword: 
+      validateCerts: false
+      validatePeers: false
+  adminConnectors:
+    - type: http
+      port: 8080
+      bindHost: 127.0.0.1
 
 logging:
   level: INFO
@@ -15,12 +31,15 @@ logging:
 
 database:
   driverClass: com.mysql.jdbc.Driver 
-  user: stout
-  password: pass?
+  user: tbrooks
+  password: 
   url: jdbc:mysql://localhost:3306/Stout
   maxWaitForConnection: 1s
   minSize: 4
   maxSize: 10
-  checkConnectionWhileIdle: false
   evictionInterval: 10s
+  checkConnectionWhileIdle: true
+  checkConnectionOnReturn: true
+  checkConnectionOnBorrow: true
+              
 
