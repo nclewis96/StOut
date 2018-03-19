@@ -39,10 +39,14 @@ export default Ember.Mixin.create({
     if (this.get('session.isAuthenticated')) {return this._super(...arguments);}
     return this.get('session').authenticate('authenticator:cas', data).then(() => {
       return this._super(...arguments);
-    }).catch(() => {
+    }).catch((status) => {
       session.get('store').clear();
-      // Reference: http://stackoverflow.com/a/39054607/414097
-      window.location = `${ENV.APP.casURL}/login?service=${ENV.APP.frontendURL}/secret`;
+      if(status.code === "401" || status.code === 401){
+        // Reference: http://stackoverflow.com/a/39054607/414097
+        window.location = `${ENV.APP.casURL}/login?service=${ENV.APP.frontendURL}/secret`;
+      }else {
+        this.transitionTo('unauthorized-user');
+      }
     });
   },
 });
