@@ -1,5 +1,6 @@
 <div id="content-list">
 	<h2 {{action 'onRenderButtonClick' '' ''}}>{{subRoute}}</h2>
+	<h3>{{renderedComponent}}</h3>
 	{{#program-listitem programs=model.programs as |program|}}
 		{{#if program.semesters}}
 			{{#semester-listitem semesters=program.semesters as |semester|}}
@@ -17,7 +18,7 @@
 		{{/if}}
 		{{#if program.users}}
 			{{#each program.users as |user|}}
-				<li {{action 'onRenderButtonClick' 'display' 'users'}}>{{user.name}}</li>
+				<li {{action 'onItemClicked' user}}>{{user.name}}</li>
 			{{/each}}
 		{{/if}}
 	{{/program-listitem}}
@@ -30,7 +31,7 @@
         {{component
             renderedComponent
             data=data
-            permission=permission
+            subRoute=subRoute
             onRenderButtonClick=(action 'onRenderButtonClick')
         }}
     {{else}}
