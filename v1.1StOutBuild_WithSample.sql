@@ -82,7 +82,7 @@ INSERT INTO Users (job_title_id, name, username)
 VALUES ('3','Abdulrahman Alduraiweesh', 'aealduraiweeh' ),
 ('2','Trevor Brooks', 'tbrooks'),
 ('2','Nathan Lewis', 'nlewis'),
-('2','Jesse Anderson', 'janderson'),
+('2','Jesse Anderson', 'janderson2'),
 ('1','Jeff Braun', 'jbraun') ;
 
 /*Semester Type PK: symester_type_id*/
