@@ -4,6 +4,7 @@ import edu.mtech.stout.core.Program;
 import edu.mtech.stout.db.ProgramDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,14 +24,14 @@ public class ProgramResourceList {
   }
 
   @POST
-  @RolesAllowed({"Administrator", "Program_Coordinator"})
+  @PermitAll
   @UnitOfWork
   public Program createProgram(Program program) {
     return dao.create(program);
   }
 
   @GET
-  @RolesAllowed({"Administrator", "Program_Coordinator"})
+  @PermitAll
   @UnitOfWork
   public List<Program> getProgramList(){
     return dao.findAll();
