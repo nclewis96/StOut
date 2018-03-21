@@ -3,12 +3,17 @@ package edu.mtech.stout.filter;
 import edu.mtech.stout.api.AuthenticationObject;
 import io.dropwizard.auth.AuthFilter;
 
+import javax.annotation.Priority;
+import javax.ws.rs.Priorities;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.security.Principal;
 
+@PreMatching
+@Priority(Priorities.AUTHENTICATION)
 public class UserAuthFilter<P extends Principal> extends AuthFilter<AuthenticationObject, P> {
   public static class Builder<P extends Principal>
     extends AuthFilterBuilder<AuthenticationObject, P, UserAuthFilter<P>> {

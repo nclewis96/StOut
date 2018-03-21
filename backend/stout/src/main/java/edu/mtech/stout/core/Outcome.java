@@ -19,7 +19,7 @@ public class Outcome {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "outcome_id")
-  private long id;
+  private long outcome_id;
   @Column(name = "metric_id")
   private long metric_id;
   @Column(name = "name")
@@ -28,11 +28,11 @@ public class Outcome {
   private String description;
 
   public long getId() {
-    return id;
+    return outcome_id;
   }
 
   public void setId(long id) {
-    this.id = id;
+    this.outcome_id = id;
   }
 
   public long getMetric_id() {
@@ -70,12 +70,12 @@ public class Outcome {
 
     final Outcome that = (Outcome) o;
 
-    return Objects.equals(this.id, that.id) &&
+    return Objects.equals(this.outcome_id, that.outcome_id) &&
       Objects.equals(this.name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(outcome_id, name);
   }
 }

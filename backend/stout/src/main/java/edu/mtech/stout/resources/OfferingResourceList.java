@@ -4,6 +4,7 @@ import edu.mtech.stout.core.Offering;
 import edu.mtech.stout.db.OfferingDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,14 +24,14 @@ public class OfferingResourceList {
   }
 
   @POST
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Program_Coordinator"})
   @UnitOfWork
   public Offering createOffering(Offering offering) {
     return dao.create(offering);
   }
 
   @GET
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @PermitAll
   @UnitOfWork
   public List<Offering> getOfferingList(){
     return dao.findAll();
