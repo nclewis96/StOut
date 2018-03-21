@@ -33,14 +33,14 @@ public class OfferingResource {
   }
 
   @POST
-  @RolesAllowed({"Program_Coordinator", "Faculty"})
+  @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering){
     return dao.update(offering);
   }
 
   @DELETE
-  @RolesAllowed({"Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Status deleteOffering(@PathParam("offeringId") LongParam offeringId){
     Status status = new Status();
