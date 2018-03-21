@@ -3,7 +3,7 @@
 var metricObj{
     metric_id: 0,
     program: programObj,
-    outcomes: outcomeObj,
+    outcomes: [outcomeObj,...],
     name: ""
 }
 
@@ -105,11 +105,12 @@ var jobTitleObj {
 
 //User Object
 var userObj{
-    user_type_id: 0,
+    user_id: 0,
     fname: "",
     lname: "",
     email: "",
-    user_level: ""
+    job_title: jobTitleObj,
+    user_level: [ProgramPermObj]
 }
 
 //Permission Set Object
@@ -131,7 +132,7 @@ var ProgramPermObj {
 var scaleObj {
     scale_id: 0,
     name: "",
-    desc: "", 
+    desc: "",
     program: programObj
 }
 
