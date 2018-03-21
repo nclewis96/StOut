@@ -27,5 +27,20 @@ export default Ember.Service.extend({
     "use strict";
     let user = this.get('_session.data.authenticated');
     return (user ? user.user : null);
+  }), 
+  username: Ember.computed('_session.data.authenticated', function() {
+    "use strict";
+    let user = this.get('_session.data.authenticated');
+    return (user ? user.username : "");
+  }), 
+  title: Ember.computed('_session.data.authenticated', function() {
+    "use strict";
+    let user = this.get('_session.data.authenticated');
+    return (user ? user.user.jobTitle.title : "");
+  }), 
+  roleList: Ember.computed('_session.data.authenticated', function() {
+    "use strict";
+    let user = this.get('_session.data.authenticated');
+    return (user ? user.user.roleList : null);
   }) 
 });
