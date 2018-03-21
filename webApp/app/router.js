@@ -36,6 +36,7 @@ Router.map(function() {
   this.route('secret');
   this.route('unauthorizedUser');
   this.route('unauthorized-user');
+  this.route('testing-models');
 });
 
 export default Router;
