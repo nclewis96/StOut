@@ -10,12 +10,12 @@ import java.util.Objects;
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Offering.findAll",
       query = "SELECT * FROM Offering",
-      resultClass = Outcome.class
+      resultClass = Offering.class
     ),
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Offering.findByCourse",
       query = "SELECT * FROM Offering WHERE course = ?",
-      resultClass = Outcome.class
+      resultClass = Offering.class
     )
   })
 
