@@ -59,7 +59,7 @@ CREATE TABLE `Course_Prefix` (
 
 CREATE TABLE `Course` (
   `course_id` int(11) NOT NULL AUTO_INCREMENT,
-  `course_num` int(11) NOT NULL,
+  `course_num` varchar(6) NOT NULL,
   `prefix_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `program_id` int(11) NOT NULL,

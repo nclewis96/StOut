@@ -38,7 +38,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
   private final HibernateBundle<StOutConfiguration> hibernateBundle =
     new HibernateBundle<StOutConfiguration>(User.class, Role.class, Assign.class,
       Metric.class, Offering.class, Outcome.class, Program.class,
-      Scale.class, Semester.class) {
+      Scale.class, Semester.class, Course.class) {
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
         return configuration.getDataSourceFactory();
@@ -94,6 +94,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final ScaleDAO scaleDao = new ScaleDAO(hibernateBundle.getSessionFactory());
     final SemesterDAO semesterDao = new SemesterDAO(hibernateBundle.getSessionFactory());
     final RoleDAO roleDao = new RoleDAO(hibernateBundle.getSessionFactory());
+	final CourseDAO courseDao = new CourseDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     UserDAO authDao = new UserDAO(hibernateBundle.getSessionFactory());
@@ -123,9 +124,16 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new OfferingResourceList(offeringDao));
     environment.jersey().register(new OutcomeResource(outcomeDao));
     environment.jersey().register(new OutcomeResourceList(outcomeDao));
+	environment.jersey().register(new AssignResource(assignDao));
     environment.jersey().register(new AssignResourceList(assignDao));
+	environment.jersey().register(new MetricResource(metricDao));
     environment.jersey().register(new MetricResourceList(metricDao));
+	environment.jersey().register(new SemesterResource(semesterDao));
     environment.jersey().register(new SemesterResourceList(semesterDao));
+	environment.jersey().register(new ScaleResource(scaleDao));
     environment.jersey().register(new ScaleResourceList(scaleDao));
+	environment.jersey().register(new CourseResource(courseDao));
+	environment.jersey().register(new CourseResourceList(courseDao));
+	
   }
 }
