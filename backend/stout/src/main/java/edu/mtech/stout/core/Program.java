@@ -23,8 +23,8 @@ public class Program{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "program_id")
-  private long program_id;
+  @Column(name = "programId")
+  private long programId;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -36,12 +36,12 @@ public class Program{
     this.name = name;
   }
 
-  public long getId() {
-    return program_id;
+  public long getProgramId() {
+    return programId;
   }
 
-  public void setId(long id) {
-    this.program_id = id;
+  public void setProgramId(long id) {
+    this.programId = id;
   }
 
   public String getName() {
@@ -63,13 +63,13 @@ public class Program{
 
     final Program that = (Program) o;
 
-    return Objects.equals(this.program_id, that.program_id) &&
+    return Objects.equals(this.programId, that.programId) &&
       Objects.equals(this.name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(program_id, name);
+    return Objects.hash(programId, name);
   }
 }
 
