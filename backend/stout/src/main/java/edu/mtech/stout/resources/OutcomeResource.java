@@ -6,6 +6,7 @@ import edu.mtech.stout.db.OutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +22,7 @@ public class OutcomeResource {
   }
 
   @GET
+  @PermitAll
   @UnitOfWork
   public Outcome getOutcome(@PathParam("outcomeId") LongParam outcomeId) {
     return findSafely(outcomeId.get());
@@ -31,13 +33,14 @@ public class OutcomeResource {
   }
 
   @POST
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Outcome updateOutcome(@PathParam("outcomeId") LongParam outcomeId, Outcome outcome){
     return dao.update(outcome);
   }
 
   @DELETE
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Status deleteOutcome(@PathParam("outcomeId") LongParam outcomeId){
     Status status = new Status();

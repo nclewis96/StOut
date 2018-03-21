@@ -1,11 +1,13 @@
 package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.Status;
+import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.UserDAO;
 import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,12 +17,15 @@ import javax.ws.rs.core.MediaType;
 public class UserResource {
 
   UserDAO dao = null;
+  JobTitleDAO jobTitleDAO;
 
-  public UserResource(UserDAO dao) {
+  public UserResource(UserDAO dao, JobTitleDAO jobTitleDAO) {
     this.dao = dao;
+    this.jobTitleDAO = jobTitleDAO;
   }
 
   @GET
+  @PermitAll
   @UnitOfWork
   public User getUser(@PathParam("userId") LongParam userId) {
     return findSafely(userId.get());
@@ -37,7 +42,7 @@ public class UserResource {
   }
 
   @DELETE
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public Status deleteUser(@PathParam("userId") LongParam userId){
     Status status = new Status();

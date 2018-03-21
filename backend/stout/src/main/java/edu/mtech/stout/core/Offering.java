@@ -10,12 +10,12 @@ import java.util.Objects;
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Offering.findAll",
       query = "SELECT * FROM Offering",
-      resultClass = Outcome.class
+      resultClass = Offering.class
     ),
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Offering.findByCourse",
       query = "SELECT * FROM Offering WHERE course = ?",
-      resultClass = Outcome.class
+      resultClass = Offering.class
     )
   })
 
@@ -23,7 +23,7 @@ public class Offering {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "offering_id")
-  private long id;
+  private long offering_id;
   @Column(name = "course_id", nullable = false)
   private long courseId;
   @Column(name = "user_id", nullable = false)
@@ -41,11 +41,11 @@ public class Offering {
   }
 
   public long getId() {
-    return id;
+    return offering_id;
   }
 
   public void setId(long id) {
-    this.id = id;
+    this.offering_id = id;
   }
 
   public long getCourseId() {
@@ -107,12 +107,12 @@ public class Offering {
 
     final Offering that = (Offering) o;
 
-    return Objects.equals(this.id, that.id);
+    return Objects.equals(this.offering_id, that.offering_id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(offering_id);
   }
 
 }

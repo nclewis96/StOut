@@ -6,6 +6,7 @@ import edu.mtech.stout.db.OfferingDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +22,7 @@ public class OfferingResource {
   }
 
   @GET
+  @PermitAll
   @UnitOfWork
   public Offering getOffering(@PathParam("offeringId") LongParam offeringId) {
     return findSafely(offeringId.get());
@@ -31,13 +33,14 @@ public class OfferingResource {
   }
 
   @POST
+  @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering){
     return dao.update(offering);
   }
 
   @DELETE
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Status deleteOffering(@PathParam("offeringId") LongParam offeringId){
     Status status = new Status();

@@ -82,7 +82,7 @@ INSERT INTO Users (job_title_id, name, username)
 VALUES ('3','Abdulrahman Alduraiweesh', 'aealduraiweeh' ),
 ('2','Trevor Brooks', 'tbrooks'),
 ('2','Nathan Lewis', 'nlewis'),
-('2','Jesse Anderson', 'janderson'),
+('2','Jesse Anderson', 'janderson2'),
 ('1','Jeff Braun', 'jbraun') ;
 
 /*Semester Type PK: symester_type_id*/
@@ -103,14 +103,14 @@ VALUES ('1','2017'),
 FK: FOREIGN KEY (`course_id`) REFERENCES `Course` (`course_id`) ON UPDATE CASCADE,
 FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON UPDATE CASCADE,RT INTO Offering (offering_id, course_id, user_id, semester_id, section_num)
 FOREIGN KEY (`semester_id`) REFERENCES `Semester` (`semester_id`) ON UPDATE CASCADE;ES ('88' ,'1','799','111','02'); */
-INSERT INTO Offering (course_id, user_id, semester_id, section_num)
-VALUES ('1','1','1','01'),
-('2','2','2','01'),
-('3','3','3','01'),
-('4','4','1','01'),
-('5','5','2','01'),
-('6','5','3','01'),
-('7','5','1','01');
+INSERT INTO Offering (course_id, user_id, semester_id, section_num, num_students, locked)
+VALUES ('1','1','1','01', 5, 0),
+('2','2','2','01', 5, 0),
+('3','3','3','01', 5, 0),
+('4','4','1','01', 5, 0),
+('5','5','2','01', 5, 0),
+('6','5','3','01', 5, 0),
+('7','5','1','01', 5, 0);
 
 /*Premisions Set PK:premission_id */
 INSERT INTO Roles(name) 

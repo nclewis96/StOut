@@ -23,6 +23,6 @@ public class AssignDAO extends StOutDAO<Assign>{
   }
 
   public List<Assign> findAll() {
-    return list(namedQuery("edu.mtech.stout.core.Offering.findAll"));
+    return list(namedQuery("edu.mtech.stout.core.Assign.findAll"));
   }
 }

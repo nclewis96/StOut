@@ -30,10 +30,9 @@ public class AssignResourceList {
   }
 
   @GET
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public List<Assign> getAssignList(){
     return dao.findAll();
   }
-
 }

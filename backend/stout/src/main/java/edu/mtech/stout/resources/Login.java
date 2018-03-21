@@ -6,15 +6,19 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import edu.mtech.stout.api.AuthenticationObject;
+import edu.mtech.stout.api.UserApi;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.Ticket;
+import edu.mtech.stout.core.JobTitle;
 import edu.mtech.stout.core.Role;
 import edu.mtech.stout.core.User;
+import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.UserDAO;
 import edu.mtech.stout.db.RoleDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.NonEmptyStringParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Path("/login/")
@@ -23,11 +27,13 @@ public class Login {
   private CASValidator cas;
   private UserDAO userDao;
   private RoleDAO roleDao;
+  private JobTitleDAO jobTitleDAO;
 
-  public Login(CASValidator cas, UserDAO userDao, RoleDAO roleDao) {
+  public Login(CASValidator cas, UserDAO userDao, RoleDAO roleDao, JobTitleDAO jobTitleDAO) {
     this.cas = cas;
     this.userDao = userDao;
     this.roleDao = roleDao;
+    this.jobTitleDAO = jobTitleDAO;
   }
 
   @POST
@@ -47,7 +53,7 @@ public class Login {
       }
       auth.setUsername(username);
       auth.createJwt();
-      auth.setUser(user.get());
+      auth.setUser(createUserApi(user));
       return auth;
     } else if (ticket.getJwt() != null) {
       AuthenticationObject auth = new AuthenticationObject();
@@ -58,8 +64,7 @@ public class Login {
         throw new ForbiddenException();
       }
       auth.createJwt();
-      auth.setRoleList(roleDao.getByUserId(user.get().getId()));
-      auth.setUser(user.get());
+      auth.setUser(createUserApi(user));
       return auth;
     } else {
       throw new NotAuthorizedException("Login with CAS or use a JWT.");
@@ -80,10 +85,20 @@ public class Login {
     }
     if (user != null) {
       auth.setUsername(user);
-      auth.setUser(userObj.get());
-      auth.setRoleList(roleDao.getByUserId(userObj.get().getId()));
+      auth.setUser(createUserApi(userObj));
       auth.createJwt();
     }
     return auth;
+  }
+
+  private UserApi createUserApi(Optional<User> user){
+    User currentUser = user.get();
+    List<Role> roleList = roleDao.getByUserId(currentUser.getId());
+    List<JobTitle> jobTitleList = jobTitleDAO.getByUserId(currentUser.getId());
+    JobTitle title = null;
+    if(jobTitleList.size() > 0){
+      title = jobTitleList.get(0);
+    }
+    return new UserApi(currentUser, title, roleList);
   }
 }

@@ -25,16 +25,16 @@ public class Role {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "permission_id")
-  private long id;
+  private long role_id;
   @Column(name = "name")
   private String name;
 
   public long getId() {
-    return id;
+    return role_id;
   }
 
   public void setId(long id) {
-    this.id = id;
+    this.role_id = id;
   }
 
   public String getName() {
@@ -56,12 +56,12 @@ public class Role {
 
     final Role that = (Role) o;
 
-    return Objects.equals(this.id, that.id) &&
+    return Objects.equals(this.role_id, that.role_id) &&
       Objects.equals(this.name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(role_id, name);
   }
 }

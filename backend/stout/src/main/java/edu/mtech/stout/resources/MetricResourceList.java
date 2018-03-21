@@ -23,14 +23,14 @@ public class MetricResourceList {
   }
 
   @POST
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public Metric createMetric(Metric metric) {
     return dao.create(metric);
   }
 
   @GET
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public List<Metric> getMetricList(){
     return dao.findAll();

@@ -26,7 +26,11 @@ export default BaseAuthenticator.extend({
       }).fail((xhr/* , status, error */) => {
         var response = xhr.responseText;
         Ember.run(() => {
-          reject(JSON.parse(response));
+          try{
+            reject(JSON.parse(response));
+          }catch(error){
+            reject(error);
+          }
         });
       });
     });

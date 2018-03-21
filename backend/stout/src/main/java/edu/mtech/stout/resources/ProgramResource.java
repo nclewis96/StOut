@@ -6,6 +6,7 @@ import edu.mtech.stout.db.ProgramDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +22,7 @@ public class ProgramResource {
   }
 
   @GET
+  @PermitAll
   @UnitOfWork
   public Program getProgram(@PathParam("programId") LongParam programId) {
     return findSafely(programId.get());
@@ -31,13 +33,14 @@ public class ProgramResource {
   }
 
   @POST
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Program updateProgram(@PathParam("programId") LongParam programId, Program program){
     return dao.update(program);
   }
 
   @DELETE
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin"})
   @UnitOfWork
   public Status deleteProgram(@PathParam("programId") LongParam programId){
     Status status = new Status();

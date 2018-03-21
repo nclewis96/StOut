@@ -1,10 +1,14 @@
+USE Stout;
 DROP TABLE IF EXISTS Course_Outcome;
 DROP TABLE IF EXISTS Offering_Outcome;
+DROP TABLE IF EXISTS Student_Assign;
 DROP TABLE IF EXISTS Offering_Student;
 DROP TABLE IF EXISTS Student_Outcome;
+DROP TABLE IF EXISTS Outcome_Assign; 
 DROP TABLE IF EXISTS Outcome;
 DROP TABLE IF EXISTS Metric;
 DROP TABLE IF EXISTS Program_Cutoff;
+DROP TABLE IF EXISTS Offering_Assign;
 DROP TABLE IF EXISTS Offering;
 DROP TABLE IF EXISTS Semester;
 DROP TABLE IF EXISTS Course;
@@ -13,14 +17,11 @@ DROP TABLE IF EXISTS Program_Permissions;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Roles;
 DROP TABLE IF EXISTS Semester_Type;
+DROP TABLE IF EXISTS Perf_Indicator;
+DROP TABLE IF EXISTS Scale;
 DROP TABLE IF EXISTS Program;
 DROP TABLE IF EXISTS Job_Title;
 DROP TABLE IF EXISTS Config;
-DROP TABLE IF EXISTS Scale;
-DROP TABLE IF EXISTS Perf_Indicator;
-DROP TABLE IF EXISTS Offering_Assign;
-DROP TABLE IF EXISTS Student_Assign;
-DROP TABLE IF EXISTS Outcome_Assign;              
 
 SET time_zone = "-06:00";
 
@@ -122,7 +123,8 @@ CREATE TABLE `Offering` (
   `user_id` int(11) NOT NULL,
   `semester_id` int(11) NOT NULL,
   `section_num` varchar(4)  NOT NULL,
-  `locked` BIT,
+  `locked` BIT NOT NULL,
+  `num_students` int(11),
   PRIMARY KEY(`offering_id`)
 );
 

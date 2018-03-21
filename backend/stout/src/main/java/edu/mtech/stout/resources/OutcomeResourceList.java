@@ -4,6 +4,7 @@ import edu.mtech.stout.core.Outcome;
 import edu.mtech.stout.db.OutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,14 +24,14 @@ public class OutcomeResourceList {
   }
 
   @POST
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Outcome createOutcome(Outcome program) {
     return dao.create(program);
   }
 
   @GET
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @PermitAll
   @UnitOfWork
   public List<Outcome> getOutcomeList(){
     return dao.findAll();
