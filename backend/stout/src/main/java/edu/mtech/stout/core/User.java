@@ -1,7 +1,6 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.security.Principal;
 import java.util.Set;
@@ -27,7 +26,7 @@ public class User implements Principal {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
-  private long id;
+  private long user_id;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -49,11 +48,11 @@ public class User implements Principal {
   }
 
   public long getId() {
-    return id;
+    return user_id;
   }
 
   public void setId(long id) {
-    this.id = id;
+    this.user_id = id;
   }
 
   public User(String name, Set<String> roles) {
@@ -99,13 +98,13 @@ public class User implements Principal {
 
     final User that = (User) o;
 
-    return Objects.equals(this.id, that.id) &&
+    return Objects.equals(this.user_id, that.user_id) &&
       Objects.equals(this.username, that.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, jobTitle);
+    return Objects.hash(user_id, username, jobTitle);
   }
 
 

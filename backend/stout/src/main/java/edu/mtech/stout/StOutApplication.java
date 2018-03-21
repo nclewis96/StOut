@@ -38,7 +38,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
   private final HibernateBundle<StOutConfiguration> hibernateBundle =
     new HibernateBundle<StOutConfiguration>(User.class, Role.class, Assign.class,
       Metric.class, Offering.class, Outcome.class, Program.class,
-      Scale.class, Semester.class) {
+      Scale.class, Semester.class, JobTitle.class) {
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
         return configuration.getDataSourceFactory();
@@ -94,15 +94,17 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final ScaleDAO scaleDao = new ScaleDAO(hibernateBundle.getSessionFactory());
     final SemesterDAO semesterDao = new SemesterDAO(hibernateBundle.getSessionFactory());
     final RoleDAO roleDao = new RoleDAO(hibernateBundle.getSessionFactory());
+    final JobTitleDAO jobTitleDAO = new JobTitleDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
-    UserDAO authDao = new UserDAO(hibernateBundle.getSessionFactory());
     StOutAuthenticator stOutAuthenticator = new UnitOfWorkAwareProxyFactory(hibernateBundle)
-      .create(StOutAuthenticator.class, UserDAO.class, authDao);
+      .create(StOutAuthenticator.class, UserDAO.class, userDao);
+    StOutAuthorizer stOutAuthorizer = new UnitOfWorkAwareProxyFactory(hibernateBundle)
+      .create(StOutAuthorizer.class, RoleDAO.class, roleDao);
     environment.jersey().register(new AuthDynamicFeature(
       new UserAuthFilter.Builder<User>()
         .setAuthenticator(stOutAuthenticator)
-        .setAuthorizer(new StOutAuthorizer(roleDao))
+        .setAuthorizer(stOutAuthorizer)
         .setPrefix("Bearer")
         .buildAuthFilter()));
     environment.jersey().register(RolesAllowedDynamicFeature.class);
@@ -110,13 +112,13 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).build(getName());
     CASValidator cas = new CASValidator(configuration, client);
     environment.jersey().register(cas);
-    environment.jersey().register(new Login(cas, userDao, roleDao));
+    environment.jersey().register(new Login(cas, userDao, roleDao, jobTitleDAO));
     AuthenticationObject.setSecret(configuration.getJwtSecret());
     AuthenticationObject.setService(configuration.getService());
 
     //Set up routes
-    environment.jersey().register(new UserResource(userDao));
-    environment.jersey().register(new UserResourceList(userDao));
+    environment.jersey().register(new UserResource(userDao, jobTitleDAO));
+    environment.jersey().register(new UserResourceList(userDao, jobTitleDAO));
     environment.jersey().register(new ProgramResource(programDao));
     environment.jersey().register(new ProgramResourceList(programDao));
     environment.jersey().register(new OfferingResource(offeringDao));

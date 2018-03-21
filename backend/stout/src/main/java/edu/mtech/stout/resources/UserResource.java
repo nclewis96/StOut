@@ -1,6 +1,7 @@
 package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.Status;
+import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.UserDAO;
 import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -15,9 +16,11 @@ import javax.ws.rs.core.MediaType;
 public class UserResource {
 
   UserDAO dao = null;
+  JobTitleDAO jobTitleDAO;
 
-  public UserResource(UserDAO dao) {
+  public UserResource(UserDAO dao, JobTitleDAO jobTitleDAO) {
     this.dao = dao;
+    this.jobTitleDAO = jobTitleDAO;
   }
 
   @GET

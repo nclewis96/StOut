@@ -26,10 +26,7 @@ public class AuthenticationObject {
   private String username;
 
   @JsonProperty
-  private User user;
-
-  @JsonProperty
-  private List<Role> roleList;
+  private UserApi user;
 
   private DecodedJWT decodedJWT = null;
 
@@ -119,20 +116,13 @@ public class AuthenticationObject {
   }
 
   @JsonProperty
-  public User getUser() {
+  public UserApi getUser() {
     return user;
   }
 
-  public void setUser(User user) {
+  public void setUser(UserApi user) {
     this.user = user;
   }
 
-  public List<Role> getRoleList() {
-    return roleList;
-  }
-
-  public void setRoleList(List<Role> roleList) {
-    this.roleList = roleList;
-  }
 }
 
