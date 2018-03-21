@@ -1,10 +1,8 @@
 package edu.mtech.stout.resources;
 
 import edu.mtech.stout.core.Assign;
-import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.AssignDAO;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.auth.Auth;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
@@ -37,5 +35,4 @@ public class AssignResourceList {
   public List<Assign> getAssignList(){
     return dao.findAll();
   }
-
 }
