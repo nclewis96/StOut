@@ -37,7 +37,7 @@ public class CourseResource{
 	}
 	
 	@DELETE
-	@RolesAllowed({"Admin", "Program_Coordinator"})
+	@RolesAllowed({"Admin", "Program Coordinator"})
 	@UnitOfWork
 	public Status deleteCourse(@PathParam("courseId") LongParam courseId){
 		Status status = new Status();

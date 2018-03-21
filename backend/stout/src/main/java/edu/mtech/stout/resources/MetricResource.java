@@ -37,7 +37,7 @@ public class MetricResource {
 	}
 	
 	@DELETE
-	@RolesAllowed({"Admin", "Program_Coordinator"})
+	@RolesAllowed({"Admin", "Program Coordinator"})
 	@UnitOfWork
 	public Status deleteMetric(@PathParam("metricId") LongParam metricId){
 		Status status = new Status();

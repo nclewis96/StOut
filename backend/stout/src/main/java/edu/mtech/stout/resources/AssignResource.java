@@ -36,7 +36,7 @@ public class AssignResource {
 	}
 	
 	@DELETE
-	@RolesAllowed({"Admin", "Program_Coordinator"})
+	@RolesAllowed({"Admin", "Program Coordinator"})
 	@UnitOfWork
 	public Status deleteAssign(@PathParam("assignId") LongParam assignId){
 		Status status = new Status();

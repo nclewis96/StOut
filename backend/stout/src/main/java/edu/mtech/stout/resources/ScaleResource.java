@@ -37,7 +37,7 @@ public class ScaleResource {
 	}
 	
 	@DELETE
-	@RolesAllowed({"Admin", "Program_Coordinator"})
+	@RolesAllowed({"Admin", "Program Coordinator"})
 	@UnitOfWork
 	public Status deleteScale(@PathParam("scaleId") LongParam scaleId){
 		Status status = new Status();
