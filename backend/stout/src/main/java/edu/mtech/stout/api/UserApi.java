@@ -20,15 +20,15 @@ public class UserApi {
 
   public User toUser(){
     User user = new User();
-    user.setId(user_id);
+    user.setUserId(user_id);
     user.setName(name);
     user.setUsername(username);
-    user.setJobTitle(jobTitle.getId());
+    user.setJobTitle(jobTitle.getJobTitleId());
     return user;
   }
 
   public UserApi(User user, JobTitle jobTitle, List<Role> roleList){
-    user_id = user.getId();
+    user_id = user.getUserId();
     name = user.getName();
     username = user.getUsername();
     this.jobTitle = jobTitle;
