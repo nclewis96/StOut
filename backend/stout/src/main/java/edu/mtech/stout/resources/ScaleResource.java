@@ -3,7 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Scale;
 import edu.mtech.stout.db.ScaleDAO;
-import edu.mtech.stout.db.UnitOfWork;
+import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
@@ -11,7 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/scale/{scaleId}")
-@Productes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ScaleResource {
 	
 	ScaleDAO dao = null;
@@ -43,7 +43,7 @@ public class ScaleResource {
 		Status status = new Status();
 		status.setId(scaleId.get().intValue());
 		status.setAction("DELETE");
-		status.setResources("Scale");
+		status.setResource("Scale");
 		
 		boolean success = dao.delete(scaleId.get().intValue());
 		

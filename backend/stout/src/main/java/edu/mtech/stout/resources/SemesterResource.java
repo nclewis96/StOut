@@ -12,11 +12,11 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/semester/{semesterId}")
 @Produces(MediaType.APPLICATION_JSON)
-public class semesterResource {
+public class SemesterResource {
 	
-	semesterDAO dao = null;
+	SemesterDAO dao = null;
 	
-	public SemesterResource(semesterDAO dao) {
+	public SemesterResource(SemesterDAO dao) {
 		this.dao = dao;
 	}
 	

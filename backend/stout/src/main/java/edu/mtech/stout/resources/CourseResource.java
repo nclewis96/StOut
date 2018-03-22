@@ -43,7 +43,7 @@ public class CourseResource{
 		Status status = new Status();
 		status.setId(courseId.get().intValue());
 		status.setAction("DELETE");
-		status.setResources("Course");
+		status.setResource("Course");
 		
 		boolean success = dao.delete(courseId.get().intValue());
 		

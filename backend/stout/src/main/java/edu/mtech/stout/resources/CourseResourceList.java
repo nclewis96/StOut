@@ -3,6 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.core.Course;
 import edu.mtech.stout.db.CourseDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -39,7 +40,7 @@ public class CourseResourceList{
 	@GET
     @PermitAll
     @UnitOfWork
-    public List<Course> getCourseByProgram(@QueryParam("programId") NonEmptyLongParam programId){
-        return dao.findbyProgram(programId.get());
+    public List<Course> getCourseByProgram(@QueryParam("programId") LongParam programId){
+        return dao.findByProgram(programId.get());
     }
 }

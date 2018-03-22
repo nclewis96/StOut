@@ -25,11 +25,11 @@ public class Course {
 	@Column(name = "course_id")
 	private long course_id;
 	@Column(name = "course_num", nullable = false)
-	private string courseNum;
+	private String courseNum;
 	@Column(name = "prefix_id", nullable = false)
 	private long prefixId;
 	@Column(name = "title", nullable = false)
-	private string title;
+	private String title;
 	@Column(name = "program_id", nullable = false)
 	private long programId;
 	
@@ -44,11 +44,11 @@ public class Course {
 		this.course_id = id;
 	}
 	
-	public string getCourseNum(){
+	public String getCourseNum(){
 		return courseNum;
 	}
 	
-	public void setCourseNum(string courseNum){
+	public void setCourseNum(String courseNum){
 		this.courseNum = courseNum;
 	}
 	
@@ -60,11 +60,11 @@ public class Course {
 		this.prefixId = prefixId;
 	}
 	
-	public string getTitle(){
+	public String getTitle(){
 		return title;
 	}
 	
-	public void setTitle(string title){
+	public void setTitle(String title){
 		this.title = title;
 	}
 	
@@ -75,22 +75,21 @@ public class Course {
 	public void setProgramId(long programId){
 		this.programId = programId;
 	}
-	
-	@Override
-	public boolean equals(Object o){
-		if(this == o){
-			return true;
-		}
-		if(!(o instanceof Course)){
-			return false;
-		}
-		final Course that = (offering) o;
-		return Course.equals(this.course_id, that.course_id);
+
+	public boolean equals(Object object) {
+		if (this == object) return true;
+		if (!(object instanceof Course)) return false;
+		if (!super.equals(object)) return false;
+		Course course = (Course) object;
+		return course_id == course.course_id &&
+				getPrefixId() == course.getPrefixId() &&
+				getProgramId() == course.getProgramId() &&
+				java.util.Objects.equals(getCourseNum(), course.getCourseNum()) &&
+				java.util.Objects.equals(getTitle(), course.getTitle());
 	}
-	
-	@Override
-	public int hashCode(){
-		return Course.hash(course_id);
+
+	public int hashCode() {
+
+		return java.util.Objects.hash(super.hashCode(), course_id, getCourseNum(), getPrefixId(), getTitle(), getProgramId());
 	}
-	
 }

@@ -10,9 +10,10 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/assign/{assignId}");
+@Path("/assign/{assignId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class AssignResource {
+	
 	AssignDAO dao = null;
 	
 	public AssignResource(AssignDAO dao) {
@@ -32,7 +33,7 @@ public class AssignResource {
 	@POST
 	@UnitOfWork
 	public Assign updateAssign(@PathParam("assignId") LongParam assignId, Assign assign){
-		return dao.update(assignId);
+		return dao.update(assign);
 	}
 	
 	@DELETE
@@ -44,13 +45,13 @@ public class AssignResource {
 		status.setAction("DELETE");
 		status.setResource("Assign");
 		
-		boolean success = dao.delete(offeringId.get().intValue());
+		boolean success = dao.delete(assignId.get().intValue());
 		
 		if(success){
 			status.setMessage("Successfully deleted assign");
 			status.setStatus(200);
 		}else{
-			status.setmessage("Error deleting assign");
+			status.setMessage("Error deleting assign");
 			status.setStatus(500);
 		}
 		return status;

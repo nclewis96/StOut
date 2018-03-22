@@ -1,4 +1,4 @@
-package edu.mtech.sout.resources;
+package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Metric;
@@ -11,7 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/metric/{metricId}")
-@Producses(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class MetricResource {
 	
 	MetricDAO dao = null;
@@ -26,7 +26,7 @@ public class MetricResource {
 		return findSafely(metricId.get());
 	}
 	
-	private Metric findSafely(long metricID) {
+	private Metric findSafely(long metricId) {
 		return dao.findById(metricId).orElseThrow(() -> new NotFoundException("No such metric."));
 	}
 	
@@ -43,9 +43,9 @@ public class MetricResource {
 		Status status = new Status();
 		status.setId(metricId.get().intValue());
 		status.setAction("DELETE");
-		status.setResource("Offering");
+		status.setResource("Metric");
 		
-		boolean success = dao.delete(offeringId.get().intValue());
+		boolean success = dao.delete(metricId.get().intValue());
 		
 		if(success) {
 			status.setMessage("Successfully deleted metric");
