@@ -3,8 +3,10 @@ package edu.mtech.stout.db;
 import edu.mtech.stout.core.Program;
 import org.hibernate.SessionFactory;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ProgramDAO extends StOutDAO<Program> {
 
@@ -21,6 +23,17 @@ public class ProgramDAO extends StOutDAO<Program> {
       user = Optional.of(programList.get(0));
     }
     return user;
+  }
+  public List<Program> findByUser(Long userId){
+    return list(namedQuery("edu.mtech.stout.core.Program.findByUserId").setParameter(0, userId));
+  }
+  public HashSet<Long> getProgramIdSetByUser(Long userId){
+    List<Program> programList = findByUser(userId);
+    HashSet<Long> programSet = new HashSet<Long>();
+    for(Program prog : programList){
+      programSet.add(prog.getProgramId());
+    }
+    return programSet;
   }
 
   public List<Program> findAll() {

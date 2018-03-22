@@ -18,6 +18,13 @@ import java.util.Set;
       name = "edu.mtech.stout.core.User.findByUsername",
       query = "SELECT * FROM Users WHERE username = ?",
       resultClass = User.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.User.findByProgramId",
+      query = "SELECT * FROM User WHERE user_id in (SELECT User.user_id" +
+        " FROM User JOIN Program_Permissions ON User.user_id = Program_Permissions.user_id " +
+        "JOIN Program ON Program.program_id = Program_Permissions.program_id WHERE Program.program_id = ?)",
+      resultClass = User.class
     )
   })
 

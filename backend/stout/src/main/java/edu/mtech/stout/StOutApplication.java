@@ -118,7 +118,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
 
     //Set up routes
     environment.jersey().register(new UserResource(userDao, jobTitleDAO));
-    environment.jersey().register(new UserResourceList(userDao, jobTitleDAO));
+    environment.jersey().register(new UserResourceList(userDao, jobTitleDAO, programDao));
     environment.jersey().register(new ProgramResource(programDao));
     environment.jersey().register(new ProgramResourceList(programDao));
     environment.jersey().register(new OfferingResource(offeringDao));

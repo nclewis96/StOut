@@ -16,6 +16,13 @@ import java.util.Objects;
       name = "edu.mtech.stout.core.Program.findByName",
       query = "SELECT * FROM Program WHERE name = ?",
       resultClass = Program.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.Program.getByUserId",
+      query = "SELECT * FROM Program WHERE program_id in (SELECT Program.program_id" +
+        " FROM Program JOIN Program_Permissions ON Program.program_id = Program_Permissions.program_id " +
+        "JOIN Users ON Users.user_id = Program_Permissions.user_id WHERE Users.user_id = ?)",
+      resultClass = Program.class
     )
   })
 
