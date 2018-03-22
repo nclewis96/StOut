@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Semester {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "semesterId")
+  @Column(name = "semester_id")
   private long semesterId;
   @Column(name = "semester_type_id")
   private long typeId;

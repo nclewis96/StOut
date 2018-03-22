@@ -23,7 +23,7 @@ import java.util.Objects;
 public class JobTitle {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "jobTitleId")
+  @Column(name = "job_title_id")
   private long jobTitleId;
   @Column(name = "title")
   private String title;

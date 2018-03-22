@@ -22,7 +22,7 @@ import java.util.Objects;
 public class Offering {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "offeringId")
+  @Column(name = "offering_id")
   private long offeringId;
   @Column(name = "course_id", nullable = false)
   private long courseId;

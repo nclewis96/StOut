@@ -18,9 +18,9 @@ public class Outcome {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "outcomeId")
+  @Column(name = "outcome_id")
   private long outcomeId;
-  @Column(name = "metricId")
+  @Column(name = "metric_id")
   private long metricId;
   @Column(name = "name")
   private String name;

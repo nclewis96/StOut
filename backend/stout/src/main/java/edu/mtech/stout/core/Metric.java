@@ -16,9 +16,9 @@ import java.util.Objects;
 public class Metric {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "metricId")
+  @Column(name = "metric_id")
   private long metricId;
-  @Column(name = "programId")
+  @Column(name = "program_id")
   private long programId;
   @Column(name = "name")
   private String name;

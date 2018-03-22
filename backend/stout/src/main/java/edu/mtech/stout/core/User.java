@@ -25,7 +25,7 @@ public class User implements Principal {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "userId")
+  @Column(name = "user_id")
   private long userId;
 
   @Column(name = "name", nullable = false)

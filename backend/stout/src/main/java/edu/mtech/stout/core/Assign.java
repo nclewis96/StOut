@@ -17,9 +17,9 @@ import java.util.Objects;
 public class Assign {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "assignId")
+  @Column(name = "assign_id")
   private long assignId;
-  @Column(name = "offeringId")
+  @Column(name = "offering_id")
   private long offeringId;
   @Column(name = "score")
   private long score;

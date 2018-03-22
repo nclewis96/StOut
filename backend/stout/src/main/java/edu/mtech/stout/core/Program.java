@@ -23,7 +23,7 @@ public class Program{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "programId")
+  @Column(name = "program_id")
   private long programId;
 
   @Column(name = "name", nullable = false)
