@@ -10,7 +10,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("coursePrefix/{coursePrefix}")
+@Path("coursePrefix/{coursePrefixId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class CoursePrefixResource {
 
@@ -18,5 +18,42 @@ public class CoursePrefixResource {
 
     public CoursePrefix(CoursePrefixDao dao){ this.dao = dao;}
 
+    @GET
+    @UnitOfWork
+    public CoursePrefix getCoursePrefix(@PathParam("coursePrefixId") LongParam coursePrefixId)
+    {
+        return findSafely(coursePrefixId.get());
+    }
 
+    private CoursePrefix findSafely(long coursePrefixId){
+        return dao.findById(coursePrefixId).orElseThrow(() -> new NotFoundException("No such Course Prefix"));
+    }
+
+    @POST
+    @UnitOfWork
+    public CoursePrefix updateCoursePrefix(@PathParam("coursePrefixId") LongParam coursePrefixId, CoursePrefix coursePref)
+    {
+        return dao.update(coursePref);
+    }
+
+    @DELETE
+    @RolesAllowed({"Admin", "Program Coordinator"})
+    @UnitOfWork
+    public Status deleteCoursePrefix(@PathParam("coursePrefixId") LongParam coursePrefId){
+        Status status = new Status();
+        status.setId(coursePrefId.get().intValue());
+        status.setAction("DELETE");
+        status.setResource("CoursePrefix");
+
+        boolean success = dao.delete(coursePrefId.get().intValue());
+
+        if(success){
+            status.setMessage("Successfully deleted Course Prefix");
+            status.setStatus(200);
+        }else {
+            status.setMessage("Error deleting course prefix");
+            status.setStatus(500);
+        }
+        return status;
+    }
 }

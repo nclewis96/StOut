@@ -23,7 +23,7 @@ public class AssignResourceList {
   }
 
   @POST
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public Assign createAssign(Assign assign) {
     return dao.create(assign);
