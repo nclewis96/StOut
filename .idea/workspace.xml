@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="65bb7b99-c682-45aa-9b8e-40e1b6358e01" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/db/CoursePrefixDAO.java" afterPath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/db/CoursePrefixDAO.java" />
-      <change beforePath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/AssignResourceList.java" afterPath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/AssignResourceList.java" />
-      <change beforePath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResource.java" afterPath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResource.java" />
-      <change beforePath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResourceList.java" afterPath="$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResourceList.java" />
-    </list>
+    <list default="true" id="65bb7b99-c682-45aa-9b8e-40e1b6358e01" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +39,7 @@
             <entry file="file://$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/AssignResourceList.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="221">
-                  <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+                  <caret line="23" column="35" lean-forward="false" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
                   <folding />
                 </state>
               </provider>
@@ -59,7 +53,7 @@
             <entry file="file://$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResource.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="-3">
-                  <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                  <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -94,7 +88,7 @@
             <entry file="file://$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResourceList.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="442">
-                  <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+                  <caret line="26" column="1" lean-forward="false" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
                   <folding>
                     <element signature="e#400#401#0" expanded="true" />
                     <element signature="e#448#449#0" expanded="true" />
@@ -400,12 +394,12 @@
       <workItem from="1521699966649" duration="282000" />
       <workItem from="1521743566486" duration="1358000" />
       <workItem from="1521745677981" duration="2332000" />
-      <workItem from="1521757378581" duration="3698000" />
+      <workItem from="1521757378581" duration="4024000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7670000" />
+    <option name="totallyTimeSpent" value="7996000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -586,7 +580,7 @@
     <entry file="file://$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/AssignResourceList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
-          <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <caret line="23" column="35" lean-forward="false" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -602,7 +596,7 @@
     <entry file="file://$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResourceList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
-          <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+          <caret line="26" column="1" lean-forward="false" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
           <folding>
             <element signature="e#400#401#0" expanded="true" />
             <element signature="e#448#449#0" expanded="true" />
@@ -615,7 +609,7 @@
     <entry file="file://$PROJECT_DIR$/backend/stout/src/main/java/edu/mtech/stout/resources/CoursePrefixResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
