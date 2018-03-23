@@ -3,12 +3,10 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.core.Assign;
 import edu.mtech.stout.db.AssignDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -35,4 +33,5 @@ public class AssignResourceList {
   public List<Assign> getAssignList(){
     return dao.findAll();
   }
+
 }

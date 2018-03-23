@@ -93,8 +93,8 @@ public class Login {
 
   private UserApi createUserApi(Optional<User> user){
     User currentUser = user.get();
-    List<Role> roleList = roleDao.getByUserId(currentUser.getId());
-    List<JobTitle> jobTitleList = jobTitleDAO.getByUserId(currentUser.getId());
+    List<Role> roleList = roleDao.getByUserId(currentUser.getUserId());
+    List<JobTitle> jobTitleList = jobTitleDAO.getByUserId(currentUser.getUserId());
     JobTitle title = null;
     if(jobTitleList.size() > 0){
       title = jobTitleList.get(0);
