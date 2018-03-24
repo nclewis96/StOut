@@ -23,7 +23,7 @@ public class Offering {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "offering_id")
-  private long offering_id;
+  private long offeringId;
   @Column(name = "course_id", nullable = false)
   private long courseId;
   @Column(name = "user_id", nullable = false)
@@ -40,12 +40,12 @@ public class Offering {
   public Offering() {
   }
 
-  public long getId() {
-    return offering_id;
+  public long getOfferingId() {
+    return offeringId;
   }
 
-  public void setId(long id) {
-    this.offering_id = id;
+  public void setOfferingId(long id) {
+    this.offeringId = id;
   }
 
   public long getCourseId() {
@@ -107,12 +107,12 @@ public class Offering {
 
     final Offering that = (Offering) o;
 
-    return Objects.equals(this.offering_id, that.offering_id);
+    return Objects.equals(this.offeringId, that.offeringId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(offering_id);
+    return Objects.hash(offeringId);
   }
 
 }
