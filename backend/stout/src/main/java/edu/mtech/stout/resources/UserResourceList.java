@@ -44,7 +44,7 @@ public class UserResourceList {
     HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getUserId());
     if(programId != null){
       if(programAccessList.contains(programId.get())){
-        return dao.findbyProgram(programId.get());
+        return dao.findByProgram(programId.get());
       }else{
         throw new ForbiddenException();
       }

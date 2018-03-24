@@ -21,7 +21,7 @@ public class UserDAO extends StOutDAO<User> {
     }
     return user;
   }
-  public List<User> findbyProgram(Long programId) {
+  public List<User> findByProgram(Long programId) {
     return list(namedQuery("edu.mtech.stout.core.User.findByProgramId").setParameter(0, programId));
   }
   public List<User> findAll() {
