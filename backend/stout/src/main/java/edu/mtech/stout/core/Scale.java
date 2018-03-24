@@ -17,7 +17,7 @@ public class Scale {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "semester_id")
-  private long scaleId;
+  private long id;
   @Column(name = "name")
   private String name;
   @Column(name = "desc")
@@ -25,12 +25,12 @@ public class Scale {
   @Column(name = "program_id")
   private long progId;
 
-  public long getScaleId() {
-    return scaleId;
+  public long getId() {
+    return id;
   }
 
-  public void setScaleId(long id) {
-    this.scaleId = id;
+  public void setId(long id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -68,12 +68,12 @@ public class Scale {
 
     final Scale that = (Scale) o;
 
-    return Objects.equals(this.scaleId, that.scaleId) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.progId, that.progId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(scaleId, progId, name);
+    return Objects.hash(id, progId, name);
   }
 }

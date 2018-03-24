@@ -33,7 +33,7 @@ public class User implements Principal {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
-  private long userId;
+  private long id;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -52,12 +52,12 @@ public class User implements Principal {
     this.name = name;
   }
 
-  public long getUserId() {
-    return userId;
+  public long getId() {
+    return id;
   }
 
-  public void setUserId(long id) {
-    this.userId = id;
+  public void setId(long id) {
+    this.id = id;
   }
 
   public User(String name, Set<String> roles) {
@@ -103,13 +103,13 @@ public class User implements Principal {
 
     final User that = (User) o;
 
-    return Objects.equals(this.userId, that.userId) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.username, that.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId, username, jobTitle);
+    return Objects.hash(id, username, jobTitle);
   }
 
 

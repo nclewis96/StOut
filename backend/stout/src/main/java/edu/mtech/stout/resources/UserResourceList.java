@@ -45,7 +45,7 @@ public class UserResourceList {
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public List<UserApi> getUserList(@Auth User user, @QueryParam("program") LongParam programId){
-    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getUserId());
+    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
     List<User> userCoreList;
     if(programId != null){
       if(programAccessList.contains(programId.get())){

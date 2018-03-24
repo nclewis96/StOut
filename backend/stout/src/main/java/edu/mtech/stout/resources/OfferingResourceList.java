@@ -1,5 +1,6 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.OfferingsWrapper;
 import edu.mtech.stout.core.Offering;
 import edu.mtech.stout.db.OfferingDAO;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -33,8 +34,9 @@ public class OfferingResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Offering> getOfferingList(){
-    return dao.findAll();
+  public OfferingsWrapper getOfferingList(){
+    OfferingsWrapper wrapper = new OfferingsWrapper();
+    wrapper.setOfferings(dao.findAll());
+    return wrapper;
   }
-
 }

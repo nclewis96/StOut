@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class UserApi {
   @JsonProperty
-  private long userId;
+  private long id;
   @JsonProperty
   private String name;
   @JsonProperty
@@ -23,10 +23,10 @@ public class UserApi {
 
   public User toUser(){
     User user = new User();
-    user.setUserId(userId);
+    user.setId(id);
     user.setName(name);
     user.setUsername(username);
-    user.setJobTitle(jobTitle.getJobTitleId());
+    user.setJobTitle(jobTitle.getId());
     return user;
   }
 
@@ -41,12 +41,12 @@ public class UserApi {
   public void setRoleList(List<Role> roleList) {
     this.roleList = roleList;
   }
-  public long getUserId() {
-    return userId;
+  public long getId() {
+    return id;
   }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setId(long id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -75,8 +75,8 @@ public class UserApi {
 
   public UserApi(Optional<User> user, RoleDAO roleDao, JobTitleDAO jobTitleDAO){
     User currentUser = user.get();
-    List<Role> roleList = roleDao.getByUserId(currentUser.getUserId());
-    List<JobTitle> jobTitleList = jobTitleDAO.getByUserId(currentUser.getUserId());
+    List<Role> roleList = roleDao.getByUserId(currentUser.getId());
+    List<JobTitle> jobTitleList = jobTitleDAO.getByUserId(currentUser.getId());
     JobTitle title = null;
     if(jobTitleList.size() > 0){
       title = jobTitleList.get(0);
@@ -85,7 +85,7 @@ public class UserApi {
   }
 
   private void setup(User user, JobTitle jobTitle, List<Role> roleList){
-    userId = user.getUserId();
+    id = user.getId();
     name = user.getName();
     username = user.getUsername();
     this.jobTitle = jobTitle;
