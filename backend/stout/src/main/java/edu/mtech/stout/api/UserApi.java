@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserApi {
   @JsonProperty
-  private long user_id;
+  private long userId;
   @JsonProperty
   private String name;
   @JsonProperty
@@ -20,7 +20,7 @@ public class UserApi {
 
   public User toUser(){
     User user = new User();
-    user.setUserId(user_id);
+    user.setUserId(userId);
     user.setName(name);
     user.setUsername(username);
     user.setJobTitle(jobTitle.getJobTitleId());
@@ -28,7 +28,7 @@ public class UserApi {
   }
 
   public UserApi(User user, JobTitle jobTitle, List<Role> roleList){
-    user_id = user.getUserId();
+    userId = user.getUserId();
     name = user.getName();
     username = user.getUsername();
     this.jobTitle = jobTitle;
@@ -42,12 +42,12 @@ public class UserApi {
   public void setRoleList(List<Role> roleList) {
     this.roleList = roleList;
   }
-  public long getUser_id() {
-    return user_id;
+  public long getUserId() {
+    return userId;
   }
 
-  public void setUser_id(long user_id) {
-    this.user_id = user_id;
+  public void setUserId(long userId) {
+    this.userId = userId;
   }
 
   public String getName() {

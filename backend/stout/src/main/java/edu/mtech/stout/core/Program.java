@@ -18,7 +18,7 @@ import java.util.Objects;
       resultClass = Program.class
     ),
     @NamedNativeQuery(
-      name = "edu.mtech.stout.core.Program.getByUserId",
+      name = "edu.mtech.stout.core.Program.findByUserId",
       query = "SELECT * FROM Program WHERE program_id in (SELECT Program.program_id" +
         " FROM Program JOIN Program_Permissions ON Program.program_id = Program_Permissions.program_id " +
         "JOIN Users ON Users.user_id = Program_Permissions.user_id WHERE Users.user_id = ?)",

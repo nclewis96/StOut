@@ -21,8 +21,8 @@ import java.util.Set;
     ),
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.User.findByProgramId",
-      query = "SELECT * FROM User WHERE user_id in (SELECT User.user_id" +
-        " FROM User JOIN Program_Permissions ON User.user_id = Program_Permissions.user_id " +
+      query = "SELECT * FROM Users WHERE user_id in (SELECT Users.user_id" +
+        " FROM Users JOIN Program_Permissions ON Users.user_id = Program_Permissions.user_id " +
         "JOIN Program ON Program.program_id = Program_Permissions.program_id WHERE Program.program_id = ?)",
       resultClass = User.class
     )
@@ -44,10 +44,8 @@ public class User implements Principal {
   @Column(name = "job_title_id", nullable = false)
   private long jobTitle;
 
-  //private final Set<String> roles;
-
   public User() {
-    //this.roles = null;
+
   }
 
   public User(String name) {
