@@ -16,8 +16,8 @@ import java.util.Objects;
 public class Scale {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "semester_id")
-  private long id;
+  @Column(name = "scale_id")
+  private long scaleId;
   @Column(name = "name")
   private String name;
   @Column(name = "desc")
