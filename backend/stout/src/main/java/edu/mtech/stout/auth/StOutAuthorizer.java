@@ -20,7 +20,7 @@ public class StOutAuthorizer implements Authorizer<User> {
   @Override
   @UnitOfWork
   public boolean authorize(User user, String role) {
-    List<Role> userRoles = roleDao.getByUserId(user.getUserId());
+    List<Role> userRoles = roleDao.getByUserId(user.getId());
     HashSet<String> stringRoles = new HashSet<>();
     for(Role userRole : userRoles){
       stringRoles.add(userRole.getName());

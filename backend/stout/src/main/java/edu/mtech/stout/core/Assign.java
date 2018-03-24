@@ -18,7 +18,7 @@ public class Assign {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "assign_id")
-  private long assignId;
+  private long id;
   @Column(name = "offering_id")
   private long offeringId;
   @Column(name = "score")
@@ -30,12 +30,12 @@ public class Assign {
   @Column(name = "max_score")
   private long maxScore;
 
-  public long getAssignId() {
-    return assignId;
+  public long getId() {
+    return id;
   }
 
-  public void setAssignId(long id) {
-    this.assignId = id;
+  public void setId(long id) {
+    this.id = id;
   }
 
   public long getOfferingId() {
@@ -89,12 +89,12 @@ public class Assign {
 
     final Assign that = (Assign) o;
 
-    return Objects.equals(this.assignId, that.assignId) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.offeringId, that.offeringId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(assignId, offeringId);
+    return Objects.hash(id, offeringId);
   }
 }

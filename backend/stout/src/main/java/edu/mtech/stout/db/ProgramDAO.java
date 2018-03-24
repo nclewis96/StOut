@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class ProgramDAO extends StOutDAO<Program> {
 
@@ -31,7 +30,7 @@ public class ProgramDAO extends StOutDAO<Program> {
     List<Program> programList = findByUser(userId);
     HashSet<Long> programSet = new HashSet<Long>();
     for(Program prog : programList){
-      programSet.add(prog.getProgramId());
+      programSet.add(prog.getId());
     }
     return programSet;
   }
