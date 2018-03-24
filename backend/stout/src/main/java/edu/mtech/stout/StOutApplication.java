@@ -126,7 +126,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new ProgramResource(programDao));
     environment.jersey().register(new ProgramResourceList(programDao));
     environment.jersey().register(new OfferingResource(offeringDao));
-    environment.jersey().register(new OfferingResourceList(offeringDao));
+    environment.jersey().register(new OfferingResourceList(offeringDao,programDao));
     environment.jersey().register(new OutcomeResource(outcomeDao));
     environment.jersey().register(new OutcomeResourceList(outcomeDao));
 	environment.jersey().register(new AssignResource(assignDao));

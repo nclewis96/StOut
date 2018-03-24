@@ -44,7 +44,7 @@ public class CourseResourceList{
 
 		if(programId != null){
 			if(programAccessList.contains(programId.get())){
-				return dao.findByProgram(programId.get());
+				return dao.findByProgramId(programId.get());
 			}else{
 				throw new ForbiddenException();
 			}

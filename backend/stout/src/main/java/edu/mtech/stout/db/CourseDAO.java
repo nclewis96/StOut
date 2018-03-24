@@ -11,8 +11,8 @@ public class CourseDAO extends StOutDAO<Course> {
 		super(factory);
 	}
 	
-	public List<Course> findByProgram(long programId) {
-		List<Course> courseList = list(namedQuery("edu.mtech.stout.core.Course.findByProgram").setParameter(0,programId));
+	public List<Course> findByProgramId(long programId) {
+		List<Course> courseList = list(namedQuery("edu.mtech.stout.core.Course.findByProgramId").setParameter(0,programId));
 		return courseList;
 	}
 	

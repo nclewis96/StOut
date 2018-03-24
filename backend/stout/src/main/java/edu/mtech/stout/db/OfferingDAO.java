@@ -11,7 +11,10 @@ public class OfferingDAO extends StOutDAO<Offering>{
     super(factory);
   }
 
-
+  public List<Offering> findByProgramId(long programId){
+    List<Offering> offeringList = list(namedQuery("edu.mtech.stout.core.Offering.findByProgramId").setParameter(0,programId));
+    return offeringList;
+  }
   public Optional<Offering> findByCourse(long courseId) {
     List<Offering> offeringList = list(namedQuery("edu.mtech.stout.core.Offering.findByCourse")
       .setParameter(0, courseId));
