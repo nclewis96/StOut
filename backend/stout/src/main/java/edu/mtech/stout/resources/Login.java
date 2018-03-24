@@ -53,7 +53,7 @@ public class Login {
       }
       auth.setUsername(username);
       auth.createJwt();
-      auth.setUser(createUserApi(user));
+      auth.setUser(new UserApi(user, roleDao, jobTitleDAO));
       return auth;
     } else if (ticket.getJwt() != null) {
       AuthenticationObject auth = new AuthenticationObject();
@@ -64,7 +64,7 @@ public class Login {
         throw new ForbiddenException();
       }
       auth.createJwt();
-      auth.setUser(createUserApi(user));
+      auth.setUser(new UserApi(user, roleDao, jobTitleDAO));
       return auth;
     } else {
       throw new NotAuthorizedException("Login with CAS or use a JWT.");
@@ -85,20 +85,11 @@ public class Login {
     }
     if (user != null) {
       auth.setUsername(user);
-      auth.setUser(createUserApi(userObj));
+      auth.setUser(new UserApi(userObj, roleDao, jobTitleDAO));
       auth.createJwt();
     }
     return auth;
   }
 
-  private UserApi createUserApi(Optional<User> user){
-    User currentUser = user.get();
-    List<Role> roleList = roleDao.getByUserId(currentUser.getUserId());
-    List<JobTitle> jobTitleList = jobTitleDAO.getByUserId(currentUser.getUserId());
-    JobTitle title = null;
-    if(jobTitleList.size() > 0){
-      title = jobTitleList.get(0);
-    }
-    return new UserApi(currentUser, title, roleList);
-  }
+
 }
