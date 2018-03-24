@@ -76,7 +76,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
 
     // Configure CORS parameters
     cors.setInitParameter("allowedOrigins", "*");
-    cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
+    cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin, Authorization");
     cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
 
     // Add URL mapping
@@ -121,8 +121,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     AuthenticationObject.setService(configuration.getService());
 
     //Set up routes
-    environment.jersey().register(new UserResource(userDao, jobTitleDAO));
-    environment.jersey().register(new UserResourceList(userDao, jobTitleDAO, programDao));
+    environment.jersey().register(new UserResource(userDao, jobTitleDAO, roleDao));
+    environment.jersey().register(new UserResourceList(userDao, jobTitleDAO, programDao, roleDao));
     environment.jersey().register(new ProgramResource(programDao));
     environment.jersey().register(new ProgramResourceList(programDao));
     environment.jersey().register(new OfferingResource(offeringDao));
