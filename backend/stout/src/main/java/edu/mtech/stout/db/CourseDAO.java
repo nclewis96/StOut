@@ -23,4 +23,9 @@ public class CourseDAO extends StOutDAO<Course> {
 	public List<Course> findAll() {
 		return list(namedQuery("edu.mtech.stout.core.Course.findAll"));
 	}
+
+	@Override
+	public boolean delete(int type) {
+		return false;
+	}
 }

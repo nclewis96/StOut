@@ -22,7 +22,7 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResourceList {
 
-  UserDAO dao = null;
+  UserDAO dao;
   JobTitleDAO jobTitleDAO;
   RoleDAO roleDao;
   ProgramDAO programDao;

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StOutAuthorizer implements Authorizer<User> {
 
-  RoleDAO roleDao = null;
+  RoleDAO roleDao;
 
   public StOutAuthorizer(RoleDAO roleDao){
     this.roleDao = roleDao;

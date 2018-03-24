@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class OfferingResource {
 
-  OfferingDAO dao = null;
+  OfferingDAO dao;
 
   public OfferingResource(OfferingDAO dao) {
     this.dao = dao;

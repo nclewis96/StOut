@@ -25,4 +25,9 @@ public class AssignDAO extends StOutDAO<Assign>{
   public List<Assign> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Assign.findAll"));
   }
+
+  @Override
+  public boolean delete(int type) {
+    return false;
+  }
 }

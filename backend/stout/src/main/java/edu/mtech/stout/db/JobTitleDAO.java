@@ -17,4 +17,9 @@ public class JobTitleDAO extends StOutDAO<JobTitle>{
   public List<JobTitle> getByUserId(long id) {
     return list(namedQuery("edu.mtech.stout.core.JobTitle.getByUserId").setParameter(0, id));
   }
+
+  @Override
+  public boolean delete(int type) {
+    return false;
+  }
 }

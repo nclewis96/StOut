@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class MetricResource {
 	
-	MetricDAO dao = null;
+	MetricDAO dao;
 	
 	public MetricResource(MetricDAO dao){
 		this.dao = dao;

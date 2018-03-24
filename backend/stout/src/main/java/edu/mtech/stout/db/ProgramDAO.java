@@ -28,7 +28,7 @@ public class ProgramDAO extends StOutDAO<Program> {
   }
   public HashSet<Long> getProgramIdSetByUser(Long userId){
     List<Program> programList = findByUser(userId);
-    HashSet<Long> programSet = new HashSet<Long>();
+    HashSet<Long> programSet = new HashSet<>();
     for(Program prog : programList){
       programSet.add(prog.getId());
     }

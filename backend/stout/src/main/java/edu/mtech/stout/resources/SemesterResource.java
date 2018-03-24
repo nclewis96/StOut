@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class SemesterResource {
 	
-	SemesterDAO dao = null;
+	SemesterDAO dao;
 	
 	public SemesterResource(SemesterDAO dao) {
 		this.dao = dao;

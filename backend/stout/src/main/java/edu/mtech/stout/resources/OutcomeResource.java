@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeResource {
 
-  OutcomeDAO dao = null;
+  OutcomeDAO dao;
 
   public OutcomeResource(OutcomeDAO dao) {
     this.dao = dao;

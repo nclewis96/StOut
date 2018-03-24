@@ -4,7 +4,6 @@ import edu.mtech.stout.core.Role;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
-import java.util.Optional;
 
 public class RoleDAO extends StOutDAO<Role>{
   public RoleDAO(SessionFactory factory) {
@@ -28,5 +27,10 @@ public class RoleDAO extends StOutDAO<Role>{
 
   public List<Role> getByUserId(long id) {
     return list(namedQuery("edu.mtech.stout.core.Role.getByUserId").setParameter(0, id));
+  }
+
+  @Override
+  public boolean delete(int type) {
+    return false;
   }
 }

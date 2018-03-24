@@ -27,4 +27,9 @@ public class UserDAO extends StOutDAO<User> {
   public List<User> findAll() {
     return list(namedQuery("edu.mtech.stout.core.User.findAll"));
   }
+
+  @Override
+  public boolean delete(int type) {
+    return false;
+  }
 }

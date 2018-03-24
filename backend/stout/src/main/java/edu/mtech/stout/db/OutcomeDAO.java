@@ -25,4 +25,9 @@ public class OutcomeDAO extends StOutDAO<Outcome>{
   public List<Outcome> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Outcome.findAll"));
   }
+
+  @Override
+  public boolean delete(int type) {
+    return false;
+  }
 }

@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class AssignResource {
 	
-	AssignDAO dao = null;
+	AssignDAO dao;
 	
 	public AssignResource(AssignDAO dao) {
 		this.dao = dao;

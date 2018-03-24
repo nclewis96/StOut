@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramResource {
 
-  ProgramDAO dao = null;
+  ProgramDAO dao;
 
   public ProgramResource(ProgramDAO dao) {
     this.dao = dao;

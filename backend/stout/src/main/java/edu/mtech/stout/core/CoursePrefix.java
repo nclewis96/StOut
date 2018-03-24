@@ -1,7 +1,6 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Course_Prefix")

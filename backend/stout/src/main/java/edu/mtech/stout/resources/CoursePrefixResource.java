@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class CoursePrefixResource {
 
-    CoursePrefixDAO dao = null;
+    CoursePrefixDAO dao;
 
     public CoursePrefixResource(CoursePrefixDAO dao){ this.dao = dao;}
 

@@ -13,4 +13,9 @@ public class SemesterDAO extends StOutDAO<Semester>{
   public List<Semester> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Semester.findAll"));
   }
+
+  @Override
+  public boolean delete(int type) {
+    return false;
+  }
 }

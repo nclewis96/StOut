@@ -9,8 +9,6 @@ import edu.mtech.stout.api.AuthenticationObject;
 import edu.mtech.stout.api.UserApi;
 import edu.mtech.stout.client.CASValidator;
 import edu.mtech.stout.api.Ticket;
-import edu.mtech.stout.core.JobTitle;
-import edu.mtech.stout.core.Role;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.UserDAO;
@@ -18,7 +16,6 @@ import edu.mtech.stout.db.RoleDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.NonEmptyStringParam;
 
-import java.util.List;
 import java.util.Optional;
 
 @Path("/login/")

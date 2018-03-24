@@ -3,7 +3,6 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.core.Assign;
 import edu.mtech.stout.db.AssignDAO;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -14,7 +13,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class AssignResourceList {
 
-  AssignDAO dao = null;
+  AssignDAO dao;
 
   public AssignResourceList(AssignDAO dao) {
     this.dao = dao;

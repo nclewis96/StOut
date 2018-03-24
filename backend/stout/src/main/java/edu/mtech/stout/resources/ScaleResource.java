@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ScaleResource {
 	
-	ScaleDAO dao = null;
+	ScaleDAO dao;
 	
 	public ScaleResource(ScaleDAO dao) {
 		this.dao = dao;

@@ -13,7 +13,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class CoursePrefixResourceList{
 
-    CoursePrefixDAO dao = null;
+    CoursePrefixDAO dao;
 
     public CoursePrefixResourceList(CoursePrefixDAO dao) { this.dao = dao; }
 

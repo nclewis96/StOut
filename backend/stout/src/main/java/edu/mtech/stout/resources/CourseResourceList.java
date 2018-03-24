@@ -3,9 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.core.Course;
 import edu.mtech.stout.db.CourseDAO;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,7 +15,7 @@ import java.util.List;
 @Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
 public class CourseResourceList{
-	CourseDAO dao = null;
+	CourseDAO dao;
 	
 	public CourseResourceList(CourseDAO dao){
 		this.dao = dao;

@@ -17,7 +17,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeResourceList {
 
-  OutcomeDAO dao = null;
+  OutcomeDAO dao;
 
   public OutcomeResourceList(OutcomeDAO dao) {
     this.dao = dao;

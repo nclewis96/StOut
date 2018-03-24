@@ -7,10 +7,8 @@ import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 
 import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.jdbi.DBIFactory;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import io.dropwizard.client.JerseyClientConfiguration;
 

@@ -2,8 +2,6 @@ package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.Status;
 import edu.mtech.stout.api.UserApi;
-import edu.mtech.stout.core.JobTitle;
-import edu.mtech.stout.core.Role;
 import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.RoleDAO;
 import edu.mtech.stout.db.UserDAO;
@@ -15,15 +13,14 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 import java.util.Optional;
 
 @Path("/user/{userId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-  UserDAO dao = null;
-  RoleDAO roleDao = null;
+  UserDAO dao;
+  RoleDAO roleDao;
   JobTitleDAO jobTitleDAO;
 
   public UserResource(UserDAO dao, JobTitleDAO jobTitleDAO, RoleDAO roleDao) {
@@ -36,7 +33,7 @@ public class UserResource {
   @PermitAll
   @UnitOfWork
   public UserApi getUser(@PathParam("userId") LongParam userId) {
-    Optional<User> user = Optional.empty();
+    Optional<User> user;
     user = Optional.of(findSafely(userId.get()));
     return new UserApi(user, roleDao, jobTitleDAO);
   }
