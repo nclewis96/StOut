@@ -21,6 +21,7 @@ public class CourseResource{
 	}
 	
 	@GET
+	@RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
 	@UnitOfWork
 	public Course getCourse(@PathParam("courseId") LongParam courseId) {
 		return findSafely(courseId.get());
@@ -31,6 +32,7 @@ public class CourseResource{
 	}
 	
 	@POST
+	@RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
 	@UnitOfWork
 	public Course updateCourse(@PathParam("courseId") LongParam courseId, Course course){
 		return dao.update(course);

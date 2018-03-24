@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CoursePrefix")
+@Table(name = "Course_Prefix")
 @NamedNativeQueries(
         {
                 @NamedNativeQuery(
                 name = "edu.mtech.stout.core.CoursePrefix.findAll",
-                query = "SELECT * FROM CoursePrefix",
+                query = "SELECT * FROM Course_Prefix",
                 resultClass = CoursePrefix.class
                 )
         }

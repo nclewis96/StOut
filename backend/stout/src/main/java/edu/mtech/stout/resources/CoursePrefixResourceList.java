@@ -1,6 +1,15 @@
 package edu.mtech.stout.resources;
 
-@Path("/coursePrefix")
+import edu.mtech.stout.db.CoursePrefixDAO;
+import edu.mtech.stout.core.CoursePrefix;
+import io.dropwizard.hibernate.UnitOfWork;
+
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+
+@Path("/coursePrefixes")
 @Produces(MediaType.APPLICATION_JSON)
 public class CoursePrefixResourceList{
 
@@ -17,7 +26,7 @@ public class CoursePrefixResourceList{
     }
 
     @GET
-    @RolesAllowed({"Admin, Program Coordinator"})
+    @RolesAllowed({"Admin", "Program Coordinator"})
     @UnitOfWork
     public List<CoursePrefix>  getCoursePrefixList()
     {

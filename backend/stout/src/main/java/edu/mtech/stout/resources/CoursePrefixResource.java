@@ -4,7 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.CoursePrefix;
 import edu.mtech.stout.db.CoursePrefixDAO;
 import io.dropwizard.hibernate.UnitOfWork;
-import.io.dropwizard.jersey.params.LongParam;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -16,7 +16,7 @@ public class CoursePrefixResource {
 
     CoursePrefixDAO dao = null;
 
-    public CoursePrefix(CoursePrefixDao dao){ this.dao = dao;}
+    public CoursePrefixResource(CoursePrefixDAO dao){ this.dao = dao;}
 
     @GET
     @UnitOfWork
