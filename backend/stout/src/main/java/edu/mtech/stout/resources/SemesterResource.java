@@ -27,7 +27,7 @@ public class SemesterResource {
 	}
 	
 	private Semester findSafely(long semesterId){
-		return dao.findById(semesterId).orElseThrow(() -> new NotFoundException("No such offering."));
+		return dao.findById(semesterId).orElseThrow(() -> new NotFoundException("No such Semester."));
 	}
 	
 	@POST 
