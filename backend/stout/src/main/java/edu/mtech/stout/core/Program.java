@@ -16,6 +16,13 @@ import java.util.Objects;
       name = "edu.mtech.stout.core.Program.findByName",
       query = "SELECT * FROM Program WHERE name = ?",
       resultClass = Program.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.Program.findByUserId",
+      query = "SELECT * FROM Program WHERE program_id in (SELECT Program.program_id" +
+        " FROM Program JOIN Program_Permissions ON Program.program_id = Program_Permissions.program_id " +
+        "JOIN Users ON Users.user_id = Program_Permissions.user_id WHERE Users.user_id = ?)",
+      resultClass = Program.class
     )
   })
 
@@ -24,7 +31,7 @@ public class Program{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "program_id")
-  private long program_id;
+  private long id;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -37,11 +44,11 @@ public class Program{
   }
 
   public long getId() {
-    return program_id;
+    return id;
   }
 
   public void setId(long id) {
-    this.program_id = id;
+    this.id = id;
   }
 
   public String getName() {
@@ -63,13 +70,13 @@ public class Program{
 
     final Program that = (Program) o;
 
-    return Objects.equals(this.program_id, that.program_id) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(program_id, name);
+    return Objects.hash(id, name);
   }
 }
 

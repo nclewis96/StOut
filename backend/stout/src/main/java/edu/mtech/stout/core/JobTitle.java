@@ -24,16 +24,16 @@ public class JobTitle {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "job_title_id")
-  private long job_title_id;
+  private long id;
   @Column(name = "title")
   private String title;
 
   public long getId() {
-    return job_title_id;
+    return id;
   }
 
   public void setId(long id) {
-    this.job_title_id = id;
+    this.id = id;
   }
 
   public String getTitle() {
@@ -55,12 +55,12 @@ public class JobTitle {
 
     final JobTitle that = (JobTitle) o;
 
-    return Objects.equals(this.job_title_id, that.job_title_id) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.title, that.title);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(job_title_id, title);
+    return Objects.hash(id, title);
   }
 }

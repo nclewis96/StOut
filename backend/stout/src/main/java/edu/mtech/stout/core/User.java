@@ -18,6 +18,13 @@ import java.util.Set;
       name = "edu.mtech.stout.core.User.findByUsername",
       query = "SELECT * FROM Users WHERE username = ?",
       resultClass = User.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.User.findByProgramId",
+      query = "SELECT * FROM Users WHERE user_id in (SELECT Users.user_id" +
+        " FROM Users JOIN Program_Permissions ON Users.user_id = Program_Permissions.user_id " +
+        "JOIN Program ON Program.program_id = Program_Permissions.program_id WHERE Program.program_id = ?)",
+      resultClass = User.class
     )
   })
 
@@ -26,7 +33,7 @@ public class User implements Principal {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
-  private long user_id;
+  private long id;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -37,10 +44,8 @@ public class User implements Principal {
   @Column(name = "job_title_id", nullable = false)
   private long jobTitle;
 
-  //private final Set<String> roles;
-
   public User() {
-    //this.roles = null;
+
   }
 
   public User(String name) {
@@ -48,11 +53,11 @@ public class User implements Principal {
   }
 
   public long getId() {
-    return user_id;
+    return id;
   }
 
   public void setId(long id) {
-    this.user_id = id;
+    this.id = id;
   }
 
   public User(String name, Set<String> roles) {
@@ -98,13 +103,13 @@ public class User implements Principal {
 
     final User that = (User) o;
 
-    return Objects.equals(this.user_id, that.user_id) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.username, that.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(user_id, username, jobTitle);
+    return Objects.hash(id, username, jobTitle);
   }
 
 
