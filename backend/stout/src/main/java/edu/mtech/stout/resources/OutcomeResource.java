@@ -33,14 +33,14 @@ public class OutcomeResource {
   }
 
   @POST
-  @RolesAllowed({"Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Outcome updateOutcome(@PathParam("outcomeId") LongParam outcomeId, Outcome outcome){
     return dao.update(outcome);
   }
 
   @DELETE
-  @RolesAllowed({"Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Status deleteOutcome(@PathParam("outcomeId") LongParam outcomeId){
     Status status = new Status();

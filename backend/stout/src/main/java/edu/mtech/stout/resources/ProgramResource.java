@@ -33,7 +33,7 @@ public class ProgramResource {
   }
 
   @POST
-  @RolesAllowed({"Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Program updateProgram(@PathParam("programId") LongParam programId, Program program){
     return dao.update(program);

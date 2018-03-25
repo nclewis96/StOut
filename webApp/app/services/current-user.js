@@ -3,7 +3,7 @@ import Ember from 'ember';
 const { inject: { service } } = Ember;
 export default Ember.Service.extend({
   _session: service('session'),
-  id: Ember.computed('_session.data.authenticated', function() {
+  userId: Ember.computed('_session.data.authenticated', function() {
     "use strict";
     let user = this.get('_session.data.authenticated');
     return (user ? user.user.id : -1);

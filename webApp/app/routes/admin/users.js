@@ -11,7 +11,7 @@ export default Ember.Route.extend(CasAuthenticatedRouteMixin, {
           users: [
             {
               name: this.get('currentUser.name'),
-              id: this.get('currentUser.id') 
+              id: this.get('currentUser.id')
             }],
           name: 'Computer Science',
           id: '32382'

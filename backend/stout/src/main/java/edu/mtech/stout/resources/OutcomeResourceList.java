@@ -24,7 +24,7 @@ public class OutcomeResourceList {
   }
 
   @POST
-  @RolesAllowed({"Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Outcome createOutcome(Outcome program) {
     return dao.create(program);

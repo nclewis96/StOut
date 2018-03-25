@@ -25,14 +25,14 @@ public class UserResourceList {
   }
 
   @POST
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public User createUser(User user) {
     return dao.create(user);
   }
 
   @GET
-  @RolesAllowed({"Admin", "Program_Coordinator"})
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public List<User> getUserList(){
     return dao.findAll();

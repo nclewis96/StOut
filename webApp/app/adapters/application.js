@@ -1,6 +1,17 @@
+import Ember from 'ember';
+const { inject: { service } } = Ember;
 import DS from 'ember-data';
-import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
-
-export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
-  authorizer: 'authorizer:oauth2'
+import CasAuthenticatedRouteMixin from '../mixins/cas-authenticated-route';
+export default DS.JSONAPIAdapter.extend(CasAuthenticatedRouteMixin, {
+  currentUser: service(),
+  jwt: Ember.computed('currentUser', function(){
+    return `Bearer ${this.get('currentUser.token')}`;
+  }),
+  host: 'https://csdept29.mtech.edu:30120',
+  headers: Ember.computed('jwt', function(){
+    return{
+    'Accept': 'application/json',
+    'Authorization': this.get('jwt')
+    };
+  })
 });

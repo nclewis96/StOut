@@ -24,7 +24,7 @@ public class OfferingResourceList {
   }
 
   @POST
-  @RolesAllowed({"Program_Coordinator"})
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Offering createOffering(Offering offering) {
     return dao.create(offering);
