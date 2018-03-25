@@ -1,6 +1,6 @@
 <h4>This is a register form</h4>
 
-{{#lf-form rules=rules 
+{{#lf-form rules=rules
 	onSubmit=(action "submit")
 	as |validate isValid|}}
 
@@ -94,7 +94,7 @@
 
 {{#if saved}}
 <div class="alert alert-info">
-	Done 
+	Done
 
 </div>
 
@@ -107,3 +107,4 @@
 
 
 {{/lf-form}}
+{{yield model=model}}
