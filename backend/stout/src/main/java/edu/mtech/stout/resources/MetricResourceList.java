@@ -3,13 +3,15 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.core.Metric;
 import edu.mtech.stout.db.MetricDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import edu.mtech.stout.db.ProgramDAO;
+import edu.mtech.stout.core.User;
+import io.dropwizard.auth.Auth;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.HashSet;
 import java.util.List;
 
 @Path("/metrics")
@@ -17,9 +19,11 @@ import java.util.List;
 public class MetricResourceList {
 
   MetricDAO dao = null;
+  ProgramDAO programDao = null;
 
-  public MetricResourceList(MetricDAO dao) {
+  public MetricResourceList(MetricDAO dao, ProgramDAO programDao) {
     this.dao = dao;
+    this.programDao = programDao;
   }
 
   @POST
@@ -31,9 +35,20 @@ public class MetricResourceList {
 
   @GET
   @RolesAllowed({"Admin", "Program Coordinator"})
-  @UnitOfWork
-  public List<Metric> getMetricList(){
-    return dao.findAll();
+@UnitOfWork
+  public List<Metric> getMetricList(@Auth User user, @QueryParam("programId") LongParam programId){
+    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getUserId());
+
+    if(programId != null){
+      if(programAccessList.contains(programId.get())){
+        return dao.findByProgramId(programId.get());
+      }else{
+        throw new ForbiddenException();
+      }
+    }else {
+      return dao.findAll();
+    }
+
   }
 
 }

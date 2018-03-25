@@ -11,6 +11,11 @@ import java.util.Objects;
       name = "edu.mtech.stout.core.Metric.findAll",
       query = "SELECT * FROM Metric",
       resultClass = Metric.class
+    ),
+    @NamedNativeQuery(
+      name = "edu.mtech.stout.core.Metric.findByProgramId",
+      query = "SELECT * FROM Metric WHERE program_id = ?",
+      resultClass = Metric.class
     )
   })
 public class Metric {
