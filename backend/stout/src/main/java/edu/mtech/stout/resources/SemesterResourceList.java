@@ -32,7 +32,7 @@ public class SemesterResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Semester> getOfferingList(){
+  public List<Semester> getOfferingList() {
     return dao.findAll();
   }
 

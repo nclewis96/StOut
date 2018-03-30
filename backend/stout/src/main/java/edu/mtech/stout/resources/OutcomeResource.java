@@ -35,14 +35,14 @@ public class OutcomeResource {
   @POST
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Outcome updateOutcome(@PathParam("outcomeId") LongParam outcomeId, Outcome outcome){
+  public Outcome updateOutcome(@PathParam("outcomeId") LongParam outcomeId, Outcome outcome) {
     return dao.update(outcome);
   }
 
   @DELETE
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Status deleteOutcome(@PathParam("outcomeId") LongParam outcomeId){
+  public Status deleteOutcome(@PathParam("outcomeId") LongParam outcomeId) {
     Status status = new Status();
     status.setId(outcomeId.get().intValue());
     status.setAction("DELETE");
@@ -50,10 +50,10 @@ public class OutcomeResource {
 
     boolean success = dao.delete(outcomeId.get().intValue());
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted outcome");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting outcome");
       status.setStatus(500);
     }

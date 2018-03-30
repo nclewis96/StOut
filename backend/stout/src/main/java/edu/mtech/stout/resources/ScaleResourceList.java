@@ -33,7 +33,7 @@ public class ScaleResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Scale> getScaleList(){
+  public List<Scale> getScaleList() {
     return dao.findAll();
   }
 

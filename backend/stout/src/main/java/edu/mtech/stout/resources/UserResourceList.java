@@ -1,11 +1,11 @@
 package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.UserApi;
+import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.JobTitleDAO;
+import edu.mtech.stout.db.ProgramDAO;
 import edu.mtech.stout.db.RoleDAO;
 import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.core.User;
-import edu.mtech.stout.db.ProgramDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
@@ -44,20 +44,20 @@ public class UserResourceList {
   @GET
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
-  public List<UserApi> getUserList(@Auth User user, @QueryParam("program") LongParam programId){
+  public List<UserApi> getUserList(@Auth User user, @QueryParam("program") LongParam programId) {
     HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
     List<User> userCoreList;
-    if(programId != null){
-      if(programAccessList.contains(programId.get())){
+    if (programId != null) {
+      if (programAccessList.contains(programId.get())) {
         userCoreList = dao.findbyProgram(programId.get());
-      }else{
+      } else {
         throw new ForbiddenException();
       }
-    }else{
-      userCoreList =  dao.findAll();
+    } else {
+      userCoreList = dao.findAll();
     }
     List<UserApi> apiList = new ArrayList<>();
-    for(User usr : userCoreList){
+    for (User usr : userCoreList) {
       apiList.add(new UserApi(Optional.of(usr), roleDao, jobTitleDAO));
     }
     return apiList;

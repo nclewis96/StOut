@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class RoleDAO extends StOutDAO<Role>{
+public class RoleDAO extends StOutDAO<Role> {
   public RoleDAO(SessionFactory factory) {
     super(factory);
   }
@@ -29,8 +29,4 @@ public class RoleDAO extends StOutDAO<Role>{
     return list(namedQuery("edu.mtech.stout.core.Role.getByUserId").setParameter(0, id));
   }
 
-  @Override
-  public boolean delete(int type) {
-    return false;
-  }
 }

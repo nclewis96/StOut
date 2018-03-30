@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 
 import java.util.Optional;
 
-abstract public class StOutDAO<Type> extends AbstractDAO<Type>{
+public class StOutDAO<Type> extends AbstractDAO<Type> {
 
   public StOutDAO(SessionFactory factory) {
     super(factory);
@@ -19,7 +19,11 @@ abstract public class StOutDAO<Type> extends AbstractDAO<Type>{
     return persist(type);
   }
 
-  public Type update(Type type) {return persist(type);}
+  public Type update(Type type) {
+    return persist(type);
+  }
 
-  abstract public boolean delete(int type);
+  public void delete(Type type) {
+    currentSession().delete(type);
+  }
 }

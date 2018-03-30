@@ -33,7 +33,7 @@ public class OfferingResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Offering> getOfferingList(){
+  public List<Offering> getOfferingList() {
     return dao.findAll();
   }
 }

@@ -35,14 +35,14 @@ public class OfferingResource {
   @POST
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering){
+  public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering) {
     return dao.update(offering);
   }
 
   @DELETE
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Status deleteOffering(@PathParam("offeringId") LongParam offeringId){
+  public Status deleteOffering(@PathParam("offeringId") LongParam offeringId) {
     Status status = new Status();
     status.setId(offeringId.get().intValue());
     status.setAction("DELETE");
@@ -50,10 +50,10 @@ public class OfferingResource {
 
     boolean success = dao.delete(offeringId.get().intValue());
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted offering");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting offering");
       status.setStatus(500);
     }

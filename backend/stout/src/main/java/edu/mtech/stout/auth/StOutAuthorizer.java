@@ -13,7 +13,7 @@ public class StOutAuthorizer implements Authorizer<User> {
 
   RoleDAO roleDao;
 
-  public StOutAuthorizer(RoleDAO roleDao){
+  public StOutAuthorizer(RoleDAO roleDao) {
     this.roleDao = roleDao;
   }
 
@@ -22,7 +22,7 @@ public class StOutAuthorizer implements Authorizer<User> {
   public boolean authorize(User user, String role) {
     List<Role> userRoles = roleDao.getByUserId(user.getId());
     HashSet<String> stringRoles = new HashSet<>();
-    for(Role userRole : userRoles){
+    for (Role userRole : userRoles) {
       stringRoles.add(userRole.getName());
     }
     return stringRoles.contains(role);

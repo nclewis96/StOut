@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class JobTitleDAO extends StOutDAO<JobTitle>{
+public class JobTitleDAO extends StOutDAO<JobTitle> {
   public JobTitleDAO(SessionFactory factory) {
     super(factory);
   }
@@ -18,8 +18,4 @@ public class JobTitleDAO extends StOutDAO<JobTitle>{
     return list(namedQuery("edu.mtech.stout.core.JobTitle.getByUserId").setParameter(0, id));
   }
 
-  @Override
-  public boolean delete(int type) {
-    return false;
-  }
 }

@@ -14,26 +14,26 @@ import java.util.List;
 
 @Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
-public class CourseResourceList{
-	CourseDAO dao;
-	
-	public CourseResourceList(CourseDAO dao){
-		this.dao = dao;
-	}
-	
-	@POST
-	@RolesAllowed({"Program Coordinator"})
-	@UnitOfWork
-	public Course createCourse(Course course){
-		return dao.create(course);
-	}
-	
-	@GET
-	@RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
-	@UnitOfWork
-	public List<Course> getCourseList(){
-		return dao.findAll();
-	}
+public class CourseResourceList {
+  CourseDAO dao;
+
+  public CourseResourceList(CourseDAO dao) {
+    this.dao = dao;
+  }
+
+  @POST
+  @RolesAllowed({"Program Coordinator"})
+  @UnitOfWork
+  public Course createCourse(Course course) {
+    return dao.create(course);
+  }
+
+  @GET
+  @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
+  @UnitOfWork
+  public List<Course> getCourseList() {
+    return dao.findAll();
+  }
 	/*
 	@GET
 	@PermitAll

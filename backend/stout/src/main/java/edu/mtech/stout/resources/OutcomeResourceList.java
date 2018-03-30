@@ -33,7 +33,7 @@ public class OutcomeResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Outcome> getOutcomeList(){
+  public List<Outcome> getOutcomeList() {
     return dao.findAll();
   }
 

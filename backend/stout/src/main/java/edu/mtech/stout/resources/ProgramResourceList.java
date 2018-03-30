@@ -32,7 +32,7 @@ public class ProgramResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Program> getProgramList(){
+  public List<Program> getProgramList() {
     return dao.findAll();
   }
 

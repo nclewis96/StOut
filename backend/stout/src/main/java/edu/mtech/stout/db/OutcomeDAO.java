@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class OutcomeDAO extends StOutDAO<Outcome>{
+public class OutcomeDAO extends StOutDAO<Outcome> {
   public OutcomeDAO(SessionFactory factory) {
     super(factory);
   }
@@ -16,7 +16,7 @@ public class OutcomeDAO extends StOutDAO<Outcome>{
     List<Outcome> outcomeList = list(namedQuery("edu.mtech.stout.core.Outcome.findByName")
       .setParameter(0, name));
     Optional<Outcome> outcome = Optional.empty();
-    if(!outcomeList.isEmpty()){
+    if (!outcomeList.isEmpty()) {
       outcome = Optional.of(outcomeList.get(0));
     }
     return outcome;
@@ -26,8 +26,4 @@ public class OutcomeDAO extends StOutDAO<Outcome>{
     return list(namedQuery("edu.mtech.stout.core.Outcome.findAll"));
   }
 
-  @Override
-  public boolean delete(int type) {
-    return false;
-  }
 }

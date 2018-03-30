@@ -32,7 +32,7 @@ public class MetricResourceList {
   @GET
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
-  public List<Metric> getMetricList(){
+  public List<Metric> getMetricList() {
     return dao.findAll();
   }
 

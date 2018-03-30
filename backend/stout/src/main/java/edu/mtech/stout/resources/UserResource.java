@@ -2,10 +2,10 @@ package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.Status;
 import edu.mtech.stout.api.UserApi;
+import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.RoleDAO;
 import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
@@ -44,14 +44,14 @@ public class UserResource {
 
   @POST
   @UnitOfWork
-  public User updateUser(@PathParam("userId") LongParam userId, User user){
+  public User updateUser(@PathParam("userId") LongParam userId, User user) {
     return dao.update(user);
   }
 
   @DELETE
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
-  public Status deleteUser(@PathParam("userId") LongParam userId){
+  public Status deleteUser(@PathParam("userId") LongParam userId) {
     Status status = new Status();
     status.setId(userId.get().intValue());
     status.setAction("DELETE");
@@ -59,10 +59,10 @@ public class UserResource {
 
     boolean success = dao.delete(userId.get().intValue());
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted user");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting user");
       status.setStatus(500);
     }

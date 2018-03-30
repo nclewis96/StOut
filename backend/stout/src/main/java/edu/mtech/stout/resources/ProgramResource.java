@@ -35,14 +35,14 @@ public class ProgramResource {
   @POST
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Program updateProgram(@PathParam("programId") LongParam programId, Program program){
+  public Program updateProgram(@PathParam("programId") LongParam programId, Program program) {
     return dao.update(program);
   }
 
   @DELETE
   @RolesAllowed({"Admin"})
   @UnitOfWork
-  public Status deleteProgram(@PathParam("programId") LongParam programId){
+  public Status deleteProgram(@PathParam("programId") LongParam programId) {
     Status status = new Status();
     status.setId(programId.get().intValue());
     status.setAction("DELETE");
@@ -50,10 +50,10 @@ public class ProgramResource {
 
     boolean success = dao.delete(programId.get().intValue());
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted program");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting program");
       status.setStatus(500);
     }
