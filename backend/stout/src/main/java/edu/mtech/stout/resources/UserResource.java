@@ -15,7 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Optional;
 
-@Path("/user/{userId}")
+@Path("/users/{userId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 

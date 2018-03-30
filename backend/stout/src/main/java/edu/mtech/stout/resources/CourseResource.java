@@ -10,7 +10,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/course/{courseId}")
+@Path("/courses/{courseId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class CourseResource {
 

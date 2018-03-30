@@ -11,7 +11,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/program/{programId}")
+@Path("/programs/{programId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramResource {
 

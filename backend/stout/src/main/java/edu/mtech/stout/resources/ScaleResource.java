@@ -10,7 +10,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/scale/{scaleId}")
+@Path("/scales/{scaleId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class ScaleResource {
 

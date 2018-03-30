@@ -10,7 +10,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/assign/{assignId}")
+@Path("/assigns/{assignId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class AssignResource {
 
