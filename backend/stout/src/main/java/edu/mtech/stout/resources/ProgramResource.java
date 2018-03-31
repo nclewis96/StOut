@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Program;
 import edu.mtech.stout.db.ProgramDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
@@ -32,7 +33,7 @@ public class ProgramResource {
     return dao.findById(programId).orElseThrow(() -> new NotFoundException("No such program."));
   }
 
-  @POST
+  @PATCH
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Program updateProgram(@PathParam("programId") LongParam programId, Program program) {
@@ -48,7 +49,7 @@ public class ProgramResource {
     status.setAction("DELETE");
     status.setResource("Program");
 
-    boolean success = dao.delete(programId.get().intValue());
+    boolean success = dao.delete(findSafely(programId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted program");

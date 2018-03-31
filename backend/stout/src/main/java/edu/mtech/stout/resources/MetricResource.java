@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Metric;
 import edu.mtech.stout.db.MetricDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
@@ -30,7 +31,7 @@ public class MetricResource {
     return dao.findById(metricId).orElseThrow(() -> new NotFoundException("No such metric."));
   }
 
-  @POST
+  @PATCH
   @UnitOfWork
   public Metric updateMetric(@PathParam("metricId") LongParam metricId, Metric metric) {
     return dao.update(metric);
@@ -45,7 +46,7 @@ public class MetricResource {
     status.setAction("DELETE");
     status.setResource("Metric");
 
-    boolean success = dao.delete(metricId.get().intValue());
+    boolean success = dao.delete(findSafely(metricId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted metric");

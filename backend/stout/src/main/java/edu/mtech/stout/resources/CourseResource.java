@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Course;
 import edu.mtech.stout.db.CourseDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
@@ -31,7 +32,7 @@ public class CourseResource {
     return dao.findById(courseId).orElseThrow(() -> new NotFoundException("No such course."));
   }
 
-  @POST
+  @PATCH
   @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public Course updateCourse(@PathParam("courseId") LongParam courseId, Course course) {
@@ -47,7 +48,7 @@ public class CourseResource {
     status.setAction("DELETE");
     status.setResource("Course");
 
-    boolean success = dao.delete(courseId.get().intValue());
+    boolean success = dao.delete(findSafely(courseId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted course");

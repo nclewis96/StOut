@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Semester;
 import edu.mtech.stout.db.SemesterDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
@@ -30,7 +31,7 @@ public class SemesterResource {
     return dao.findById(semesterId).orElseThrow(() -> new NotFoundException("No such Semester."));
   }
 
-  @POST
+  @PATCH
   @UnitOfWork
   public Semester updateSemester(@PathParam("semesterId") LongParam semesterId, Semester semester) {
     return dao.update(semester);
@@ -45,7 +46,7 @@ public class SemesterResource {
     status.setAction("DELETE");
     status.setResource("Semester");
 
-    boolean success = dao.delete(semesterId.get().intValue());
+    boolean success = dao.delete(findSafely(semesterId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted semester");

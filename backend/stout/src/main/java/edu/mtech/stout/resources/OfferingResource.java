@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Offering;
 import edu.mtech.stout.db.OfferingDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
@@ -32,7 +33,7 @@ public class OfferingResource {
     return dao.findById(offeringId).orElseThrow(() -> new NotFoundException("No such offering."));
   }
 
-  @POST
+  @PATCH
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering) {
@@ -48,7 +49,7 @@ public class OfferingResource {
     status.setAction("DELETE");
     status.setResource("Offering");
 
-    boolean success = dao.delete(offeringId.get().intValue());
+    boolean success = dao.delete(findSafely(offeringId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted offering");

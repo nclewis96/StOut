@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Scale;
 import edu.mtech.stout.db.ScaleDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
@@ -30,7 +31,7 @@ public class ScaleResource {
     return dao.findById(scaleId).orElseThrow(() -> new NotFoundException("No such scale."));
   }
 
-  @POST
+  @PATCH
   @UnitOfWork
   public Scale updateScale(@PathParam("scaleId") LongParam scaleId, Scale scale) {
     return dao.update(scale);
@@ -45,7 +46,7 @@ public class ScaleResource {
     status.setAction("DELETE");
     status.setResource("Scale");
 
-    boolean success = dao.delete(scaleId.get().intValue());
+    boolean success = dao.delete(findSafely(scaleId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted scale");

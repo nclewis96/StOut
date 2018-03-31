@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.CoursePrefix;
 import edu.mtech.stout.db.CoursePrefixDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
@@ -30,7 +31,7 @@ public class CoursePrefixResource {
     return dao.findById(coursePrefixId).orElseThrow(() -> new NotFoundException("No such Course Prefix"));
   }
 
-  @POST
+  @PATCH
   @UnitOfWork
   public CoursePrefix updateCoursePrefix(@PathParam("coursePrefixId") LongParam coursePrefixId, CoursePrefix coursePref) {
     return dao.update(coursePref);
@@ -45,7 +46,7 @@ public class CoursePrefixResource {
     status.setAction("DELETE");
     status.setResource("CoursePrefix");
 
-    boolean success = dao.delete(coursePrefId.get().intValue());
+    boolean success = dao.delete(findSafely(coursePrefId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted Course Prefix");

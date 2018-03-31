@@ -7,6 +7,7 @@ import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.RoleDAO;
 import edu.mtech.stout.db.UserDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
@@ -42,7 +43,7 @@ public class UserResource {
     return dao.findById(userId).orElseThrow(() -> new NotFoundException("No such user."));
   }
 
-  @POST
+  @PATCH
   @UnitOfWork
   public User updateUser(@PathParam("userId") LongParam userId, User user) {
     return dao.update(user);
@@ -51,13 +52,13 @@ public class UserResource {
   @DELETE
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
-  public Status deleteUser(@PathParam("userId") LongParam userId) {
+  public Status deleteUser(User user) {
     Status status = new Status();
-    status.setId(userId.get().intValue());
+    status.setId(user.getId());
     status.setAction("DELETE");
     status.setResource("User");
 
-    boolean success = dao.delete(userId.get().intValue());
+    boolean success = dao.delete(user);
 
     if (success) {
       status.setMessage("Successfully deleted user");

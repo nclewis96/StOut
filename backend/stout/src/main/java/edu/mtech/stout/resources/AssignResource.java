@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Assign;
 import edu.mtech.stout.db.AssignDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
@@ -30,7 +31,7 @@ public class AssignResource {
     return dao.findById(assignId).orElseThrow(() -> new NotFoundException("No such Assign."));
   }
 
-  @POST
+  @PATCH
   @UnitOfWork
   public Assign updateAssign(@PathParam("assignId") LongParam assignId, Assign assign) {
     return dao.update(assign);
@@ -45,7 +46,7 @@ public class AssignResource {
     status.setAction("DELETE");
     status.setResource("Assign");
 
-    boolean success = dao.delete(assignId.get().intValue());
+    boolean success = dao.delete(findSafely(assignId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted assign");

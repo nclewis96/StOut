@@ -77,7 +77,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     // Configure CORS parameters
     cors.setInitParameter("allowedOrigins", "*");
     cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin, Authorization");
-    cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+    cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,PATCH,DELETE,HEAD");
 
     // Add URL mapping
     cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");

@@ -23,8 +23,8 @@ public class StOutDAO<Type> extends AbstractDAO<Type> {
     return persist(type);
   }
 
-  public boolean delete(int id) {
-    currentSession().delete(id);
+  public boolean delete(Type type) {
+    currentSession().delete(type);
     return true;
   }
 }

@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Outcome;
 import edu.mtech.stout.db.OutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
@@ -32,7 +33,7 @@ public class OutcomeResource {
     return dao.findById(outcomeId).orElseThrow(() -> new NotFoundException("No such outcome."));
   }
 
-  @POST
+  @PATCH
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
   public Outcome updateOutcome(@PathParam("outcomeId") LongParam outcomeId, Outcome outcome) {
@@ -48,7 +49,7 @@ public class OutcomeResource {
     status.setAction("DELETE");
     status.setResource("Outcome");
 
-    boolean success = dao.delete(outcomeId.get().intValue());
+    boolean success = dao.delete(findSafely(outcomeId.get().intValue()));
 
     if (success) {
       status.setMessage("Successfully deleted outcome");
