@@ -14,7 +14,7 @@ export default Route.extend({
 				sectionNum: 'test01',
 				locked: false,
 				numStudents: 7
-			});
+			}).save();
 		}
 	}
 });
