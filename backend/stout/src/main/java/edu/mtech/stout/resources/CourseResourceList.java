@@ -3,9 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.core.Course;
 import edu.mtech.stout.db.CourseDAO;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,26 +14,26 @@ import java.util.List;
 
 @Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
-public class CourseResourceList{
-	CourseDAO dao = null;
-	
-	public CourseResourceList(CourseDAO dao){
-		this.dao = dao;
-	}
-	
-	@POST
-	@RolesAllowed({"Program Coordinator"})
-	@UnitOfWork
-	public Course createCourse(Course course){
-		return dao.create(course);
-	}
-	
-	@GET
-	@RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
-	@UnitOfWork
-	public List<Course> getCourseList(){
-		return dao.findAll();
-	}
+public class CourseResourceList {
+  CourseDAO dao;
+
+  public CourseResourceList(CourseDAO dao) {
+    this.dao = dao;
+  }
+
+  @POST
+  @RolesAllowed({"Program Coordinator"})
+  @UnitOfWork
+  public Course createCourse(Course course) {
+    return dao.create(course);
+  }
+
+  @GET
+  @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
+  @UnitOfWork
+  public List<Course> getCourseList() {
+    return dao.findAll();
+  }
 	/*
 	@GET
 	@PermitAll

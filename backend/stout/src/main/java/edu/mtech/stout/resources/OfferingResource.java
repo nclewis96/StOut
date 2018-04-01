@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Offering;
 import edu.mtech.stout.db.OfferingDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
@@ -11,11 +12,11 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/offering/{offeringId}")
+@Path("/offerings/{offeringId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class OfferingResource {
 
-  OfferingDAO dao = null;
+  OfferingDAO dao;
 
   public OfferingResource(OfferingDAO dao) {
     this.dao = dao;
@@ -32,28 +33,28 @@ public class OfferingResource {
     return dao.findById(offeringId).orElseThrow(() -> new NotFoundException("No such offering."));
   }
 
-  @POST
+  @PATCH
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering){
+  public Offering updateOffering(@PathParam("offeringId") LongParam offeringId, Offering offering) {
     return dao.update(offering);
   }
 
   @DELETE
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Status deleteOffering(@PathParam("offeringId") LongParam offeringId){
+  public Status deleteOffering(@PathParam("offeringId") LongParam offeringId) {
     Status status = new Status();
     status.setId(offeringId.get().intValue());
     status.setAction("DELETE");
     status.setResource("Offering");
 
-    boolean success = dao.delete(offeringId.get().intValue());
+    boolean success = dao.delete(findSafely(offeringId.get().intValue()));
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted offering");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting offering");
       status.setStatus(500);
     }

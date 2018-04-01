@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class MetricDAO extends StOutDAO<Metric>{
+public class MetricDAO extends StOutDAO<Metric> {
   public MetricDAO(SessionFactory factory) {
     super(factory);
   }
@@ -16,7 +16,7 @@ public class MetricDAO extends StOutDAO<Metric>{
     List<Metric> metricList = list(namedQuery("edu.mtech.stout.core.Metric.findByCourse")
       .setParameter(0, courseId));
     Optional<Metric> metric = Optional.empty();
-    if(!metricList.isEmpty()){
+    if (!metricList.isEmpty()) {
       metric = Optional.of(metricList.get(0));
     }
     return metric;

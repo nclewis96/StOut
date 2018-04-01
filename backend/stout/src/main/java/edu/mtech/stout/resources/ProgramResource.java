@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Program;
 import edu.mtech.stout.db.ProgramDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
@@ -11,11 +12,11 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/program/{programId}")
+@Path("/programs/{programId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramResource {
 
-  ProgramDAO dao = null;
+  ProgramDAO dao;
 
   public ProgramResource(ProgramDAO dao) {
     this.dao = dao;
@@ -32,28 +33,28 @@ public class ProgramResource {
     return dao.findById(programId).orElseThrow(() -> new NotFoundException("No such program."));
   }
 
-  @POST
+  @PATCH
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Program updateProgram(@PathParam("programId") LongParam programId, Program program){
+  public Program updateProgram(@PathParam("programId") LongParam programId, Program program) {
     return dao.update(program);
   }
 
   @DELETE
   @RolesAllowed({"Admin"})
   @UnitOfWork
-  public Status deleteProgram(@PathParam("programId") LongParam programId){
+  public Status deleteProgram(@PathParam("programId") LongParam programId) {
     Status status = new Status();
     status.setId(programId.get().intValue());
     status.setAction("DELETE");
     status.setResource("Program");
 
-    boolean success = dao.delete(programId.get().intValue());
+    boolean success = dao.delete(findSafely(programId.get().intValue()));
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted program");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting program");
       status.setStatus(500);
     }

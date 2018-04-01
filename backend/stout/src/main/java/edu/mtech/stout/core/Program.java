@@ -26,7 +26,7 @@ import java.util.Objects;
     )
   })
 
-public class Program{
+public class Program {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
