@@ -45,11 +45,11 @@ public class OfferingResource {
   @UnitOfWork
   public Status deleteOffering(@PathParam("offeringId") LongParam offeringId) {
     Status status = new Status();
-    status.setId(offeringId.get().intValue());
+    status.setId(offeringId.get());
     status.setAction("DELETE");
     status.setResource("Offering");
 
-    boolean success = dao.delete(findSafely(offeringId.get().intValue()));
+    boolean success = dao.delete(findSafely(offeringId.get()));
 
     if (success) {
       status.setMessage("Successfully deleted offering");
