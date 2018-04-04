@@ -4,16 +4,16 @@ export default Route.extend({
 	model() {
 		return this.get('store').findAll('offering');
 	},
-	
+
 	actions: {
-		addRecord() {
+		addOffering() {
 			this.get('store').createRecord('offering', {
-				courseId: 1,
-				instructorId: 2,
-				semesterId: 3,
-				sectionNum: 'test01',
+				courseId: '',
+				instructorId: '',
+				semesterId: '',
+				sectionNum: '',
 				locked: false,
-				numStudents: 7
+				numStudents: ''
 			});
 		}
 	}

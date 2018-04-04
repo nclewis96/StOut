@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+
 const { Component, String: {w}, computed, computed:{equal}, getProperties, } = Ember;
 export default Component.extend({
 	saved: false,
@@ -8,7 +8,7 @@ model:{
 
 	offering_id: null,
 	outcome_id: null,
-	student_id: null,	
+	student_id: null,
 	score: null,
 },
 
@@ -48,13 +48,13 @@ actions: {
  * @return {void}
  */
 const handleFormSubmit = event => {
-  
+
   // Stop the form from submitting since we’re handling that with AJAX.
   event.preventDefault();
 
-  
+
   console.log(JSON.stringify(model, null, "  "));
-  
+
   // ...this is where we’d actually do something with the form data...
 };
 
