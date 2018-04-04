@@ -17,7 +17,7 @@ public class Scale {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "scale_id")
-  private long scaleId;
+  private long id;
   @Column(name = "name")
   private String name;
   @Column(name = "desc")

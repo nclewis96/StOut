@@ -39,7 +39,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     new HibernateBundle<StOutConfiguration>(User.class, Role.class, Assign.class,
       Metric.class, Offering.class, Outcome.class, Program.class,
       Scale.class, Semester.class, Course.class, JobTitle.class,
-            CoursePrefix.class) {
+      CoursePrefix.class) {
 
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
@@ -77,7 +77,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     // Configure CORS parameters
     cors.setInitParameter("allowedOrigins", "*");
     cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin, Authorization");
-    cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+    cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,PATCH,DELETE,HEAD");
 
     // Add URL mapping
     cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
@@ -96,7 +96,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final ScaleDAO scaleDao = new ScaleDAO(hibernateBundle.getSessionFactory());
     final SemesterDAO semesterDao = new SemesterDAO(hibernateBundle.getSessionFactory());
     final RoleDAO roleDao = new RoleDAO(hibernateBundle.getSessionFactory());
-	final CourseDAO courseDao = new CourseDAO(hibernateBundle.getSessionFactory());
+    final CourseDAO courseDao = new CourseDAO(hibernateBundle.getSessionFactory());
     final JobTitleDAO jobTitleDAO = new JobTitleDAO(hibernateBundle.getSessionFactory());
     final CoursePrefixDAO courseprefixDAO = new CoursePrefixDAO(hibernateBundle.getSessionFactory());
 
@@ -129,17 +129,17 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new OfferingResourceList(offeringDao));
     environment.jersey().register(new OutcomeResource(outcomeDao));
     environment.jersey().register(new OutcomeResourceList(outcomeDao));
-	environment.jersey().register(new AssignResource(assignDao));
+    environment.jersey().register(new AssignResource(assignDao));
     environment.jersey().register(new AssignResourceList(assignDao));
-	environment.jersey().register(new MetricResource(metricDao));
+    environment.jersey().register(new MetricResource(metricDao));
     environment.jersey().register(new MetricResourceList(metricDao));
-	environment.jersey().register(new SemesterResource(semesterDao));
+    environment.jersey().register(new SemesterResource(semesterDao));
     environment.jersey().register(new SemesterResourceList(semesterDao));
-	environment.jersey().register(new ScaleResource(scaleDao));
+    environment.jersey().register(new ScaleResource(scaleDao));
     environment.jersey().register(new ScaleResourceList(scaleDao));
-	environment.jersey().register(new CourseResource(courseDao));
-	environment.jersey().register(new CourseResourceList(courseDao));
-	environment.jersey().register(new CoursePrefixResource(courseprefixDAO));
+    environment.jersey().register(new CourseResource(courseDao));
+    environment.jersey().register(new CourseResourceList(courseDao));
+    environment.jersey().register(new CoursePrefixResource(courseprefixDAO));
     environment.jersey().register(new CoursePrefixResourceList(courseprefixDAO));
   }
 }

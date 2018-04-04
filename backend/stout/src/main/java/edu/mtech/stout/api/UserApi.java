@@ -1,8 +1,9 @@
 package edu.mtech.stout.api;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.mtech.stout.core.JobTitle;
 import edu.mtech.stout.core.Role;
 import edu.mtech.stout.core.User;
-import edu.mtech.stout.core.JobTitle;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.RoleDAO;
 
@@ -21,7 +22,7 @@ public class UserApi {
   @JsonProperty
   private List<Role> roleList;
 
-  public User toUser(){
+  public User toUser() {
     User user = new User();
     user.setId(id);
     user.setName(name);
@@ -30,7 +31,7 @@ public class UserApi {
     return user;
   }
 
-  public UserApi(User user, JobTitle jobTitle, List<Role> roleList){
+  public UserApi(User user, JobTitle jobTitle, List<Role> roleList) {
     setup(user, jobTitle, roleList);
   }
 
@@ -41,6 +42,7 @@ public class UserApi {
   public void setRoleList(List<Role> roleList) {
     this.roleList = roleList;
   }
+
   public long getId() {
     return id;
   }
@@ -73,18 +75,18 @@ public class UserApi {
     this.jobTitle = jobTitle;
   }
 
-  public UserApi(Optional<User> user, RoleDAO roleDao, JobTitleDAO jobTitleDAO){
+  public UserApi(Optional<User> user, RoleDAO roleDao, JobTitleDAO jobTitleDAO) {
     User currentUser = user.get();
     List<Role> roleList = roleDao.getByUserId(currentUser.getId());
     List<JobTitle> jobTitleList = jobTitleDAO.getByUserId(currentUser.getId());
     JobTitle title = null;
-    if(jobTitleList.size() > 0){
+    if (jobTitleList.size() > 0) {
       title = jobTitleList.get(0);
     }
     setup(currentUser, title, roleList);
   }
 
-  private void setup(User user, JobTitle jobTitle, List<Role> roleList){
+  private void setup(User user, JobTitle jobTitle, List<Role> roleList) {
     id = user.getId();
     name = user.getName();
     username = user.getUsername();
