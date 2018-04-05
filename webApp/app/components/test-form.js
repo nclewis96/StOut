@@ -1,18 +1,28 @@
-
 const { Component, String: {w}, computed, computed:{equal}, getProperties, } = Ember;
+
 export default Component.extend({
 	saved: false,
+	showFaculty: equal('model.userType', 'faculty'),
+	showAdmin: equal('model.userType','admin'),
   classNames: ['container'],
 
-model:{
 
-	offering_id: null,
-	outcome_id: null,
-	student_id: null,
-	score: null,
-},
+statusTypes: [
+
+	{label:'Active', value: 'active'},
+	{label:'Unactive', value: 'unactive'},
+
+],
 
 
+
+
+userTypes: [
+	{label: 'Faculty', value:'faculty'},
+	{label:	'Admin', value:'admin'},
+        {label: 'Observer', value:'observer'},
+
+],
 
 
 rules: computed('showAdmin', 'showFaculty', function() {
@@ -23,23 +33,14 @@ const additionalField = showFaculty ? 'companyName' : 'universityName';
 return{
 
 sharedValidation: {
-	required: w('offering_id outcome_id student_id userType ${additionalField}'),
+	required: w('courseId instructorId semesterId sectionNum locked numStudents'),
 },
 
 }
 
 }),
 
-actions: {
-	submit() {
-		this.set('saved', true);
-		console.log("json:");
-		console.log(JSON.stringify(this.model, null, "  "));
-	}
-}
-
 });
-
 
 
 /**
@@ -53,8 +54,7 @@ const handleFormSubmit = event => {
   event.preventDefault();
 
 
-  console.log(JSON.stringify(model, null, "  "));
+  console.log(JSON.stringify(data, null, "  "));
 
   // ...this is where we’d actually do something with the form data...
 };
-

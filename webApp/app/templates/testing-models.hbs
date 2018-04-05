@@ -1,11 +1,9 @@
+<button {{action 'addOffering'}}>
+	Add
+</button>
 
-{{#each model as |offering|}}
- <h3>{{offering.id}}</h3>
- <h3>{{offering.courseId}}</h3>
- <h3>{{offering.instructorId}}</h3>
- <h3>{{offering.semesterId}}</h3>
- <h3>{{offering.sectionNum}}</h3>
- <h3>{{offering.locked}}</h3>
- <h3>{{offering.numStudents}}</h3>
-{{/each}}
+	{{#test-form data=model as |data|}}
+    <p>{{data.courseId}}</p>
+    <button {{action 'submitRecord' data}}> Submit </button>
+  {{/test-form}}
 {{outlet}}
