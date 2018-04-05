@@ -14,8 +14,18 @@
     <button {{action 'submitRecord' data}}> Submit </button>
   {{/test-form}}
 
+  {{#each model.users as |user|}}
+    {{#form-user data=user as |data|}}
+      <p> I'm a user user :3</p>
+      <button {{action 'submitRecord' data}}> Submit </button>
+    {{/form-user}}
+  {{/each}}
 
-	
+  {{#form-user data=model.user as |data|}}
+    <p> I'm a user :3</p>
+    <button {{action 'submitRecord' data}}> Submit </button>
+  {{/form-user}}
+
 
 
 

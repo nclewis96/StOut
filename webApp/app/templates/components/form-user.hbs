@@ -1,0 +1,30 @@
+{{#lf-form rules=rules}}
+
+  {{lf-input
+
+    name="Name"
+    label="Name"
+    property=data.name
+    on-update=(action (mut data.name))
+    validate=validate
+  }}
+
+  {{lf-input
+    name="username"
+    label="Username"
+    property=data.username
+    on-update=(action (mut data.username))
+    validate=validate
+  }}
+
+
+  {{lf-input
+    label="jobTitle"
+    name="Job Title"
+    property=data.jobTitle
+    on-update=(action (mut data.jobTitle))
+    validate=validate
+  }}
+
+{{/lf-form}}
+{{yield data}}
