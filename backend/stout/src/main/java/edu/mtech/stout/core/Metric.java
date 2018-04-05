@@ -22,18 +22,18 @@ public class Metric {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "metric_id")
-  private long metricId;
+  private long id;
   @Column(name = "program_id")
   private long programId;
   @Column(name = "name")
   private String name;
 
-  public long getMetricId() {
-    return metricId;
+  public long getId() {
+    return id;
   }
 
-  public void setMetricId(long id) {
-    this.metricId = id;
+  public void setId(long id) {
+    this.id = id;
   }
 
   public long getProgramId() {
@@ -63,12 +63,12 @@ public class Metric {
 
     final Metric that = (Metric) o;
 
-    return Objects.equals(this.metricId, that.metricId) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(metricId, name, programId);
+    return Objects.hash(id, name, programId);
   }
 }

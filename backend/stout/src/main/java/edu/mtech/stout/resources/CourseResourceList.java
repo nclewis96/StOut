@@ -7,7 +7,6 @@ import edu.mtech.stout.db.ProgramDAO;
 import edu.mtech.stout.db.UserDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -17,6 +16,7 @@ import java.util.List;
 
 @Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
+<<<<<<< HEAD
 public class CourseResourceList{
 	CourseDAO dao = null;
 	ProgramDAO programDao = null;
@@ -34,7 +34,6 @@ public class CourseResourceList{
 	public Course createCourse(Course course){
 		return dao.create(course);
 	}
-	
 
 	@GET
 	@RolesAllowed({"Admin", "Program Coordinator", "Faculty"})

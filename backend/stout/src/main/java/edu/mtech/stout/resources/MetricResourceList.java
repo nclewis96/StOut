@@ -18,8 +18,12 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class MetricResourceList {
 
+<<<<<<< HEAD
   MetricDAO dao = null;
   ProgramDAO programDao = null;
+=======
+  MetricDAO dao;
+>>>>>>> 61907cf4c43e9aff70c7ae043ca1bc36d8afda53
 
   public MetricResourceList(MetricDAO dao, ProgramDAO programDao) {
     this.dao = dao;
@@ -35,7 +39,7 @@ public class MetricResourceList {
 
   @GET
   @RolesAllowed({"Admin", "Program Coordinator"})
-@UnitOfWork
+  @UnitOfWork
   public List<Metric> getMetricList(@Auth User user, @QueryParam("programId") LongParam programId){
     HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getUserId());
 
@@ -49,6 +53,6 @@ public class MetricResourceList {
       return dao.findAll();
     }
 
-  }
+
 
 }

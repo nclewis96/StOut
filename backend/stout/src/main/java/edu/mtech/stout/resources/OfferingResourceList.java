@@ -19,6 +19,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OfferingResourceList {
 
+
   OfferingDAO dao = null;
   ProgramDAO programDao = null;
 
@@ -50,6 +51,5 @@ public class OfferingResourceList {
       return dao.findAll();
     }
 
-  }
 
 }

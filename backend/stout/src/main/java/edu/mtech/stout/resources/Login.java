@@ -1,24 +1,20 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.AuthenticationObject;
+import edu.mtech.stout.api.Ticket;
+import edu.mtech.stout.api.UserApi;
+import edu.mtech.stout.client.CASValidator;
+import edu.mtech.stout.core.User;
+import edu.mtech.stout.db.JobTitleDAO;
+import edu.mtech.stout.db.RoleDAO;
+import edu.mtech.stout.db.UserDAO;
+import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.NonEmptyStringParam;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-
-import edu.mtech.stout.api.AuthenticationObject;
-import edu.mtech.stout.api.UserApi;
-import edu.mtech.stout.client.CASValidator;
-import edu.mtech.stout.api.Ticket;
-import edu.mtech.stout.core.JobTitle;
-import edu.mtech.stout.core.Role;
-import edu.mtech.stout.core.User;
-import edu.mtech.stout.db.JobTitleDAO;
-import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.db.RoleDAO;
-import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.NonEmptyStringParam;
-
-import java.util.List;
 import java.util.Optional;
 
 @Path("/login/")
@@ -48,7 +44,7 @@ public class Login {
       Optional<User> user = userDao.findByUsername(username);
       if (username == null) {
         return null;
-      }else if(!user.isPresent()){
+      } else if (!user.isPresent()) {
         throw new ForbiddenException();
       }
       auth.setUsername(username);
@@ -60,7 +56,7 @@ public class Login {
       auth.setJwt(ticket.getJwt());
       auth.setUsername(auth.retrieveUsername());
       Optional<User> user = userDao.findByUsername(auth.getUsername());
-      if(!user.isPresent()){
+      if (!user.isPresent()) {
         throw new ForbiddenException();
       }
       auth.createJwt();
@@ -80,7 +76,7 @@ public class Login {
     AuthenticationObject auth = new AuthenticationObject();
     String user = token.retrieveUsername();
     Optional<User> userObj = userDao.findByUsername(user);
-    if(!userObj.isPresent()){
+    if (!userObj.isPresent()) {
       throw new ForbiddenException();
     }
     if (user != null) {

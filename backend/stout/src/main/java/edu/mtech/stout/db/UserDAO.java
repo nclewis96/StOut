@@ -14,17 +14,24 @@ public class UserDAO extends StOutDAO<User> {
 
   public Optional<User> findByUsername(String username) {
     List<User> userList = list(namedQuery("edu.mtech.stout.core.User.findByUsername")
-                        .setParameter(0, username));
+      .setParameter(0, username));
     Optional<User> user = Optional.empty();
-    if(!userList.isEmpty()){
+    if (!userList.isEmpty()) {
       user = Optional.of(userList.get(0));
     }
     return user;
   }
+<<<<<<< HEAD
   public List<User> findByProgramId(Long programId) {
+=======
+
+  public List<User> findbyProgram(Long programId) {
+>>>>>>> 61907cf4c43e9aff70c7ae043ca1bc36d8afda53
     return list(namedQuery("edu.mtech.stout.core.User.findByProgramId").setParameter(0, programId));
   }
+
   public List<User> findAll() {
     return list(namedQuery("edu.mtech.stout.core.User.findAll"));
   }
+
 }

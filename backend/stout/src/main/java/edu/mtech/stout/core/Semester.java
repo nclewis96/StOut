@@ -17,18 +17,18 @@ public class Semester {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "semester_id")
-  private long semesterId;
+  private long id;
   @Column(name = "semester_type_id")
   private long typeId;
   @Column(name = "year")
   private int year;
 
-  public long getSemesterId() {
-    return semesterId;
+  public long getId() {
+    return id;
   }
 
-  public void setSemesterId(long id) {
-    this.semesterId = id;
+  public void setId(long id) {
+    this.id = id;
   }
 
   public long getTypeId() {
@@ -58,12 +58,12 @@ public class Semester {
 
     final Semester that = (Semester) o;
 
-    return Objects.equals(this.semesterId, that.semesterId) &&
+    return Objects.equals(this.id, that.id) &&
       Objects.equals(this.year, that.year);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(semesterId, year, typeId);
+    return Objects.hash(id, year, typeId);
   }
 }

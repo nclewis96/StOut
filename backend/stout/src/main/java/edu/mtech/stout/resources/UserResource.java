@@ -2,28 +2,26 @@ package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.Status;
 import edu.mtech.stout.api.UserApi;
-import edu.mtech.stout.core.JobTitle;
-import edu.mtech.stout.core.Role;
+import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.JobTitleDAO;
 import edu.mtech.stout.db.RoleDAO;
 import edu.mtech.stout.db.UserDAO;
-import edu.mtech.stout.core.User;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 import java.util.Optional;
 
-@Path("/user/{userId}")
+@Path("/users/{userId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-  UserDAO dao = null;
-  RoleDAO roleDao = null;
+  UserDAO dao;
+  RoleDAO roleDao;
   JobTitleDAO jobTitleDAO;
 
   public UserResource(UserDAO dao, JobTitleDAO jobTitleDAO, RoleDAO roleDao) {
@@ -36,7 +34,7 @@ public class UserResource {
   @PermitAll
   @UnitOfWork
   public UserApi getUser(@PathParam("userId") LongParam userId) {
-    Optional<User> user = Optional.empty();
+    Optional<User> user;
     user = Optional.of(findSafely(userId.get()));
     return new UserApi(user, roleDao, jobTitleDAO);
   }
@@ -45,27 +43,27 @@ public class UserResource {
     return dao.findById(userId).orElseThrow(() -> new NotFoundException("No such user."));
   }
 
-  @POST
+  @PATCH
   @UnitOfWork
-  public User updateUser(@PathParam("userId") LongParam userId, User user){
+  public User updateUser(@PathParam("userId") LongParam userId, User user) {
     return dao.update(user);
   }
 
   @DELETE
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
-  public Status deleteUser(@PathParam("userId") LongParam userId){
+  public Status deleteUser(User user) {
     Status status = new Status();
-    status.setId(userId.get().intValue());
+    status.setId(user.getId());
     status.setAction("DELETE");
     status.setResource("User");
 
-    boolean success = dao.delete(userId.get().intValue());
+    boolean success = dao.delete(user);
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted user");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting user");
       status.setStatus(500);
     }
