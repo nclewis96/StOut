@@ -17,14 +17,8 @@
     validate=validate
   }}
 
-
-  {{lf-input
-    label="jobTitle"
-    name="Job Title"
-    property=data.jobTitle
-    on-update=(action (mut data.jobTitle))
-    validate=validate
-  }}
-
 {{/lf-form}}
+
+  <p>{{data}}</p>
+
 {{yield data}}

@@ -3,6 +3,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   name: DS.attr('string'),
   username: DS.attr('string'),
-  jobTitle: DS.attr('number')
+  jobTitle: DS.belongsTo('jobTitle'),
+  roleList: DS.hasMany('roleList')
 
 });
