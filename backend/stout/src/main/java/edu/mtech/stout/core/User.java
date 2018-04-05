@@ -1,8 +1,8 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.security.Principal;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -89,7 +89,6 @@ public class User implements Principal {
   public void setJobTitle(long jobTitle) {
     this.jobTitle = jobTitle;
   }
-
 
 
   @Override

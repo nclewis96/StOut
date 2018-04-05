@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class AssignDAO extends StOutDAO<Assign>{
+public class AssignDAO extends StOutDAO<Assign> {
   public AssignDAO(SessionFactory factory) {
     super(factory);
   }
@@ -16,7 +16,7 @@ public class AssignDAO extends StOutDAO<Assign>{
     List<Assign> assignList = list(namedQuery("edu.mtech.stout.core.Assign.findByCourse")
       .setParameter(0, courseId));
     Optional<Assign> assign = Optional.empty();
-    if(!assignList.isEmpty()){
+    if (!assignList.isEmpty()) {
       assign = Optional.of(assignList.get(0));
     }
     return assign;

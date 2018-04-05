@@ -25,7 +25,7 @@ public class CASValidator {
     Invocation.Builder invocationBuilder = webResource.request(MediaType.APPLICATION_JSON);
     Response response = invocationBuilder.get();
     String casResponse = response.readEntity(String.class);
-    if (casResponse.indexOf("<cas:user>") < 0) {
+    if (!casResponse.contains("<cas:user>")) {
       return null;
     }
     casResponse = casResponse.substring(casResponse.indexOf("<cas:user>") + 10, casResponse.indexOf("</cas:user>"));
