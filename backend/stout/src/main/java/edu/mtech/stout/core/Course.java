@@ -5,20 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Course")
 @NamedNativeQueries(
-<<<<<<< HEAD
-{
-	@NamedNativeQuery(
-		name = "edu.mtech.stout.core.Course.findAll",
-		query = "SELECT * FROM Course",
-		resultClass = Course.class
-	),
-	@NamedNativeQuery(
-		name = "edu.mtech.stout.core.Course.findByProgramId",
-		query = "SELECT * FROM Course WHERE program_id = ?",
-		resultClass = Course.class
-	)
-})
-=======
+
   {
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Course.findAll",
@@ -31,7 +18,6 @@ import javax.persistence.*;
       resultClass = Course.class
     )
   })
->>>>>>> 61907cf4c43e9aff70c7ae043ca1bc36d8afda53
 
 public class Course {
   @Id

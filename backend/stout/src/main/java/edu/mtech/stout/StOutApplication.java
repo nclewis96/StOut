@@ -131,27 +131,16 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new OutcomeResourceList(outcomeDao));
     environment.jersey().register(new AssignResource(assignDao));
     environment.jersey().register(new AssignResourceList(assignDao));
-<<<<<<< HEAD
 	environment.jersey().register(new MetricResource(metricDao));
     environment.jersey().register(new MetricResourceList(metricDao, programDao));
 	environment.jersey().register(new SemesterResource(semesterDao));
-=======
-    environment.jersey().register(new MetricResource(metricDao));
-    environment.jersey().register(new MetricResourceList(metricDao));
-    environment.jersey().register(new SemesterResource(semesterDao));
->>>>>>> 61907cf4c43e9aff70c7ae043ca1bc36d8afda53
+
     environment.jersey().register(new SemesterResourceList(semesterDao));
     environment.jersey().register(new ScaleResource(scaleDao));
     environment.jersey().register(new ScaleResourceList(scaleDao));
-<<<<<<< HEAD
 	environment.jersey().register(new CourseResource(courseDao));
 	environment.jersey().register(new CourseResourceList(courseDao, programDao, userDao));
 	environment.jersey().register(new CoursePrefixResource(courseprefixDAO));
-=======
-    environment.jersey().register(new CourseResource(courseDao));
-    environment.jersey().register(new CourseResourceList(courseDao));
-    environment.jersey().register(new CoursePrefixResource(courseprefixDAO));
->>>>>>> 61907cf4c43e9aff70c7ae043ca1bc36d8afda53
     environment.jersey().register(new CoursePrefixResourceList(courseprefixDAO));
   }
 }
