@@ -2,12 +2,14 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
 	model() {
-	  if (this.store.peekRecord('offering',1) === null)
-		return this.get('store').findRecord('offering', 1);
+    return Ember.RSVP.hash({
+      offerings: this.store.findAll('offering'),
+      offering: this.store.findRecord('offering', 1)
+    });
 	},
 
 	actions: {
-		addRecord() {
+    addOffering() {
       this.get('store').createRecord('offering', {
         courseId: '',
         instructorId: '',
@@ -19,6 +21,9 @@ export default Route.extend({
     },
     submitRecord(data) {
 		  data.save();
+    },
+    deleteRecord(data) {
+		  data.destroyRecord();
     }
 	}
 });

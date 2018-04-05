@@ -1,9 +1,16 @@
 <button {{action 'addOffering'}}>
-	Add
+	Add Offering
 </button>
+  {{#each model.offerings as |offering|}}
+    {{#test-form data=offering as |data|}}
+      <p>We're the findAll</p>
+      <button {{action 'submitRecord' data}}> Submit </button>
+      <button {{action 'deleteRecord' data}}> Delete </button>
+    {{/test-form}}
+  {{/each}}
 
-	{{#test-form data=model as |data|}}
-    <p>{{data.courseId}}</p>
+  {{#test-form data=model.offering as |data|}}
+    <p> I am the get </p>
     <button {{action 'submitRecord' data}}> Submit </button>
   {{/test-form}}
 {{outlet}}
