@@ -13,7 +13,7 @@ import javax.persistence.*;
       resultClass = Course.class
     ),
     @NamedNativeQuery(
-      name = "edu.mtech.stout.core.Course.findByProgram",
+      name = "edu.mtech.stout.core.Course.findByProgramId",
       query = "SELECT * FROM Course WHERE program_id = ?",
       resultClass = Course.class
     )
