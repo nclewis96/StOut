@@ -19,6 +19,7 @@
 
 {{/lf-form}}
 
-  <p>{{data}}</p>
+<button {{action 'removeConnection' data}}> console log attributes.</button>
+<div>{{data.jobTitle}}</div>
 
 {{yield data}}
