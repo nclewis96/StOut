@@ -25,4 +25,9 @@ public class MetricDAO extends StOutDAO<Metric> {
   public List<Metric> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Metric.findAll"));
   }
+
+  public List<Metric> findByProgramId(long programId){
+    List<Metric> metricList = list(namedQuery("edu.mtech.stout.core.Metric.findByProgramId").setParameter(0,programId));
+    return metricList;
+  }
 }

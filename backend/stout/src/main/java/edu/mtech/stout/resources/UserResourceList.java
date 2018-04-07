@@ -49,7 +49,7 @@ public class UserResourceList {
     List<User> userCoreList;
     if (programId != null) {
       if (programAccessList.contains(programId.get())) {
-        userCoreList = dao.findbyProgram(programId.get());
+        userCoreList = dao.findByProgramId(programId.get());
       } else {
         throw new ForbiddenException();
       }
