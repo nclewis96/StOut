@@ -17,9 +17,22 @@
     validate=validate
   }}
 
+  {{lf-input
+    name="jobTitle"
+    label="Job Title"
+    property=data.jobTitle.title
+    on-update=(action (mut data.jobTitle.title))
+    validate=validate
+  }}
+  
+  {{#each data.roleList as |role|}}
+	name="roleName"
+    label="Role"
+    property=role.name
+    on-update=(action (mut role.name))
+    validate=validate
+  {{/each}}
+  
 {{/lf-form}}
-
-<button {{action 'removeConnection' data}}> console log attributes.</button>
-<div>{{data.jobTitle}}</div>
 
 {{yield data}}

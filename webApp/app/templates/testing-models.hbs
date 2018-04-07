@@ -1,6 +1,9 @@
 <button {{action 'addOffering'}}>
 	Add Offering
 </button>
+<button {{action 'addUser'}}>
+	Add User
+</button>
   {{#each model.offerings as |offering|}}
     {{#test-form data=offering as |data|}}
       <p>We're the findAll</p>

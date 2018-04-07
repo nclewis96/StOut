@@ -6,17 +6,16 @@ export default Component.extend({
   actions: {
     removeConnection(data) {
       var store = this.get('store');
-      data.eachAttribute(function(name,meta) {
-        console.log(name, meta);
-      });
-      data.eachRelationship(function(name,descriptor) {
-        console.log(name, descriptor);
-        console.log(store.peekRecord('jobTitle', 1));
-      });
     },
     addJobTitle(data) {
+	  var store = this.get('store');
       let jobTitle = store.findRecord('jobTitle',1);
       data.get('jobTitle').pushObject(jobTitle);
+    },
+	addRole(data) {
+	  var store = this.get('store');
+      let roleList = store.findRecord('role',1);
+      data.get('roleList').pushObject(roleList);
     }
 
   }

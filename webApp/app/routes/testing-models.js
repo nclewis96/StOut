@@ -11,7 +11,6 @@ export default Route.extend({
 	},
 
 	actions: {
-
     addOffering() {
       this.get('store').createRecord('offering', {
         courseId: '',
@@ -22,6 +21,12 @@ export default Route.extend({
         numStudents: ''
       });
     },
+	addUser() {
+	  this.get('store').createRecord('user', {
+		    name: '',
+			username: ''
+	  });
+	},
     submitRecord(data) {
 		  data.save();
     },
