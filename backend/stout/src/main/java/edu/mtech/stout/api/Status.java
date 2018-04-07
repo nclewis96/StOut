@@ -10,7 +10,7 @@ public class Status {
   @JsonProperty
   String action;
   @JsonProperty
-  int id;
+  long id;
 
   public int getStatus() {
     return status;
@@ -47,11 +47,11 @@ public class Status {
     this.action = action;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 }

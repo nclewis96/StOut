@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class JobTitleDAO extends StOutDAO<JobTitle>{
+public class JobTitleDAO extends StOutDAO<JobTitle> {
   public JobTitleDAO(SessionFactory factory) {
     super(factory);
   }
@@ -17,4 +17,5 @@ public class JobTitleDAO extends StOutDAO<JobTitle>{
   public List<JobTitle> getByUserId(long id) {
     return list(namedQuery("edu.mtech.stout.core.JobTitle.getByUserId").setParameter(0, id));
   }
+
 }

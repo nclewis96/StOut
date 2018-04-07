@@ -17,7 +17,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ScaleResourceList {
 
-  ScaleDAO dao = null;
+  ScaleDAO dao;
 
   public ScaleResourceList(ScaleDAO dao) {
     this.dao = dao;
@@ -33,7 +33,7 @@ public class ScaleResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Scale> getScaleList(){
+  public List<Scale> getScaleList() {
     return dao.findAll();
   }
 

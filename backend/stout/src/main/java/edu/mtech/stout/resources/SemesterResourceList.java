@@ -5,7 +5,6 @@ import edu.mtech.stout.db.SemesterDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,7 +16,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class SemesterResourceList {
 
-  SemesterDAO dao = null;
+  SemesterDAO dao;
 
   public SemesterResourceList(SemesterDAO dao) {
     this.dao = dao;
@@ -33,7 +32,7 @@ public class SemesterResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Semester> getOfferingList(){
+  public List<Semester> getOfferingList() {
     return dao.findAll();
   }
 

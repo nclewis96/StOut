@@ -4,6 +4,7 @@ import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Outcome;
 import edu.mtech.stout.db.OutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
@@ -15,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeResource {
 
-  OutcomeDAO dao = null;
+  OutcomeDAO dao;
 
   public OutcomeResource(OutcomeDAO dao) {
     this.dao = dao;
@@ -32,28 +33,28 @@ public class OutcomeResource {
     return dao.findById(outcomeId).orElseThrow(() -> new NotFoundException("No such outcome."));
   }
 
-  @POST
+  @PATCH
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Outcome updateOutcome(@PathParam("outcomeId") LongParam outcomeId, Outcome outcome){
+  public Outcome updateOutcome(@PathParam("outcomeId") LongParam outcomeId, Outcome outcome) {
     return dao.update(outcome);
   }
 
   @DELETE
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Status deleteOutcome(@PathParam("outcomeId") LongParam outcomeId){
+  public Status deleteOutcome(@PathParam("outcomeId") LongParam outcomeId) {
     Status status = new Status();
     status.setId(outcomeId.get().intValue());
     status.setAction("DELETE");
     status.setResource("Outcome");
 
-    boolean success = dao.delete(outcomeId.get().intValue());
+    boolean success = dao.delete(findSafely(outcomeId.get().intValue()));
 
-    if(success){
+    if (success) {
       status.setMessage("Successfully deleted outcome");
       status.setStatus(200);
-    }else{
+    } else {
       status.setMessage("Error deleting outcome");
       status.setStatus(500);
     }

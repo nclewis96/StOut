@@ -17,7 +17,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeResourceList {
 
-  OutcomeDAO dao = null;
+  OutcomeDAO dao;
 
   public OutcomeResourceList(OutcomeDAO dao) {
     this.dao = dao;
@@ -33,7 +33,7 @@ public class OutcomeResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Outcome> getOutcomeList(){
+  public List<Outcome> getOutcomeList() {
     return dao.findAll();
   }
 

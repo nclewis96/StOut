@@ -40,16 +40,6 @@ sharedValidation: {
 
 }),
 
-actions: {
-	submit() {
-		console.log(this.get('data').changedAttributes());
-		this.get('data').save();
-	},
-	deleteRecord() {
-		this.get('data').destroyRecord();
-	}
-}
-
 });
 
 
@@ -59,13 +49,12 @@ actions: {
  * @return {void}
  */
 const handleFormSubmit = event => {
-  
+
   // Stop the form from submitting since we’re handling that with AJAX.
   event.preventDefault();
 
-  
+
   console.log(JSON.stringify(data, null, "  "));
-  
+
   // ...this is where we’d actually do something with the form data...
 };
-

@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class OfferingDAO extends StOutDAO<Offering>{
+public class OfferingDAO extends StOutDAO<Offering> {
   public OfferingDAO(SessionFactory factory) {
     super(factory);
   }
@@ -16,7 +16,7 @@ public class OfferingDAO extends StOutDAO<Offering>{
     List<Offering> offeringList = list(namedQuery("edu.mtech.stout.core.Offering.findByCourse")
       .setParameter(0, courseId));
     Optional<Offering> user = Optional.empty();
-    if(!offeringList.isEmpty()){
+    if (!offeringList.isEmpty()) {
       user = Optional.of(offeringList.get(0));
     }
     return user;
