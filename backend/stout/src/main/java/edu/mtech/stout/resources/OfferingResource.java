@@ -58,7 +58,6 @@ public class OfferingResource {
       status.setMessage("Error deleting offering");
       status.setStatus(500);
     }
-
     return status;
   }
 }

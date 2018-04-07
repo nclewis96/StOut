@@ -21,7 +21,7 @@ public class StOutAuthenticator implements Authenticator<AuthenticationObject, U
 
   @Override
   @UnitOfWork
-  public Optional<User> authenticate(AuthenticationObject authObj) throws AuthenticationException {
+  public Optional<User> authenticate(AuthenticationObject authObj) {
     String username = authObj.retrieveUsername();
     if (username != null) {
       return userDao.findByUsername(username);
