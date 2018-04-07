@@ -1,5 +1,6 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.api.UserApi;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.JobTitleDAO;
@@ -25,12 +26,12 @@ public class UserResourceList {
   UserDAO dao;
   JobTitleDAO jobTitleDAO;
   RoleDAO roleDao;
-  ProgramDAO programDao;
+  QueryBySelector queryBySelector;
 
   public UserResourceList(UserDAO dao, JobTitleDAO jobTitleDAO, ProgramDAO programDao, RoleDAO roleDao) {
     this.dao = dao;
     this.jobTitleDAO = jobTitleDAO;
-    this.programDao = programDao;
+    queryBySelector= new QueryBySelector(programDao);
     this.roleDao = roleDao;
   }
 
@@ -45,14 +46,9 @@ public class UserResourceList {
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public List<UserApi> getUserList(@Auth User user, @QueryParam("program") LongParam programId) {
-    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
     List<User> userCoreList;
-    if (programId != null) {
-      if (programAccessList.contains(programId.get())) {
-        userCoreList = dao.findByProgramId(programId.get());
-      } else {
-        throw new ForbiddenException();
-      }
+    if (queryBySelector.queryByProgramId(user, programId)) {
+      userCoreList = dao.findByProgramId(programId.get());
     } else {
       userCoreList = dao.findAll();
     }
