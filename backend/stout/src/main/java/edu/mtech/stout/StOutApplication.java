@@ -126,20 +126,21 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new ProgramResource(programDao));
     environment.jersey().register(new ProgramResourceList(programDao));
     environment.jersey().register(new OfferingResource(offeringDao));
-    environment.jersey().register(new OfferingResourceList(offeringDao));
+    environment.jersey().register(new OfferingResourceList(offeringDao,programDao));
     environment.jersey().register(new OutcomeResource(outcomeDao));
     environment.jersey().register(new OutcomeResourceList(outcomeDao));
     environment.jersey().register(new AssignResource(assignDao));
     environment.jersey().register(new AssignResourceList(assignDao));
-    environment.jersey().register(new MetricResource(metricDao));
-    environment.jersey().register(new MetricResourceList(metricDao));
-    environment.jersey().register(new SemesterResource(semesterDao));
+	environment.jersey().register(new MetricResource(metricDao));
+    environment.jersey().register(new MetricResourceList(metricDao, programDao));
+	environment.jersey().register(new SemesterResource(semesterDao));
+
     environment.jersey().register(new SemesterResourceList(semesterDao));
     environment.jersey().register(new ScaleResource(scaleDao));
     environment.jersey().register(new ScaleResourceList(scaleDao));
-    environment.jersey().register(new CourseResource(courseDao));
-    environment.jersey().register(new CourseResourceList(courseDao));
-    environment.jersey().register(new CoursePrefixResource(courseprefixDAO));
+	environment.jersey().register(new CourseResource(courseDao));
+	environment.jersey().register(new CourseResourceList(courseDao, programDao, userDao));
+	environment.jersey().register(new CoursePrefixResource(courseprefixDAO));
     environment.jersey().register(new CoursePrefixResourceList(courseprefixDAO));
   }
 }

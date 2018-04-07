@@ -1,14 +1,16 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.core.Metric;
 import edu.mtech.stout.db.MetricDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import edu.mtech.stout.db.ProgramDAO;
+import edu.mtech.stout.core.User;
+import io.dropwizard.auth.Auth;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -16,10 +18,13 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class MetricResourceList {
 
-  MetricDAO dao;
+  MetricDAO dao = null;
+  QueryBySelector queryBySelector = null;
 
-  public MetricResourceList(MetricDAO dao) {
+
+  public MetricResourceList(MetricDAO dao, ProgramDAO programDao) {
     this.dao = dao;
+    queryBySelector = new QueryBySelector(programDao);
   }
 
   @POST
@@ -32,8 +37,12 @@ public class MetricResourceList {
   @GET
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
-  public List<Metric> getMetricList() {
-    return dao.findAll();
+  public List<Metric> getMetricList(@Auth User user, @QueryParam("programId") LongParam programId) {
+    if (queryBySelector.queryByProgramId(user, programId)) {
+      return dao.findByProgramId(programId.get());
+    } else {
+      return dao.findAll();
+    }
   }
 
 }
