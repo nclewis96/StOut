@@ -6,7 +6,11 @@ export default Route.extend({
       offerings: this.store.findAll('offering'),
       offering: this.store.findRecord('offering', 1),
       users: this.store.findAll('user'),
-      user: this.store.findRecord('user', 1)
+      user: this.store.findRecord('user', 1),
+      assigns: this.store.findAll('assign'),
+      courses: this.store.findAll('course'),
+      outcomes: this.store.findAll('outcome'),
+      metrics: this.store.findAll('metric')
     });
 	},
 

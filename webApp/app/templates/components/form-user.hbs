@@ -24,15 +24,17 @@
     on-update=(action (mut data.jobTitle.title))
     validate=validate
   }}
-  
+
   {{#each data.roleList as |role|}}
-	name="roleName"
-    label="Role"
-    property=role.name
-    on-update=(action (mut role.name))
-    validate=validate
+    {{lf-input
+      name="roleName"
+      label="Role"
+      property=role.name
+      on-update=(action (mut role.name))
+      validate=validate
+    }}
   {{/each}}
-  
+
 {{/lf-form}}
 
 {{yield data}}

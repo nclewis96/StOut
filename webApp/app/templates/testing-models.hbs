@@ -29,7 +29,17 @@
     <button {{action 'submitRecord' data}}> Submit </button>
   {{/form-user}}
 
+  {{#each model.courses as |course|}}
+    <div> {{course.prefixId.prefix}} </div>
+  {{/each}}
 
+  {{#each model.outcomes as |outcome|}}
+    <div> {{outcome.metricId.programId.name}} </div>
+  {{/each}}
+
+  {{#each model.metrics as |metric|}}
+    <div> {{metric.programId.name}}</div>
+  {{/each}}
 
 
 {{outlet}}

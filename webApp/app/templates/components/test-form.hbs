@@ -1,58 +1,65 @@
-{{#lf-form rules=rules}}
+{{#lf-form rules=rules as |validateFunction|}}
 
-{{lf-input
+  {{lf-select
 
-	name="CourseId"
-	label="Course ID"
-	property=data.courseId
-	on-update=(action (mut data.courseId))
-	validate=validate
-}}
+    name="courseId"
+    label="Course"
+    property=data.courseId
+    content=courseList
+    labelPath="title"
+    valuePath="id"
+    on-update=(action (mut data.courseId))
+    validate=validateFunction
+  }}
 
-{{lf-input
-    name="instructorId"
-    label="instructor Id"
-    property=data.instructorId
-    on-update=(action (mut data.instructorId))
-    validate=validate
+  {{lf-select
+      name="userId"
+      label="Instructor"
+      property=data.userId
+      content=instructorList
+      labelPath="name"
+      valuePath="Id"
+      on-update=(action 'updateConnection' data)
+      validate=validateFunction
+
+    }}
+
+
+  {{lf-input
+      label="Semester"
+      name="semesterId"
+      property=data.semesterId
+      on-update=(action (mut data.semesterId))
+      validate=validateFunction
+    }}
+
+
+
+  {{lf-input
+
+    label="section Number"
+    property=data.sectionNum
+    name="sectionNum"
+    validate=validateFunction
+    on-update=(action (mut data.sectionNum))
   }}
 
 
-{{lf-input
-    label="Semester Id"
-    name="semesterId"
-    property=data.semesterId
-    on-update=(action (mut data.semesterId))
-    validate=validate
+  {{lf-input
+    name="locked"
+    label="Class is Locked"
+    property=data.locked
+    validate=validateFunction
+    on-update=(action (mut data.locked))
   }}
 
-
-
-{{lf-input
-
-	label="section Number"
-	property=data.sectionNum
-	name="sectionNum"
-	validate=validate
-	on-update=(action (mut data.sectionNum))
-}}
-
-
-{{lf-input
-	name="Locked"
-	label="locked"
-	property=data.locked
-	validate=validate
-	on-update=(action (mut data.locked))
-}}
-
-{{lf-input
-	name="numStudents"
-	label="Number Students"
-	property=data.numStudents
-	validate=validate
-	on-update=(action (mut data.numStudents))
-}}
+  {{lf-input
+    name="numStudents"
+    label="Number Students"
+    property=data.numStudents
+    validate=validateFunction
+    on-update=(action (mut data.numStudents))
+  }}
 
 
 {{/lf-form}}

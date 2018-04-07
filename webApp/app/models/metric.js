@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  programId: DS.attr('number'),
-  name: DS.attr('string')
+  programId: DS.belongsTo('program'),
+  name: DS.attr('string'),
+  outcomes: DS.hasMany('outcome')
 });

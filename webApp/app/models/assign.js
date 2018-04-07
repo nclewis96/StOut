@@ -6,4 +6,5 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   desc: DS.attr('string'),
   maxScore: DS.attr('number')
+
 });

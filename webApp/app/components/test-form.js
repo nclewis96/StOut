@@ -1,44 +1,30 @@
 const { Component, String: {w}, computed, computed:{equal}, getProperties, } = Ember;
 
 export default Component.extend({
-	saved: false,
-	showFaculty: equal('model.userType', 'faculty'),
-	showAdmin: equal('model.userType','admin'),
-  classNames: ['container'],
+  store: Ember.inject.service(),
+  courseList: computed('store', function(){
+    return this.get('store').findAll('course');
+  }),
+  instructorList: computed('store', function(){
+    return this.get('store').findAll('user');
+  }),
+  action: {
+    updateUserConnection(data) {
+      console.log(courseId);
+      let child = store.peekRecord('user', courseId);
+      data.set('user', child);
+      console.log(child);
+    }
+  },
+  rules:  {
+    courseId: 'required',
+    userId: 'required',
+    semesterId: 'required',
+    sectionNum: 'required',
+    locked: 'required',
+    numStudents: 'required'
 
-
-statusTypes: [
-
-	{label:'Active', value: 'active'},
-	{label:'Unactive', value: 'unactive'},
-
-],
-
-
-
-
-userTypes: [
-	{label: 'Faculty', value:'faculty'},
-	{label:	'Admin', value:'admin'},
-        {label: 'Observer', value:'observer'},
-
-],
-
-
-rules: computed('showAdmin', 'showFaculty', function() {
-
-const {showFaculty, showAdmin} = getProperties(this, 'showAdmin', 'showFaculty');
-const additionalField = showFaculty ? 'companyName' : 'universityName';
-
-return{
-
-sharedValidation: {
-	required: w('courseId instructorId semesterId sectionNum locked numStudents'),
-},
-
-}
-
-}),
+  }
 
 });
 
