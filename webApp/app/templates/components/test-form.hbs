@@ -22,19 +22,19 @@
       on-update=(action "updateUserConnection" data)
       validate=validateFunction
 
-    }}
+  }}
 
 
   {{lf-select
-      label="Semester"
       name="semesterId"
+      label="Semester"
       property=data.semesterId
       content=semesterList
       labelPath="year"
       valuePath="id"
       on-update=(action "updateSemesterConnection" data)
       validate=validateFunction
-    }}
+  }}
 
 
 

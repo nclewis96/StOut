@@ -7,7 +7,7 @@ export default DS.JSONAPIAdapter.extend(CasAuthenticatedRouteMixin, {
   jwt: Ember.computed('currentUser', function(){
     return `Bearer ${this.get('currentUser.token')}`;
   }),
-  host: 'https://csdept29.mtech.edu:30120',
+  host: 'https://csdept29.mtech.edu:443',
   headers: Ember.computed('jwt', function(){
     return{
     'Accept': 'application/json',
