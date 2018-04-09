@@ -8,7 +8,7 @@
     content=courseList
     labelPath="title"
     valuePath="id"
-    on-update=(action (mut data.courseId))
+    on-update=(action "updateCourseConnection" data)
     validate=validateFunction
   }}
 
@@ -18,18 +18,21 @@
       property=data.userId
       content=instructorList
       labelPath="name"
-      valuePath="Id"
-      on-update=(action 'updateConnection' data)
+      valuePath="id"
+      on-update=(action "updateUserConnection" data)
       validate=validateFunction
 
     }}
 
 
-  {{lf-input
+  {{lf-select
       label="Semester"
       name="semesterId"
       property=data.semesterId
-      on-update=(action (mut data.semesterId))
+      content=semesterList
+      labelPath="year"
+      valuePath="id"
+      on-update=(action "updateSemesterConnection" data)
       validate=validateFunction
     }}
 

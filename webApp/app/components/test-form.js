@@ -8,12 +8,24 @@ export default Component.extend({
   instructorList: computed('store', function(){
     return this.get('store').findAll('user');
   }),
-  action: {
-    updateUserConnection(data) {
-      console.log(courseId);
-      let child = store.peekRecord('user', courseId);
-      data.set('user', child);
-      console.log(child);
+  semesterList: computed('store', function(){
+    return this.get('store').findAll('semester');
+  }),
+  actions: {
+    updateUserConnection(data, idStr) {
+      let id = parseInt(idStr, 10);
+      let child = this.get('store').peekRecord('user', id);
+      data.set('userId', child);
+    },
+    updateCourseConnection(data, idStr) {
+      let id = parseInt(idStr, 10);
+      let child = this.get('store').peekRecord('course', id);
+      data.set('courseId', child);
+    },
+    updateSemesterConnection(data, idStr) {
+      let id = parseInt(idStr, 10);
+      let child = this.get('store').peekRecord('semester', id);
+      data.set('semesterId', child);
     }
   },
   rules:  {
