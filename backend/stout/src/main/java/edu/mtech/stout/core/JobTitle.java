@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -20,7 +21,7 @@ import java.util.Objects;
       resultClass = JobTitle.class
     )
   })
-public class JobTitle {
+public class JobTitle  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "job_title_id")

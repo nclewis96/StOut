@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -26,7 +27,7 @@ import java.util.Objects;
     )
   })
 
-public class Program {
+public class Program  implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

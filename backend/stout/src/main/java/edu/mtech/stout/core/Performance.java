@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -16,7 +17,7 @@ import java.util.Objects;
     })
 
 
-public class Performance {
+public class Performance  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "perf_Indicator_id")

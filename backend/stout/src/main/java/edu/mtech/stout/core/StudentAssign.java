@@ -2,20 +2,21 @@ package edu.mtech.stout.core;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Student_Outcome")
+@Table(name = "Student_Assign")
 @NamedNativeQueries(
     {
         @NamedNativeQuery(
             name = "edu.mtech.stout.core.StudentAssign.findAll",
-            query = "SELECT * FROM Student_Outcome",
+            query = "SELECT * FROM Student_Assign",
             resultClass =  StudentAssign.class
         )
     }
 )
-public class StudentAssign {
+public class StudentAssign implements Serializable {
   @Id
   @Column(name = "student_id")
   private long studentId;
@@ -24,6 +25,15 @@ public class StudentAssign {
   private long assignId;
   @Column(name = "score")
   private int score;
+
+  public StudentAssign(){
+    super();
+  }
+
+  public StudentAssign(long studentId, long assignId){
+    this.studentId = studentId;
+    this.assignId = assignId;
+  }
 
   public long getStudentId() {
     return studentId;
@@ -55,13 +65,11 @@ public class StudentAssign {
     if (!(o instanceof StudentAssign)) return false;
     StudentAssign that = (StudentAssign) o;
     return getStudentId() == that.getStudentId() &&
-        getAssignId() == that.getAssignId() &&
-        getScore() == that.getScore();
+        getAssignId() == that.getAssignId();
   }
 
   @Override
   public int hashCode() {
-
-    return Objects.hash(getStudentId(), getAssignId(), getScore());
+    return Objects.hash(getStudentId(), getAssignId() );
   }
 }

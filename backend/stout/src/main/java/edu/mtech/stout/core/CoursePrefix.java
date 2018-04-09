@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Course_Prefix")
@@ -14,7 +15,7 @@ import javax.persistence.*;
   }
 )
 
-public class CoursePrefix {
+public class CoursePrefix  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "prefix_id")

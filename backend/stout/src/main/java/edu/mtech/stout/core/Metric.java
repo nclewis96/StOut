@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -18,7 +19,7 @@ import java.util.Objects;
       resultClass = Metric.class
     )
   })
-public class Metric {
+public class Metric  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "metric_id")

@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -21,7 +22,7 @@ import java.util.Objects;
       resultClass = Role.class
     )
   })
-public class Role {
+public class Role  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "permission_id")
