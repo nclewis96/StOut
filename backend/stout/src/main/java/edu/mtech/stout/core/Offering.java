@@ -41,6 +41,10 @@ public class Offering {
   private boolean locked;
   @Column(name = "num_students", nullable = false)
   private long numStudents;
+  @Column(name = "instructor_name", nullable=true)
+  private String instructorName;
+  @Column(name = "scale", nullable = true)
+  private long scale;
 
   public Offering() {
   }
@@ -99,6 +103,23 @@ public class Offering {
 
   public void setNumStudents(long numStudents) {
     this.numStudents = numStudents;
+  }
+
+
+  public String getInstructorName() {
+    return instructorName;
+  }
+
+  public void setInstructorName(String instructorName) {
+    this.instructorName = instructorName;
+  }
+
+  public long getScale() {
+    return scale;
+  }
+
+  public void setScale(long scale) {
+    this.scale = scale;
   }
 
   @Override
