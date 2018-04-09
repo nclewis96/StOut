@@ -41,11 +41,11 @@ public class Offering  implements Serializable {
   @Column(name = "locked", nullable = false)
   private boolean locked;
   @Column(name = "num_students", nullable = false)
-  private long numStudents;
+  private Long numStudents;
   @Column(name = "instructor_name", nullable=true)
   private String instructorName;
   @Column(name = "scale", nullable = true)
-  private long scale;
+  private Long scale;
 
   public Offering() {
   }
@@ -98,11 +98,11 @@ public class Offering  implements Serializable {
     this.locked = locked;
   }
 
-  public long getNumStudents() {
+  public Long getNumStudents() {
     return numStudents;
   }
 
-  public void setNumStudents(long numStudents) {
+  public void setNumStudents(Long numStudents) {
     this.numStudents = numStudents;
   }
 
@@ -115,11 +115,11 @@ public class Offering  implements Serializable {
     this.instructorName = instructorName;
   }
 
-  public long getScale() {
+  public Long getScale() {
     return scale;
   }
 
-  public void setScale(long scale) {
+  public void setScale(Long scale) {
     this.scale = scale;
   }
 
