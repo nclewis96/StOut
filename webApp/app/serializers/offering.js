@@ -13,6 +13,10 @@ export default ApplicationSerializer.extend({
     semesterId: {
       deserialize: 'records',
       serialize: 'ids'
+    },
+    scaleId: {
+      deserialize: 'records',
+      serialize: 'ids'
     }
   }
 });

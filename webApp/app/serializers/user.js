@@ -1,12 +1,12 @@
-import DS from 'ember-data';
+import ApplicationSerializer from './application';
 
-export default DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin, {
+export default ApplicationSerializer.extend( {
 	attrs: {
     jobTitle: {
       deserialize: 'records',
       serialize: 'ids'
     },
-    roleList: {
+    roles: {
       deserialize: 'records',
       serialize: false
     },

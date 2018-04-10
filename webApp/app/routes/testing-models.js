@@ -1,6 +1,8 @@
 import Route from '@ember/routing/route';
+import CasAuthenticatedRouteMixin from '../mixins/cas-authenticated-route';
+const { inject: { service } } = Ember;
 
-export default Route.extend({
+export default Route.extend(CasAuthenticatedRouteMixin,{
 	model() {
     return Ember.RSVP.hash({
       offerings: this.store.findAll('offering'),

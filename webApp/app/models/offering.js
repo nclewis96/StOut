@@ -7,5 +7,7 @@ export default DS.Model.extend({
 	semesterId: DS.belongsTo('semester'),
 	sectionNum: DS.attr('string'),
 	locked: DS.attr('boolean'),
-	numStudents: DS.attr('number')
+	numStudents: DS.attr('number'),
+  instructorName: DS.attr('string'),
+  scaleId: DS.hasMany('scale')
 });
