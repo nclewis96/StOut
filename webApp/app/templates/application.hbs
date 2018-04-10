@@ -2,6 +2,11 @@
 <header>
 	<img class="MTechLogo" src="assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
 	<h1>StOut</h1>
+  <div id="home-button">
+    {{#link-to "secret"}}
+      Login
+    {{/link-to}}
+  </div>
 </header>
 
 {{! Nav component given user}}
@@ -10,10 +15,11 @@
 
 {{outlet}}
 
-<div id="footer">
+<div id="footer"> 
 	<div id="home-button">
 		{{#link-to "home"}}Home{{/link-to}}
 	</div>
+  <h1>StOut</h1>
 	<img class="MTechLogo" src="assets/logo/MTechShieldLogo.png" alt="Mtech Logo">
-	<h1>StOut</h1>
+
 </div>

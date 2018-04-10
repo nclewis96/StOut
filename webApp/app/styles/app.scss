@@ -5,13 +5,13 @@ body {
 
 header {
 	display: grid;
-	grid-template-columns: 1fr 10fr;
+	grid-template-columns: 1fr 10fr 1fr;
 	align-items: center;
 	position: relative;
 	width: 100%;
 	height: auto;
 	h1{
-		font-size: 3em;
+		font-size: 4em;
 	}
 
 }
@@ -117,10 +117,14 @@ h1 {
 #footer {
 	background-color: green;
 	display: grid;
-	grid-template-columns: 5em 3em 1fr;
+	grid-template-columns: 1fr 10fr 1fr;
 	width: 100%;
 	position: fixed;
 	bottom: 0px;
 	height: auto;
 	left: 0px;
+  .MTechLogo {
+    height: 35px;
+    width: auto;
+  }
 }
