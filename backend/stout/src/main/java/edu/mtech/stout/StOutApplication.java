@@ -39,7 +39,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     new HibernateBundle<StOutConfiguration>(User.class, Role.class, Assign.class,
       Metric.class, Offering.class, Outcome.class, Program.class,
       Scale.class, Semester.class, Course.class, JobTitle.class,
-      CoursePrefix.class, Permissions.class, Performance.class, StudentAssign.class) {
+      CoursePrefix.class, Permissions.class, Performance.class,
+        StudentAssign.class, CourseOutcome.class, OfferingOutcome.class) {
 
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
@@ -102,6 +103,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final PermissionsDAO permissionsDAO = new PermissionsDAO(hibernateBundle.getSessionFactory());
     final PerformanceDAO performanceDAO = new PerformanceDAO(hibernateBundle.getSessionFactory());
     final StudentAssignDAO studentAssignDAO = new StudentAssignDAO(hibernateBundle.getSessionFactory());
+    final CourseOutcomeDAO courseOutcomeDAO = new CourseOutcomeDAO(hibernateBundle.getSessionFactory());
+    final OfferingOutcomeDAO offeringOutcomeDAO = new OfferingOutcomeDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     StOutAuthenticator stOutAuthenticator = new UnitOfWorkAwareProxyFactory(hibernateBundle)
@@ -151,6 +154,12 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new PerformanceResource(performanceDAO));
     environment.jersey().register(new PerformanceResourceList(performanceDAO));
     environment.jersey().register(new StudentAssignResource(studentAssignDAO));
+    environment.jersey().register(new StudentAssignResourceList(studentAssignDAO));
+    environment.jersey().register(new CourseOutcomeResource(courseOutcomeDAO));
+    environment.jersey().register(new CourseOutcomeResourceList(courseOutcomeDAO));
+    environment.jersey().register(new OfferingOutcomeResource(offeringOutcomeDAO));
+    environment.jersey().register(new OfferingOutcomeResourceList(offeringOutcomeDAO));
+
 
   }
 }
