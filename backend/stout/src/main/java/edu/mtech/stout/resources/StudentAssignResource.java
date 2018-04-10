@@ -11,7 +11,6 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.awt.*;
 
 @Path("/student-assigns/{studentId}/{assignId}")
 @Produces(MediaType.APPLICATION_JSON)
