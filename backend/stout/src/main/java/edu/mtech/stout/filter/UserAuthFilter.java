@@ -25,7 +25,7 @@ public class UserAuthFilter<P extends Principal> extends AuthFilter<Authenticati
   }
 
   @Override
-  public void filter(ContainerRequestContext requestContext) throws IOException {
+  public void filter(ContainerRequestContext requestContext) {
     final AuthenticationObject credentials =
       getCredentials(requestContext.getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
     if (!authenticate(requestContext, credentials, "JWT")) {

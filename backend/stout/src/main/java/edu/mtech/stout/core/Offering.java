@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -24,7 +25,7 @@ import java.util.Objects;
     )
   })
 
-public class Offering {
+public class Offering  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "offering_id")
@@ -40,7 +41,11 @@ public class Offering {
   @Column(name = "locked", nullable = false)
   private boolean locked;
   @Column(name = "num_students", nullable = false)
-  private long numStudents;
+  private Long numStudents;
+  @Column(name = "instructor_name", nullable=true)
+  private String instructorName;
+  @Column(name = "scale", nullable = true)
+  private Long scale;
 
   public Offering() {
   }
@@ -93,12 +98,29 @@ public class Offering {
     this.locked = locked;
   }
 
-  public long getNumStudents() {
+  public Long getNumStudents() {
     return numStudents;
   }
 
-  public void setNumStudents(long numStudents) {
+  public void setNumStudents(Long numStudents) {
     this.numStudents = numStudents;
+  }
+
+
+  public String getInstructorName() {
+    return instructorName;
+  }
+
+  public void setInstructorName(String instructorName) {
+    this.instructorName = instructorName;
+  }
+
+  public Long getScale() {
+    return scale;
+  }
+
+  public void setScale(Long scale) {
+    this.scale = scale;
   }
 
   @Override

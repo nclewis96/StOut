@@ -28,26 +28,26 @@ public class StudentAssignResource {
   }
 
   private StudentAssign findSafely(long studentId, long assignId){
-    return  dao.findById(studentId, assignId).orElseThrow(() -> new NotFoundException("No such Student Assign"));
+    return  dao.findById(new StudentAssign(studentId, assignId)).orElseThrow(() -> new NotFoundException("No such Student Assign"));
   }
 
   @PATCH
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public StudentAssign updateStudentAssign(@PathParam("") LongParam ){
-    return dao.update();
+  public StudentAssign updateStudentAssign(@PathParam("studentId")LongParam studentId, @PathParam("assignId")LongParam assignId, StudentAssign assign){
+    return dao.update(assign);
   }
 
   @DELETE
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Status deleteStudentAssign(@PathParam("") LongParam ){
+  public Status deleteStudentAssign(@PathParam("studentId")LongParam studentId, @PathParam("assignId")LongParam assignId){
     Status status = new Status();
-    status.setId(.get().intValue());
+    status.setId(assignId.get().longValue());
     status.setAction("DELETE");
     status.setResource("StudentAssign");
 
-    boolean success = dao.delete(findSafely(.get().intValue()));
+    boolean success = dao.delete(findSafely(studentId.get().longValue(), assignId.get().longValue()));
 
     if(success){
       status.setMessage("Successfully deleted Student Assign");

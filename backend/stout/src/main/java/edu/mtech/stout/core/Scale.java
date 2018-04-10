@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.Objects;
       resultClass = Scale.class
     )
   })
-public class Scale {
+public class Scale  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "scale_id")
