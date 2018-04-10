@@ -20,7 +20,7 @@ public class UserApi {
   @JsonProperty
   private JobTitle jobTitle;
   @JsonProperty
-  private List<Role> roleList;
+  private List<Role> roles;
 
   public User toUser() {
     User user = new User();
@@ -31,16 +31,16 @@ public class UserApi {
     return user;
   }
 
-  public UserApi(User user, JobTitle jobTitle, List<Role> roleList) {
-    setup(user, jobTitle, roleList);
+  public UserApi(User user, JobTitle jobTitle, List<Role> roles) {
+    setup(user, jobTitle, roles);
   }
 
-  public List<Role> getRoleList() {
-    return roleList;
+  public List<Role> getRoles() {
+    return roles;
   }
 
-  public void setRoleList(List<Role> roleList) {
-    this.roleList = roleList;
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
   }
 
   public long getId() {
@@ -91,6 +91,6 @@ public class UserApi {
     name = user.getName();
     username = user.getUsername();
     this.jobTitle = jobTitle;
-    this.roleList = roleList;
+    this.roles = roleList;
   }
 }

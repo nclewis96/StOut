@@ -1,10 +1,12 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Course")
 @NamedNativeQueries(
+
   {
     @NamedNativeQuery(
       name = "edu.mtech.stout.core.Course.findAll",
@@ -12,13 +14,13 @@ import javax.persistence.*;
       resultClass = Course.class
     ),
     @NamedNativeQuery(
-      name = "edu.mtech.stout.core.Course.findByProgram",
+      name = "edu.mtech.stout.core.Course.findByProgramId",
       query = "SELECT * FROM Course WHERE program_id = ?",
       resultClass = Course.class
     )
   })
 
-public class Course {
+public class Course  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "course_id")

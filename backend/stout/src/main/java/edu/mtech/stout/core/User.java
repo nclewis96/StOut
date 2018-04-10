@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.Objects;
 import java.util.Set;
@@ -28,7 +29,7 @@ import java.util.Set;
     )
   })
 
-public class User implements Principal {
+public class User implements Principal, Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

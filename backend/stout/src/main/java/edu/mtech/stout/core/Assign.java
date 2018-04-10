@@ -1,6 +1,7 @@
 package edu.mtech.stout.core;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -14,7 +15,7 @@ import java.util.Objects;
       resultClass = Assign.class
     )
   })
-public class Assign {
+public class Assign  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "assign_id")
