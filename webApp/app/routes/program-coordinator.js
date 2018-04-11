@@ -6,18 +6,18 @@ export default Ember.Route.extend({
 		return 	{
 			programCoordinator:	{
 				name: 'program-coordinator',
-				actionList:	[{
+				actionList:	[	{
+          actionName: 'Instructors'
+        },  {
+          actionName: 'Courses'
+        },	{
+          actionName: 'Outcomes'
+        },  {
 					actionName: 'Assessments'
-				},	{
-					actionName: 'Outcomes'
-				},	{
-					actionName: 'Courses'
-				},	{
-					actionName: 'Instructors'
 				},	{
 					actionName: 'Reports'
 				}]
 			}
 		};
-	}			
+	}
 });
