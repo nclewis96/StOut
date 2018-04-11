@@ -19,8 +19,8 @@ import java.util.List;
 public class OfferingResourceList {
 
 
-  OfferingDAO dao = null;
-  QueryBySelector queryBySelector = null;
+  OfferingDAO dao;
+  QueryBySelector queryBySelector;
 
   public OfferingResourceList(OfferingDAO dao, ProgramDAO programDao) {
     this.dao = dao;

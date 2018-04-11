@@ -4,8 +4,7 @@ import edu.mtech.stout.core.OfferingOutcome;
 import edu.mtech.stout.db.OfferingOutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;

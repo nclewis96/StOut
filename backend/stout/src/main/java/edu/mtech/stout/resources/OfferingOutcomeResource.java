@@ -43,7 +43,7 @@ public class OfferingOutcomeResource {
   @DELETE
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Status deleteStudentAssign(@PathParam("offeringId")LongParam offeringId, @PathParam("outcomeId")LongParam outcomeId){
+  public Status deleteOfferingOutcome(@PathParam("offeringId")LongParam offeringId, @PathParam("outcomeId")LongParam outcomeId){
     Status status = new Status();
     status.setId(offeringId.get().longValue());
     status.setAction("DELETE");

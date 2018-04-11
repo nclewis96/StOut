@@ -5,6 +5,7 @@ import edu.mtech.stout.db.SemesterDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -23,16 +24,16 @@ public class SemesterResourceList {
   }
 
   @POST
-  @PermitAll
+  @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Semester createOffering(Semester semester) {
+  public Semester createSemester(Semester semester) {
     return dao.create(semester);
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
   @UnitOfWork
-  public List<Semester> getOfferingList() {
+  public List<Semester> getSemesterList() {
     return dao.findAll();
   }
 
