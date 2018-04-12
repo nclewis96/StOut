@@ -66,12 +66,12 @@ public class Offering  implements Serializable {
     this.courseId = courseId;
   }
 
-  public long getInstructorId() {
+  public long getUserId() {
     return userId;
   }
 
-  public void setInstructorId(long instructorId) {
-    this.userId = instructorId;
+  public void setUserId(long userId) {
+    this.userId = userId;
   }
 
   public long getSemesterId() {
