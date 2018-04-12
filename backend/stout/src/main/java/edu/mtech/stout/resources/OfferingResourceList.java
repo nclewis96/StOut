@@ -8,6 +8,7 @@ import edu.mtech.stout.db.OfferingDAO;
 import edu.mtech.stout.db.PermissionsDAO;
 import edu.mtech.stout.db.ProgramDAO;
 import io.dropwizard.auth.Auth;
+import io.dropwizard.auth.UnauthorizedHandler;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
@@ -42,12 +43,19 @@ public class OfferingResourceList {
   @UnitOfWork
   public List<Offering> getOfferingList(@Auth User user, @QueryParam("programId") LongParam programId,
                                         @QueryParam("userId") LongParam userId) {
-    boolean permLevel = queryBySelector.queryByUser(user);
+    long permLevel = queryBySelector.queryByUser(user);
+    //If the User has access to the requested Program allow query
     if (queryBySelector.queryByProgramId(user, programId)) {
       return dao.findByProgramId(programId.get());
-    } else if(!permLevel && userId != null){
+    } //If userId is null, default to the current User's userId
+    else if (userId == null){
       return dao.findByUser(user.getId());
-    } else if(permLevel && userId != null) {
+    }//If User is not a Prog. Coord. and requested a userId throw an exception
+    else if(permLevel != 2 && userId != null){
+      throw new NotAuthorizedException("You cannot request another Faculty member's courses");
+    }
+    //If User is a Prog. Coord. Allow a passed in userId
+    else if(permLevel == 2 && userId != null) {
       return dao.findByUser(userId.get());
     } else{
       return dao.findAll();

@@ -39,17 +39,16 @@ public class QueryBySelector {
             return false;
         }
     }
-
-    public boolean queryByUser(@Auth User user){
+    //Checks a users Permission level
+    public int  queryByUser(@Auth User user){
         if(user != null){
-            long permId = permissionsDAO.findByUserId(user.getId()).get(0).getPermissionId();
-            if(permId == 2){
-                return true;
-            }
-            else return false;
-        }else{
-            return false;
-        }
+            return permissionsDAO.findByUserId(user.getId()).get(0).getPermissionId();
 
+        }else{
+            return -1;
+        }
+    }
+    public boolean queryUserPerm(@Auth User user){
+        if(user)
     }
 }
