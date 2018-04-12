@@ -43,7 +43,7 @@ public class OfferingResourceList {
   @UnitOfWork
   public List<Offering> getOfferingList(@Auth User user, @QueryParam("programId") LongParam programId,
                                         @QueryParam("userId") LongParam userId) {
-    long permLevel = queryBySelector.queryByUser(user);
+    long permLevel = queryBySelector.getUserPerm(user);
     //If the User has access to the requested Program allow query
     if (queryBySelector.queryByProgramId(user, programId)) {
       return dao.findByProgramId(programId.get());

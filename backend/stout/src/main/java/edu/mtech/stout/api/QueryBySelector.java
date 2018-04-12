@@ -1,5 +1,6 @@
 package edu.mtech.stout.api;
 
+import edu.mtech.stout.core.Permissions;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.PermissionsDAO;
 import edu.mtech.stout.db.UserDAO;
@@ -39,8 +40,8 @@ public class QueryBySelector {
             return false;
         }
     }
-    //Checks a users Permission level
-    public int  queryByUser(@Auth User user){
+    //Returns a users Permission level
+    public long  getUserPerm(@Auth User user){
         if(user != null){
             return permissionsDAO.findByUserId(user.getId()).get(0).getPermissionId();
 
@@ -48,7 +49,17 @@ public class QueryBySelector {
             return -1;
         }
     }
-    public boolean queryUserPerm(@Auth User user){
-        if(user)
+
+    //Checks if a logged in user has the needed permissions for a program
+    public boolean queryUserPermForProg(@Auth User user, long programId, long permissionId){
+        if(user != null){
+           Permissions userPerm = permissionsDAO.findByUserId(user.getId()).get(0);
+           if(userPerm.getPermissionId() == permissionId && userPerm.getProgramId() == programId){
+               return true;
+           }
+
+        }
+        return false;
+
     }
 }
