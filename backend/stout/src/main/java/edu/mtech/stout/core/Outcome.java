@@ -12,7 +12,13 @@ import java.util.Objects;
       name = "edu.mtech.stout.core.Outcome.findAll",
       query = "SELECT * FROM Outcome",
       resultClass = Outcome.class
-    )
+    ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Outcome.findByMetric",
+          query = "SELECT * FROM Outcome WHERE metric_id = ?",
+          resultClass = Outcome.class
+      )
+
   })
 
 public class Outcome  implements Serializable {
