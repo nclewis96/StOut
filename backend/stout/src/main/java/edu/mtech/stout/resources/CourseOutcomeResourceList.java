@@ -1,37 +1,36 @@
 package edu.mtech.stout.resources;
 
-import edu.mtech.stout.core.Outcome;
-import edu.mtech.stout.db.OutcomeDAO;
+import edu.mtech.stout.core.CourseOutcome;
+import edu.mtech.stout.db.CourseOutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.awt.*;
 import java.util.List;
 
-@Path("/outcomes")
+@Path("/course-outcomes")
 @Produces(MediaType.APPLICATION_JSON)
-public class OutcomeResourceList {
+public class CourseOutcomeResourceList {
+  CourseOutcomeDAO dao;
 
-  OutcomeDAO dao;
-
-  public OutcomeResourceList(OutcomeDAO dao) {
+  public CourseOutcomeResourceList(CourseOutcomeDAO dao){
     this.dao = dao;
   }
 
   @POST
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Outcome createOutcome(Outcome program) {
-    return dao.create(program);
+  public CourseOutcome createCourseOutcome(CourseOutcome outcome){
+    return  dao.create(outcome);
   }
 
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Outcome> getOutcomeList() {
+  public List<CourseOutcome> getCourseOutcome(){
     return dao.findAll();
   }
-
 }

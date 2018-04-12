@@ -39,7 +39,7 @@ public class PermissionsResource {
   @DELETE
   @RolesAllowed({"Admin"})
   @UnitOfWork
-  public Status deleteJobTitle(@PathParam("permissionsId") LongParam permissionsId) {
+  public Status deletePermissions(@PathParam("permissionsId") LongParam permissionsId) {
     Status status = new Status();
     status.setId(permissionsId.get().intValue());
     status.setAction("DELETE");
