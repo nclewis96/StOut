@@ -37,10 +37,13 @@ public class OfferingResourceList {
   @GET
   @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
   @UnitOfWork
-  public List<Offering> getOfferingList(@Auth User user, @QueryParam("programId") LongParam programId) {
+  public List<Offering> getOfferingList(@Auth User user, @QueryParam("programId") LongParam programId,
+                                        @QueryParam("userId") LongParam userId) {
     if (queryBySelector.queryByProgramId(user, programId)) {
       return dao.findByProgramId(programId.get());
-    } else {
+    } else if(userId != null){
+      return dao.findByUser(userId.get());
+    } else{
       return dao.findAll();
     }
   }
