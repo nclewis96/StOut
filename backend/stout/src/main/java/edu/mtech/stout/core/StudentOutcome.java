@@ -1,7 +1,6 @@
 package edu.mtech.stout.core;
 
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
