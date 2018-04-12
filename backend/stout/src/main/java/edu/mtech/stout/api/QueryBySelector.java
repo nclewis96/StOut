@@ -1,6 +1,8 @@
 package edu.mtech.stout.api;
 
 import edu.mtech.stout.core.User;
+import edu.mtech.stout.db.PermissionsDAO;
+import edu.mtech.stout.db.UserDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.jersey.params.LongParam;
 import edu.mtech.stout.db.ProgramDAO;
@@ -12,8 +14,15 @@ import java.util.HashSet;
 public class QueryBySelector {
 
     ProgramDAO programDao;
+    UserDAO userDao;
+    PermissionsDAO permissionsDAO;
 
     public QueryBySelector(ProgramDAO programDao){
+        this.programDao = programDao;
+    }
+    public QueryBySelector(UserDAO userDao){this.userDao = userDao; }
+    public QueryBySelector(PermissionsDAO permissionsDAO, ProgramDAO programDao){
+        this.permissionsDAO = permissionsDAO;
         this.programDao = programDao;
     }
 
@@ -29,5 +38,18 @@ public class QueryBySelector {
         }else {
             return false;
         }
+    }
+
+    public boolean queryByUser(@Auth User user){
+        if(user != null){
+            long permId = permissionsDAO.findByUserId(user.getId()).get(0).getPermissionId();
+            if(permId == 2){
+                return true;
+            }
+            else return false;
+        }else{
+            return false;
+        }
+
     }
 }

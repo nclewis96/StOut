@@ -2,8 +2,10 @@ package edu.mtech.stout.resources;
 
 import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.core.Offering;
+import edu.mtech.stout.core.Permissions;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.OfferingDAO;
+import edu.mtech.stout.db.PermissionsDAO;
 import edu.mtech.stout.db.ProgramDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -22,9 +24,10 @@ public class OfferingResourceList {
   OfferingDAO dao;
   QueryBySelector queryBySelector;
 
-  public OfferingResourceList(OfferingDAO dao, ProgramDAO programDao) {
+
+  public OfferingResourceList(OfferingDAO dao, ProgramDAO programDao, PermissionsDAO permissionsDao) {
     this.dao = dao;
-    queryBySelector = new QueryBySelector(programDao);
+    queryBySelector = new QueryBySelector(permissionsDao, programDao);
   }
 
   @POST
@@ -39,13 +42,17 @@ public class OfferingResourceList {
   @UnitOfWork
   public List<Offering> getOfferingList(@Auth User user, @QueryParam("programId") LongParam programId,
                                         @QueryParam("userId") LongParam userId) {
+    boolean permLevel = queryBySelector.queryByUser(user);
     if (queryBySelector.queryByProgramId(user, programId)) {
       return dao.findByProgramId(programId.get());
-    } else if(userId != null){
+    } else if(!permLevel && userId != null){
       return dao.findByUser(user.getId());
+    } else if(permLevel && userId != null) {
+      return dao.findByUser(userId.get());
     } else{
       return dao.findAll();
     }
+
   }
 
 }
