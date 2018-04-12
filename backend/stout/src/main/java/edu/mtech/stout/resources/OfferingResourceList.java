@@ -42,7 +42,7 @@ public class OfferingResourceList {
     if (queryBySelector.queryByProgramId(user, programId)) {
       return dao.findByProgramId(programId.get());
     } else if(userId != null){
-      return dao.findByUser(userId.get());
+      return dao.findByUser(user.getId());
     } else{
       return dao.findAll();
     }

@@ -25,7 +25,7 @@ import java.util.Objects;
     ),
       @NamedNativeQuery(
           name = "edu.mtech.stout.core.Offering.findByUser",
-          query = "SELECT * FROM OFFERING WHERE user_id = ?",
+          query = "SELECT * FROM Offering WHERE user_id = ?",
           resultClass = Offering.class
       )
   })
