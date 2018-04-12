@@ -41,7 +41,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
       Scale.class, Semester.class, Course.class, JobTitle.class,
       CoursePrefix.class, Permissions.class, Performance.class,
         StudentAssign.class, CourseOutcome.class, OfferingOutcome.class,
-        SemesterType.class, OfferingAssign.class) {
+        SemesterType.class, OfferingAssign.class, ProgramCutoff.class) {
 
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
@@ -108,6 +108,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final OfferingOutcomeDAO offeringOutcomeDAO = new OfferingOutcomeDAO(hibernateBundle.getSessionFactory());
     final SemesterTypeDAO semesterTypeDAO = new SemesterTypeDAO(hibernateBundle.getSessionFactory());
     final OfferingAssignDAO offeringAssignDAO = new OfferingAssignDAO(hibernateBundle.getSessionFactory());
+    final ProgramCutoffDAO programCutoffDAO = new ProgramCutoffDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     StOutAuthenticator stOutAuthenticator = new UnitOfWorkAwareProxyFactory(hibernateBundle)
@@ -166,6 +167,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new SemesterTypeResourceList(semesterTypeDAO));
     environment.jersey().register(new OfferingAssignResource(offeringAssignDAO));
     environment.jersey().register(new OfferingAssignResourceList(offeringAssignDAO));
+    environment.jersey().register(new ProgramCutoffResource(programCutoffDAO));
+    environment.jersey().register(new ProgramCutoffResourceList(programCutoffDAO));
 
   }
 }
