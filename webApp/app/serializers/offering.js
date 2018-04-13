@@ -6,7 +6,7 @@ export default ApplicationSerializer.extend({
       deserialize: 'records',
       serialize: 'ids'
     },
-    userId: {
+    instructorId: {
       deserialize: 'records',
       serialize: 'ids'
     },

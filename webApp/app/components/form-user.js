@@ -1,22 +1,14 @@
-import Component from '@ember/component';
+const { Component, String: {w}, computed, computed:{equal}, getProperties, } = Ember;
 
 export default Component.extend({
   store: Ember.inject.service(),
 
+  jobTitleList: computed('store', function(){
+    return this.get('store').findAll('jobTitle');
+  }),
+  roleList: computed('store', function(){
+    return this.get('store').findAll('role');
+  }),
   actions: {
-    removeConnection(data) {
-      var store = this.get('store');
-    },
-    addJobTitle(data) {
-	  var store = this.get('store');
-      let jobTitle = store.findRecord('jobTitle',1);
-      data.get('jobTitle').pushObject(jobTitle);
-    },
-	addRole(data) {
-	  var store = this.get('store');
-      let roleList = store.findRecord('role',1);
-      data.get('roleList').pushObject(roleList);
-    }
-
   }
 });

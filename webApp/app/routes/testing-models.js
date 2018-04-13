@@ -24,8 +24,11 @@ export default Route.extend(CasAuthenticatedRouteMixin,{
         semesterId: '',
         sectionNum: '',
         locked: false,
-        numStudents: ''
+        numStudents: '',
+        instructorName: '',
+        scales: ''
       });
+
     },
 	addUser() {
 	  this.get('store').createRecord('user', {
@@ -34,7 +37,23 @@ export default Route.extend(CasAuthenticatedRouteMixin,{
 	  });
 	},
     submitRecord(data) {
-		  data.save();
+
+      let store = this.get('store');
+      data.eachRelationship(function (name, descriptor) {
+        if (descriptor.kind === 'hasMany') {
+
+          let relatedObject = data.get(name);
+          let adapter = store.adapterFor(data.constructor.modelName);
+
+          // what would be a more generic case
+          // adapter.batchCreate(store, grades.toArray());
+
+          // better for the hasMany case
+          adapter.batchCreateForHasMany(store, descriptor.type, name, relatedObject.toArray(), data);
+        }
+      });
+      if(data.hasDirtyAttributes)
+        data.save();
     },
     deleteRecord(data) {
 		  data.destroyRecord();

@@ -12,6 +12,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         roleName: 'Faculty'
       },	{
 				roleName: 'Observer'
+			},	{
+				roleName: 'testing-models'
 			}],
 			selectedRole: false
 		};
