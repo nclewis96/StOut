@@ -33,7 +33,7 @@ public class Offering  implements Serializable {
   @Column(name = "course_id", nullable = false)
   private long courseId;
   @Column(name = "user_id", nullable = false)
-  private long instructorId;
+  private long userId;
   @Column(name = "semester_id", nullable = false)
   private long semesterId;
   @Column(name = "section_num", nullable = false)
@@ -66,12 +66,12 @@ public class Offering  implements Serializable {
     this.courseId = courseId;
   }
 
-  public long getInstructorId() {
-    return instructorId;
+  public long getUserId() {
+    return userId;
   }
 
-  public void setInstructorId(long instructorId) {
-    this.instructorId = instructorId;
+  public void setUserId(long userId) {
+    this.userId = userId;
   }
 
   public long getSemesterId() {
