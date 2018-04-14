@@ -13,6 +13,11 @@ import java.util.Objects;
             name = "edu.mtech.stout.core.Permissions.findAll",
             query = "SELECT * FROM Program_Permissions",
             resultClass = Permissions.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.Permissions.findByUserId",
+            query = "SELECT * FROM Program_Permissions JOIN Users ON Users.user_id = Program_Permissions.user_id WHERE Users.user_id = ?",
+            resultClass = Permissions.class
         )
     })
 public class Permissions  implements Serializable {
