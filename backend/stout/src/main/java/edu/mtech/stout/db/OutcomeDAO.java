@@ -26,4 +26,9 @@ public class OutcomeDAO extends StOutDAO<Outcome> {
     return list(namedQuery("edu.mtech.stout.core.Outcome.findAll"));
   }
 
+  public List<Outcome> findByMetric(long metricId){
+    List<Outcome>  outcomeList = list(namedQuery("edu.mtech.stout.core.Outcome.findByMetric").setParameter(0,metricId));
+    return outcomeList;
+  }
+
 }

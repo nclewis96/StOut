@@ -25,6 +25,10 @@ public class OfferingDAO extends StOutDAO<Offering> {
     return user;
   }
 
+  public List<Offering> findByUser(long userId){
+    return list(namedQuery("edu.mtech.stout.core.Offering.findByUser").setParameter(0,userId));
+  }
+
   public List<Offering> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Offering.findAll"));
   }
