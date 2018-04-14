@@ -58,29 +58,49 @@ public class AssignResource {
   @PATCH
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Assign updateAssign(@PathParam("assignId") LongParam assignId, Assign assign) {
-    return dao.update(assign);
+  public Assign updateAssign(@Auth User user, @PathParam("assignId") LongParam assignId, Assign assign) {
+    List<Course> c = courseDao.findByAssignId(assignId.get());
+    if (c.size() > 0) {
+      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+        return dao.update(assign);
+      }else{
+        throw new ForbiddenException();
+      }
+    }else{
+      throw new NotFoundException("The Assign you are trying to update is not in your program.");
+    }
+
   }
 
   @DELETE
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
-  public Status deleteAssign(@PathParam("assignId") LongParam assignId) {
-    Status status = new Status();
-    status.setId(assignId.get().intValue());
-    status.setAction("DELETE");
-    status.setResource("Assign");
+  public Status deleteAssign(@Auth User user, @PathParam("assignId") LongParam assignId) {
+    List<Course> c = courseDao.findByAssignId(assignId.get());
+    if (c.size() > 0) {
+      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+        Status status = new Status();
+        status.setId(assignId.get().intValue());
+        status.setAction("DELETE");
+        status.setResource("Assign");
 
-    boolean success = dao.delete(findSafely(assignId.get().intValue()));
+        boolean success = dao.delete(findSafely(assignId.get().intValue()));
 
-    if (success) {
-      status.setMessage("Successfully deleted assign");
-      status.setStatus(200);
-    } else {
-      status.setMessage("Error deleting assign");
-      status.setStatus(500);
+        if (success) {
+          status.setMessage("Successfully deleted assign");
+          status.setStatus(200);
+        } else {
+          status.setMessage("Error deleting assign");
+          status.setStatus(500);
+        }
+        return status;
+      }else{
+        throw new ForbiddenException();
+      }
+    }else{
+      throw new NotFoundException("The Assign you are trying to delete is in your program.");
     }
-    return status;
+
   }
 
 }
