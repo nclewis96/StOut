@@ -12,6 +12,12 @@ import java.util.Objects;
             name = "edu.mtech.stout.core.CourseOutcome.findAll",
             query = "SELECT * FROM Course_Outcome",
             resultClass = CourseOutcome.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.CourseOutcome.findByProgramId",
+            query = "SELECT * FROM Course_Outcome JOIN Course ON " +
+                "Course_Outcome.course_id = Course.course_id WHERE program_id = ?",
+            resultClass = CourseOutcome.class
         )
     })
 

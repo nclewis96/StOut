@@ -1,8 +1,14 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.api.Status;
+import edu.mtech.stout.core.Course;
 import edu.mtech.stout.core.CourseOutcome;
+import edu.mtech.stout.core.User;
+import edu.mtech.stout.db.CourseDAO;
 import edu.mtech.stout.db.CourseOutcomeDAO;
+import edu.mtech.stout.db.ProgramDAO;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
@@ -10,21 +16,34 @@ import io.dropwizard.jersey.params.LongParam;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("course-outcomes/{courseId}/{outcomeId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class CourseOutcomeResource {
   CourseOutcomeDAO dao;
+  CourseDAO courseDao;
+  QueryBySelector qbs;
 
-  public CourseOutcomeResource(CourseOutcomeDAO dao){
+  public CourseOutcomeResource(CourseOutcomeDAO dao, ProgramDAO programDAO, CourseDAO courseDao){
     this.dao = dao;
+    this.courseDao = courseDao;
+    qbs = new QueryBySelector(programDAO);
   }
 
   @GET
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public CourseOutcome getCourseOutcome(@PathParam("courseId")LongParam courseId, @PathParam("outcomeId") LongParam outcomeId) {
-    return findSafely(courseId.get(), outcomeId.get());
+  public CourseOutcome getCourseOutcome(@Auth User user, @PathParam("courseId")LongParam courseId, @PathParam("outcomeId") LongParam outcomeId) {
+    List<Course> c = courseDao.findByCourseOutcome();
+    if(c.size() > 0){
+      if(qbs.queryByProgramId(user,c.get(0).getProgramId())){
+        return findSafely(courseId.get(), outcomeId.get());
+      }
+      throw new NotAuthorizedException("Cannot get course outcome not in your program");
+    }else{
+      throw new NotFoundException("No course outcomes are available in your program.");
+    }
   }
 
   private CourseOutcome findSafely(long courseId, long outcomeId){
