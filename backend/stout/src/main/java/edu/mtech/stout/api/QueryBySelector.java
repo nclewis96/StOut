@@ -30,18 +30,28 @@ public class QueryBySelector {
     }
 
     public boolean queryByProgramId( User user, @QueryParam("programId") LongParam programId){
-        HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
+    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
 
-        if(programId != null) {
-            if (programAccessList.contains(programId.get())) {
-                return true;
-            }else{
-                throw new ForbiddenException();
-            }
-        }else {
-            return false;
-        }
+    if(programId != null) {
+      if (programAccessList.contains(programId.get())) {
+        return true;
+      }else{
+        throw new ForbiddenException();
+      }
+    }else {
+      return false;
     }
+  }
+
+  public boolean queryByProgramId( User user, long programId){
+    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
+    if (programAccessList.contains(programId)) {
+      return true;
+    }else{
+      throw new ForbiddenException();
+    }
+  }
+
     //Returns a users Permission level
     public long  getUserPerm( User user){
         if(user != null){
