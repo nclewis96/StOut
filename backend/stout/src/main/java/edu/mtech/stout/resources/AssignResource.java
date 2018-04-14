@@ -42,7 +42,7 @@ public class AssignResource {
       if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
         return findSafely(assignId.get());
       }else{
-        throw new ForbiddenException();
+        throw new NotAuthorizedException("Cannot get assign not in your program");
       }
     }else{
       throw new NotFoundException("No Assigns are available in your program.");
@@ -64,7 +64,7 @@ public class AssignResource {
       if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
         return dao.update(assign);
       }else{
-        throw new ForbiddenException();
+        throw new NotAuthorizedException("Cannot update assign not in your program");
       }
     }else{
       throw new NotFoundException("The Assign you are trying to update is not in your program.");
@@ -95,7 +95,7 @@ public class AssignResource {
         }
         return status;
       }else{
-        throw new ForbiddenException();
+        throw new NotAuthorizedException("Cannot delete assign not in your program");
       }
     }else{
       throw new NotFoundException("The Assign you are trying to delete is in your program.");
