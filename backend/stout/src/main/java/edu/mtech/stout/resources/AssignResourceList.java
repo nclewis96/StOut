@@ -14,6 +14,7 @@ import io.dropwizard.jersey.params.LongParam;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/assigns")
@@ -44,6 +45,21 @@ public class AssignResourceList {
         throw new NotAuthorizedException("Cannot create assign not in your program");
       }
 
+  }
+
+  @PUT
+  @RolesAllowed({"Admin", "Program Coordinator"})
+  @UnitOfWork
+  public List<Assign> setAssigns(List<Assign> assigns) {
+    ArrayList<Assign> newAssigns = new ArrayList<>();
+    for(Assign assign : assigns){
+      if(dao.findById(assign.getId()).isPresent()){
+        newAssigns.add(dao.update(assign));
+      }else {
+        newAssigns.add(dao.create(assign));
+      }
+    }
+    return newAssigns;
   }
 
   @GET
