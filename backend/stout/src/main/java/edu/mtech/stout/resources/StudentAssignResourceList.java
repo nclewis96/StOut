@@ -7,7 +7,6 @@ import io.dropwizard.hibernate.UnitOfWork;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.awt.*;
 import java.util.List;
 
 @Path("/student-assigns")
