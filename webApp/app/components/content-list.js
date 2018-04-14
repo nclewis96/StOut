@@ -1,15 +1,16 @@
 import Ember from 'ember';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
 	tagName: 'div',
 	idName: 'content-container',
 	routing: Ember.inject.service('-routing'),
 	subRoute: Ember.computed(function() {
 		return this.get('routing.currentRouteName').split(".")[1];
 	}),
-    renderType: null,
+  renderType: null,
 	controlType: null,
-    permission: Ember.computed(function() {
+  permission: Ember.computed(function() {
 		return this.get('routing.currentRouteName').split(".")[0];
 	}),
     data: null,
@@ -22,12 +23,12 @@ export default Ember.Component.extend({
         onItemClicked(data) {
             this.setProperties({
                 data: data,
-                renderType: 'display'
+                renderType: 'displays/display'
             });
         },
         onEditClicked() {
             this.setProperties({
-				renderType: 'form',
+				renderType: 'forms/form',
 				controlType: 'edit'
 			});
         },

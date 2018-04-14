@@ -1,3 +1,4 @@
+{{nameStuff}}
 <button {{action 'addOffering'}}>
 	Add Offering
 </button>
@@ -5,25 +6,24 @@
 	Add User
 </button>
   {{#each model.offerings key='id' as |offering|}}
-    {{#form-offering data=offering as |data|}}
+    {{#forms/offering-data data=offering as |data|}}
       <button {{action 'submitRecord' data}}> Submit </button>
       <button {{action 'deleteRecord' data}}> Delete </button>
-    {{/form-offering}}
+    {{/forms/offering-data}}
   {{/each}}
-
-  {{#form-offering data=model.offering as |data|}}
+  {{#forms/offering-data data=model.offering as |data|}}
     <button {{action 'submitRecord' data}}> Submit </button>
-  {{/form-offering}}
+  {{/forms/offering-data}}
 
   {{#each model.users key='id' as |user|}}
-    {{#form-user data=user as |data|}}
+    {{#forms/user-data data=user as |data|}}
       <button {{action 'submitRecord' data}}> Submit </button>
-    {{/form-user}}
+    {{/forms/user-data}}
   {{/each}}
 
-  {{#form-user data=model.user as |data|}}
+  {{#forms/user-data data=model.user as |data|}}
     <button {{action 'submitRecord' data}}> Submit </button>
-  {{/form-user}}
+  {{/forms/user-data}}
 
   {{#each model.courses as |course|}}
     <div> {{course.prefixId.prefix}} </div>
@@ -37,5 +37,11 @@
     <div> {{metric.programId.name}}</div>
   {{/each}}
 
+  {{#each offeringsQueried as |offering|}}
+    {{#forms/offering-data data=offering as |data|}}
+      <button {{action 'submitRecord' data}}> Submit </button>
+      <button {{action 'deleteRecord' data}}> Delete </button>
+    {{/forms/offering-data}}
+  {{/each}}
 
 {{outlet}}

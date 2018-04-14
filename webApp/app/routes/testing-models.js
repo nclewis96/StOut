@@ -3,7 +3,9 @@ import CasAuthenticatedRouteMixin from '../mixins/cas-authenticated-route';
 const { inject: { service } } = Ember;
 
 export default Route.extend(CasAuthenticatedRouteMixin,{
-	model() {
+  currentUser: service(),
+	model: function() {
+    console.log(this.get('currentUser.userId'));
     return Ember.RSVP.hash({
       offerings: this.store.findAll('offering'),
       offering: this.store.findRecord('offering', 1),
@@ -12,7 +14,10 @@ export default Route.extend(CasAuthenticatedRouteMixin,{
       assigns: this.store.findAll('assign'),
       courses: this.store.findAll('course'),
       outcomes: this.store.findAll('outcome'),
-      metrics: this.store.findAll('metric')
+      metrics: this.store.findAll('metric'),
+      offeringsQueried: this.store.query('offering', {
+        instructorId  : this.get('currentUser.userId')
+      })
     });
 	},
 
