@@ -3,6 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.core.Outcome;
 import edu.mtech.stout.db.OutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -30,8 +31,12 @@ public class OutcomeResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<Outcome> getOutcomeList() {
-    return dao.findAll();
+  public List<Outcome> getOutcomeList(@QueryParam("metricId")LongParam metricId) {
+    if(metricId != null){
+      return dao.findByMetric(metricId.get());
+    }else{
+      return dao.findAll();
+    }
   }
 
 }
