@@ -22,11 +22,6 @@ import java.io.Serializable;
           name = "edu.mtech.stout.core.Course.findByAssignId",
           query = "SELECT * FROM Course JOIN Offering ON Course.course_id = Offering.course_id JOIN Offering_Assign ON Offering.offering_id = Offering_Assign.offering_id WHERE assign_id = ?",
           resultClass = Course.class
-      ),
-      @NamedNativeQuery(
-          name = "edu.mtech.stout.core.Course.findByCourseOutcome",
-          query = "SELECT * FROM Course JOIN Course_Outcome ON Course.course_id = Course_Outcome.course_id",
-          resultClass = Course.class
       )
   })
 

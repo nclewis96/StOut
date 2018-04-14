@@ -17,6 +17,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 
 @Path("course-outcomes/{courseId}/{outcomeId}")
 @Produces(MediaType.APPLICATION_JSON)
@@ -35,15 +36,17 @@ public class CourseOutcomeResource {
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public CourseOutcome getCourseOutcome(@Auth User user, @PathParam("courseId")LongParam courseId, @PathParam("outcomeId") LongParam outcomeId) {
-    List<Course> c = courseDao.findByCourseOutcome();
-    if(c.size() > 0){
-      if(qbs.queryByProgramId(user,c.get(0).getProgramId())){
-        return findSafely(courseId.get(), outcomeId.get());
+      Optional<Course> c = courseDao.findById(courseId.get());
+      if(c.isPresent()){
+        if(qbs.queryByProgramId(user,c.get().getProgramId())){
+          return findSafely(courseId.get(), outcomeId.get());
+        }
+        throw new NotAuthorizedException("Cannot get course outcome not in your program");
+      }else{
+        throw new NotFoundException("No course outcomes are available in your program.");
       }
-      throw new NotAuthorizedException("Cannot get course outcome not in your program");
-    }else{
-      throw new NotFoundException("No course outcomes are available in your program.");
-    }
+
+
   }
 
   private CourseOutcome findSafely(long courseId, long outcomeId){

@@ -10,6 +10,7 @@ import edu.mtech.stout.db.ProgramDAO;
 
 import javax.management.Query;
 import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.QueryParam;
 import java.util.HashSet;
 
@@ -36,7 +37,7 @@ public class QueryBySelector {
       if (programAccessList.contains(programId.get())) {
         return true;
       }else{
-        throw new ForbiddenException();
+        throw new NotAuthorizedException("You do not have access to that program");
       }
     }else {
       return false;
@@ -48,7 +49,7 @@ public class QueryBySelector {
     if (programAccessList.contains(programId)) {
       return true;
     }else{
-      throw new ForbiddenException();
+      throw new NotAuthorizedException("You do not have access to that program");
     }
   }
 

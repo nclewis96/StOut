@@ -21,10 +21,6 @@ public class CourseDAO extends StOutDAO<Course> {
     return list(namedQuery("edu.mtech.stout.core.Course.findByAssignId").setParameter(0,assignId));
   }
 
-  public List<Course> findByCourseOutcome(){
-    return list(namedQuery("edu.mtech.stout.core.Course.findByCourseOutcome"));
-  }
-
   public List<Course> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Course.findAll"));
   }
