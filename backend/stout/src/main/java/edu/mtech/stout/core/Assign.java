@@ -13,7 +13,13 @@ import java.util.Objects;
       name = "edu.mtech.stout.core.Assign.findAll",
       query = "SELECT * FROM Offering_Assign",
       resultClass = Assign.class
-    )
+    ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Assign.findProgramId",
+          query = "SELECT * FROM Offering_Assign JOIN Offering ON Offering_Assign.offering_id=Offering.offering_id" +
+              " JOIN Course ON Offering.course_id = Course.course_id WHERE Course.program_id = ?",
+          resultClass = Assign.class
+      )
   })
 public class Assign  implements Serializable {
   @Id
