@@ -37,11 +37,23 @@
     <div> {{metric.programId.name}}</div>
   {{/each}}
 
+  {{log semesters}}
+  {{#each semesters as |semester|}}
+    i'm trying
+    {{log semester}}
+    {{#forms/semester-data data=semester as |data|}}
+      <button {{action 'submitRecord' data}}> Submit </button>
+      <button {{action 'deleteRecord' data}}> Delete </button>
+    {{/forms/semester-data}}
+  {{/each}}
+
   {{#each offeringsQueried as |offering|}}
     {{#forms/offering-data data=offering as |data|}}
       <button {{action 'submitRecord' data}}> Submit </button>
       <button {{action 'deleteRecord' data}}> Delete </button>
     {{/forms/offering-data}}
   {{/each}}
+
+
 
 {{outlet}}
