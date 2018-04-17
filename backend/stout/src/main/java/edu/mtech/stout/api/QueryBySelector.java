@@ -70,7 +70,6 @@ public class QueryBySelector {
            if(userPerm.getPermissionId() == permissionId && userPerm.getProgramId() == programId){
                return true;
            }
-
         }
         return false;
 

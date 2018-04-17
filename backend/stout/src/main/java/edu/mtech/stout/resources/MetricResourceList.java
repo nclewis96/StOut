@@ -3,6 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.core.Metric;
 import edu.mtech.stout.db.MetricDAO;
+import edu.mtech.stout.db.PermissionsDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import edu.mtech.stout.db.ProgramDAO;
 import edu.mtech.stout.core.User;
@@ -23,9 +24,9 @@ public class MetricResourceList {
   QueryBySelector queryBySelector = null;
 
 
-  public MetricResourceList(MetricDAO dao, ProgramDAO programDao) {
+  public MetricResourceList(MetricDAO dao, ProgramDAO programDao, PermissionsDAO permissionsDAO) {
     this.dao = dao;
-    queryBySelector = new QueryBySelector(programDao);
+    queryBySelector = new QueryBySelector(permissionsDAO,programDao);
   }
 
   @POST
@@ -41,7 +42,6 @@ public class MetricResourceList {
     }else{
       throw new NotFoundException("No metrics are available in your program.");
     }
-
   }
 
   @GET
@@ -55,11 +55,8 @@ public class MetricResourceList {
         return dao.findAll();
       }
     }else{
-      throw new NotAuthorizedException("Cannot retrieve Metrics not in your program");
+      throw new NotAuthorizedException("Cannot retrieve Metrics not in your Program");
     }
-
-
-
   }
 
 }
