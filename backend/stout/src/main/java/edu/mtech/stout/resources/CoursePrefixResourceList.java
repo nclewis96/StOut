@@ -35,7 +35,7 @@ public class CoursePrefixResourceList {
   @UnitOfWork
   public CoursePrefix createCoursePrefix(@Auth User user, CoursePrefix coursePrefix) {
     //Checks to see if the User has access to the Course Prefix's Program
-    List<Course> c = courseDao.findByCoursePrefixId(coursePrefix.getPrefix_id());
+    List<Course> c = courseDao.findByCoursePrefixId(coursePrefix.getId());
     if(c.size() > 0){
       if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
         return dao.create(coursePrefix);
