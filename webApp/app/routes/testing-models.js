@@ -16,6 +16,7 @@ export default Route.extend(CasAuthenticatedRouteMixin,{
       outcomes: this.store.findAll('outcome'),
       metrics: this.store.findAll('metric'),
       semesters: this.store.findAll('semester'),
+      programCutoffs: this.store.findAll('programCutoff'),
       offeringsQueried: this.store.query('offering', {
         instructorId  : this.get('currentUser.userId')
       })

@@ -9,6 +9,4 @@ export default Component.extend({
   roleList: computed('store', function(){
     return this.get('store').findAll('role');
   }),
-  actions: {
-  }
 });

@@ -2,7 +2,11 @@ import ApplicationSerializer from './application';
 
 export default ApplicationSerializer.extend({
   attrs: {
-    coursePrefix: {
+    prefixId: {
+      deserialize: 'records',
+      serialize: 'ids'
+    },
+    programId: {
       deserialize: 'records',
       serialize: 'ids'
     }

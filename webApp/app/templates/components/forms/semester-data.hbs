@@ -3,11 +3,11 @@
   <div>
     Starting Month:
     {{one-way-select
-      data.TypeId
+      data.typeId
       options=semesterTypeList
       optionValuePath="id"
       optionLabelPath="startMonth"
-      update=(action (mut data.TypeId))
+      update=(action (mut data.typeId))
     }}
   </div>
 
