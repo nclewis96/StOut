@@ -25,5 +25,8 @@ public class CourseDAO extends StOutDAO<Course> {
     return list(namedQuery("edu.mtech.stout.core.Course.findAll"));
   }
 
+  public List<Course> findByCoursePrefixId(long prefixId){
+    return list(namedQuery("edu.mtech.stout.core.Course.findByCoursePrefixId").setParameter(0,prefixId));
+  }
 
 }

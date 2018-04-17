@@ -56,28 +56,46 @@ public class CourseOutcomeResource {
   @PATCH
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public CourseOutcome updateCourseOutcome(@PathParam("courseId") LongParam courseId, @PathParam("outcomeId") LongParam outcomeId, CourseOutcome outcome){
-    return dao.update(outcome);
+  public CourseOutcome updateCourseOutcome(@Auth User user, @PathParam("courseId") LongParam courseId, @PathParam("outcomeId") LongParam outcomeId, CourseOutcome outcome){
+    Optional<Course> c = courseDao.findById(courseId.get());
+    if(c.isPresent()){
+      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+        return dao.update(outcome);
+      }
+      throw new NotAuthorizedException("Cannot update course outcome not in your program");
+    }else{
+      throw new NotFoundException("No course outcomes are available in your program.");
+    }
   }
 
   @DELETE
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Status deleteCourseOutcome(@PathParam("courseId")LongParam courseId, @PathParam("outcomeId")LongParam outcomeId){
-    Status status = new Status();
-    status.setId(courseId.get().longValue());
-    status.setAction("DELETE");
-    status.setResource("CourseOutcome");
+  public Status deleteCourseOutcome(@Auth User user, @PathParam("courseId")LongParam courseId, @PathParam("outcomeId")LongParam outcomeId){
+    Optional<Course> c = courseDao.findById(courseId.get());
+    if(c.isPresent()){
+      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+        Status status = new Status();
+        status.setId(courseId.get().longValue());
+        status.setAction("DELETE");
+        status.setResource("CourseOutcome");
 
-    boolean success = dao.delete(findSafely(courseId.get().longValue(), outcomeId.get().longValue()));
+        boolean success = dao.delete(findSafely(courseId.get().longValue(), outcomeId.get().longValue()));
 
-    if(success){
-      status.setMessage("Successfully deleted Course Outcome");
-      status.setStatus(200);
+        if(success){
+          status.setMessage("Successfully deleted Course Outcome");
+          status.setStatus(200);
+        }else{
+          status.setMessage("Error deleting Course Outcome");
+          status.setStatus(500);
+        }
+        return status;
+      }
+      throw new NotAuthorizedException("Cannot delete course outcome not in your program");
     }else{
-      status.setMessage("Error deleting Course Outcome");
-      status.setStatus(500);
+      throw new NotFoundException("No course outcomes are available in your program.");
     }
-    return status;
+
+
   }
 }
