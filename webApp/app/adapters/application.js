@@ -2,9 +2,9 @@ import Ember from 'ember';
 const { inject: { service } } = Ember;
 import DS from 'ember-data';
 import CasAuthenticatedRouteMixin from '../mixins/cas-authenticated-route';
+import ENV from 'st-out/config/environment';
 const { copy } = Ember;
 const { Promise } = Ember.RSVP;
-import ENV from 'st-out/config/environment';
 export default DS.JSONAPIAdapter.extend(CasAuthenticatedRouteMixin, {
   currentUser: service(),
   jwt: Ember.computed('currentUser', function(){

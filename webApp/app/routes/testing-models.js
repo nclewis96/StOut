@@ -5,7 +5,6 @@ const { inject: { service } } = Ember;
 export default Route.extend(CasAuthenticatedRouteMixin,{
   currentUser: service(),
 	model: function() {
-    console.log(this.get('currentUser.userId'));
     return Ember.RSVP.hash({
       offerings: this.store.findAll('offering'),
       offering: this.store.findRecord('offering', 1),
