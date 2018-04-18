@@ -6,7 +6,8 @@ export default Route.extend(CasAuthenticatedRouteMixin,{
   currentUser: service(),
   model: function() {
     return Ember.RSVP.hash({
-      assigns: this.store.findAll('assign')
+      assigns: this.store.findAll('assign'),
+      coursePrefixes: this.store.findAll('coursePrefix')
     });
   },
 
