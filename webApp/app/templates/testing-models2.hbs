@@ -11,4 +11,11 @@
       <button {{action 'deleteRecord' data}}> Delete </button>
     {{/forms/course-prefix-data}}
   {{/each}}
+
+  {{#each model.jobTitles as |jobTitle|}}
+    {{#forms/job-title-data data=jobTitle as |data|}}
+      <button {{action 'submitRecord' data}}> Submit </button>
+      <button {{action 'deleteRecord' data}}> Delete </button>
+    {{/forms/job-title-data}}
+  {{/each}}
 {{outlet}}

@@ -7,7 +7,9 @@ export default Route.extend(CasAuthenticatedRouteMixin,{
   model: function() {
     return Ember.RSVP.hash({
       assigns: this.store.findAll('assign'),
-      coursePrefixes: this.store.findAll('coursePrefix')
+      coursePrefixes: this.store.findAll('coursePrefix'),
+      jobTitles: this.store.findAll('jobTitle')
+
     });
   },
 
