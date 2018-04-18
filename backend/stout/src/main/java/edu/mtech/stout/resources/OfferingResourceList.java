@@ -45,7 +45,7 @@ public class OfferingResourceList {
                                         @QueryParam("userId") LongParam userId) {
     long permLevel = queryBySelector.getUserPerm(user);
     //If the User has access to the requested Program allow query
-    if (queryBySelector.queryByProgramId(user, programId)) {
+    if (permLevel == 2 && queryBySelector.queryByProgramId(user, programId)) {
       return dao.findByProgramId(programId.get());
     } //If userId is null, default to the current User's userId
     else if (userId == null){
@@ -53,8 +53,7 @@ public class OfferingResourceList {
     }//If User is not a Prog. Coord. and requested a userId throw an exception
     else if(permLevel != 2 && userId != null){
       throw new NotAuthorizedException("You cannot request another Faculty member's courses");
-    }
-    //If User is a Prog. Coord. Allow a passed in userId
+    }//If User is a Prog. Coord. Allow a passed in userId
     else if(permLevel == 2 && userId != null) {
       return dao.findByUser(userId.get());
     } else{

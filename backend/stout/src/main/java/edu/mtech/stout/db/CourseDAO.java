@@ -17,10 +17,16 @@ public class CourseDAO extends StOutDAO<Course> {
     return courseList;
   }
 
+  public List<Course> findByAssignId(long assignId){
+    return list(namedQuery("edu.mtech.stout.core.Course.findByAssignId").setParameter(0,assignId));
+  }
 
   public List<Course> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Course.findAll"));
   }
 
+  public List<Course> findByCoursePrefixId(long prefixId){
+    return list(namedQuery("edu.mtech.stout.core.Course.findByCoursePrefixId").setParameter(0,prefixId));
+  }
 
 }

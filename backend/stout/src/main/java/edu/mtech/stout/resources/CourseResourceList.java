@@ -33,8 +33,13 @@ public class CourseResourceList{
 	@POST
 	@RolesAllowed({"Program Coordinator"})
 	@UnitOfWork
-	public Course createCourse(Course course){
-		return dao.create(course);
+	public Course createCourse(@Auth User user, Course course){
+		if(queryBySelector.queryByProgramId(user, course.getProgramId())){
+			return dao.create(course);
+		}else{
+			throw new NotAuthorizedException("Cannot create a Course not in your program");
+		}
+
 	}
 
 	@GET
@@ -42,9 +47,14 @@ public class CourseResourceList{
 	@UnitOfWork
 	public List<Course> getCourseList(@Auth User user, @QueryParam("programId") LongParam programId){
     if (queryBySelector.queryByProgramId(user, programId)) {
-      return dao.findByProgramId(programId.get());
+    	if(programId != null){
+				return dao.findByProgramId(programId.get());
+			}else {
+				return dao.findAll();
+			}
+
     } else {
-      return dao.findAll();
+    	throw new NotAuthorizedException("Cannot gget a Course not in your program");
     }
 
 	}

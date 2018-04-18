@@ -32,13 +32,14 @@ public class JobTitleResource {
   }
 
   @PATCH
+  @RolesAllowed({"Admin"})
   @UnitOfWork
   public JobTitle updateJobTitle(@PathParam("jobTitleId") LongParam jobTitleId, JobTitle jobTitle){
    return dao.update(jobTitle);
   }
 
   @DELETE
-  @RolesAllowed({"Program Coordinator"})
+  @RolesAllowed({"Admin"})
   @UnitOfWork
   public Status deleteJobTitle(@PathParam("jobTitleId") LongParam jobTitleId) {
     Status status = new Status();
