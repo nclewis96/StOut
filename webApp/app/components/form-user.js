@@ -10,5 +10,26 @@ export default Component.extend({
     return this.get('store').findAll('role');
   }),
   actions: {
-  }
+  },
+
+
+
+
+    // rules hash for validation
+    rules: {
+        name: {
+            required: {
+                check: true,
+                message: 'You must provide a first name'
+		
+            },
+		//max: 5
+        },
+      
+        username: {
+  required: true,
+  //max: 5
+}
+    }
+
 });
