@@ -1,7 +1,5 @@
 package edu.mtech.stout.core;
 
-import jdk.jfr.Name;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
