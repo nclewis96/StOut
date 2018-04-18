@@ -53,7 +53,7 @@ public class OutcomeAssignResourceList {
     if(c.size() > 0){
       if(queryBySelector.queryByProgramId(user, c.get(0).getProgramId())){
         return dao.findAll();
-      }
+    }
       throw new NotAuthorizedException("Cannot get outcome assign not in your program");
     }
     throw new NotFoundException("No outcome Assigns are available in your program");
