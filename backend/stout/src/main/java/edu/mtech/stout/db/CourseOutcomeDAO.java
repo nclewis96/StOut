@@ -10,4 +10,7 @@ public class CourseOutcomeDAO extends StOutDAO<CourseOutcome> {
   public List<CourseOutcome> findAll(){
     return list(namedQuery("edu.mtech.stout.core.CourseOutcome.findAll"));
   }
+  public List<CourseOutcome> findByCourseAndMetric(Long courseId, Long metricId){
+    return list(namedQuery("edu.mtech.stout.core.CourseOutcome.findByCourseAndMetric").setParameter(0, courseId).setParameter(1, metricId));
+  }
 }
