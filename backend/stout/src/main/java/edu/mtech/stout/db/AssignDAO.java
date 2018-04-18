@@ -22,6 +22,10 @@ public class AssignDAO extends StOutDAO<Assign> {
     return assign;
   }
 
+  public List<Assign> findProgramId(long programId){
+    return list(namedQuery("edu.mtech.stout.core.Assign.findProgramId").setParameter(0,programId));
+  }
+
   public List<Assign> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Assign.findAll"));
   }

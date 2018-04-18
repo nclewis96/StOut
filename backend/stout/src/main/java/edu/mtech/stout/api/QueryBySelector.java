@@ -8,7 +8,9 @@ import io.dropwizard.auth.Auth;
 import io.dropwizard.jersey.params.LongParam;
 import edu.mtech.stout.db.ProgramDAO;
 
+import javax.management.Query;
 import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.QueryParam;
 import java.util.HashSet;
 
@@ -18,6 +20,7 @@ public class QueryBySelector {
     UserDAO userDao;
     PermissionsDAO permissionsDAO;
 
+    public QueryBySelector(PermissionsDAO permissionsDAO){this.permissionsDAO = permissionsDAO;}
     public QueryBySelector(ProgramDAO programDao){
         this.programDao = programDao;
     }
@@ -27,21 +30,31 @@ public class QueryBySelector {
         this.programDao = programDao;
     }
 
-    public boolean queryByProgramId(@Auth User user, @QueryParam("programId") LongParam programId){
-        HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
+    public boolean queryByProgramId( User user, @QueryParam("programId") LongParam programId){
+    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
 
-        if(programId != null) {
-            if (programAccessList.contains(programId.get())) {
-                return true;
-            }else{
-                throw new ForbiddenException();
-            }
-        }else {
-            return false;
-        }
+    if(programId != null) {
+      if (programAccessList.contains(programId.get())) {
+        return true;
+      }else{
+        throw new NotAuthorizedException("You do not have access to that program");
+      }
+    }else {
+      return false;
     }
+  }
+
+  public boolean queryByProgramId( User user, long programId){
+    HashSet<Long> programAccessList = programDao.getProgramIdSetByUser(user.getId());
+    if (programAccessList.contains(programId)) {
+      return true;
+    }else{
+      throw new NotAuthorizedException("You do not have access to that program");
+    }
+  }
+
     //Returns a users Permission level
-    public long  getUserPerm(@Auth User user){
+    public long  getUserPerm( User user){
         if(user != null){
             return permissionsDAO.findByUserId(user.getId()).get(0).getPermissionId();
 
@@ -51,13 +64,12 @@ public class QueryBySelector {
     }
 
     //Checks if a logged in user has the needed permissions for a program
-    public boolean queryUserPermForProg(@Auth User user, long programId, long permissionId){
+    public boolean queryUserPermForProg(User user, long programId, long permissionId){
         if(user != null){
            Permissions userPerm = permissionsDAO.findByUserId(user.getId()).get(0);
            if(userPerm.getPermissionId() == permissionId && userPerm.getProgramId() == programId){
                return true;
            }
-
         }
         return false;
 

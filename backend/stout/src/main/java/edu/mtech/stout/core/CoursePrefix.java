@@ -19,19 +19,19 @@ public class CoursePrefix  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "prefix_id")
-  private long prefix_id;
+  private long id;
   @Column(name = "prefix")
   private String prefix;
 
   public CoursePrefix() {
   }
 
-  public long getPrefix_id() {
-    return prefix_id;
+  public long getId() {
+    return id;
   }
 
-  public void setPrefix_id(long prefix_id) {
-    this.prefix_id = prefix_id;
+  public void setId(long prefix_id) {
+    this.id = prefix_id;
   }
 
   public String getPrefix() {
@@ -47,12 +47,12 @@ public class CoursePrefix  implements Serializable {
     if (!(object instanceof CoursePrefix)) return false;
     if (!super.equals(object)) return false;
     CoursePrefix that = (CoursePrefix) object;
-    return getPrefix_id() == that.getPrefix_id() &&
+    return getId() == that.getId() &&
       java.util.Objects.equals(getPrefix(), that.getPrefix());
   }
 
   public int hashCode() {
 
-    return java.util.Objects.hash(super.hashCode(), getPrefix_id(), getPrefix());
+    return java.util.Objects.hash(super.hashCode(), getId(), getPrefix());
   }
 }

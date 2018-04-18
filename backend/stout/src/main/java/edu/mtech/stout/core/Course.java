@@ -17,7 +17,18 @@ import java.io.Serializable;
       name = "edu.mtech.stout.core.Course.findByProgramId",
       query = "SELECT * FROM Course WHERE program_id = ?",
       resultClass = Course.class
-    )
+    ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Course.findByAssignId",
+          query = "SELECT * FROM Course JOIN Offering ON Course.course_id = Offering.course_id " +
+              "JOIN Offering_Assign ON Offering.offering_id = Offering_Assign.offering_id WHERE assign_id = ?",
+          resultClass = Course.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Course.findByCoursePrefixId",
+          query = "SELECT * FROM Course JOIN Course_Prefix ON Course.prefix_id = Course_Prefix.prefix_id WHERE Course.prefix_id = ?",
+          resultClass = Course.class
+      )
   })
 
 public class Course  implements Serializable {
