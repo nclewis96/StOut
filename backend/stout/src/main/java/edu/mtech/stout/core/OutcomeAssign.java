@@ -23,6 +23,13 @@ public class OutcomeAssign implements Serializable{
   @Column(name = "assign_id")
   private long assignId;
 
+  public OutcomeAssign(){ super();}
+
+  public OutcomeAssign(long outcomeId, long assignId){
+    this.outcomeId = outcomeId;
+    this.assignId = assignId;
+  }
+
   public long getOutcomeId() {
     return outcomeId;
   }
