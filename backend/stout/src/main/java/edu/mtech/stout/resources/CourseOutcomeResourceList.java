@@ -50,7 +50,7 @@ public class CourseOutcomeResourceList {
   @GET
   @PermitAll
   @UnitOfWork
-  public List<CourseOutcome> getCourseOutcome(@Auth User user, @QueryParam("courseId")LongParam courseId){
+  public List<CourseOutcome> getCourseOutcomeList(@Auth User user, @QueryParam("courseId")LongParam courseId){
     Optional<Course> c = courseDao.findById(courseId.get());
     if(c.isPresent()){
       if(qbs.queryByProgramId(user,c.get().getProgramId())){
