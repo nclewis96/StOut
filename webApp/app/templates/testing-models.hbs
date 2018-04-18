@@ -5,6 +5,10 @@
 <button {{action 'addUser'}}>
 	Add User
 </button>
+  {{#forms/program-cutoff-data data=programCutoff as |data|}}
+    <button {{action 'submitRecord' data}}> Submit </button>
+    <button {{action 'deleteRecord' data}}> Delete </button>
+  {{/forms/program-cutoff-data}}
   {{#each model.offerings key='id' as |offering|}}
     {{#forms/offering-data data=offering as |data|}}
       <button {{action 'submitRecord' data}}> Submit </button>

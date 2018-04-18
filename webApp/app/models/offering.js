@@ -9,5 +9,9 @@ export default DS.Model.extend({
 	locked: DS.attr('boolean'),
 	numStudents: DS.attr('number'),
   instructorName: DS.attr('string'),
-  scales: DS.hasMany('scale')
+  scales: DS.hasMany('scale'),
+  name: Ember.computed('courseId.title', 'sectionNum', function(){
+      return `${this.get('courseId.title')} ${this.get('sectionNum')}`
+	  })
+
 });

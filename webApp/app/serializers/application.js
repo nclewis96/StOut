@@ -9,6 +9,7 @@ export default DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin,{
     return modelName;
   },
 
+
   serializeRecordArray(store, modelClass, records) {
     let data = records.map(record => {
       return this.serialize(record._createSnapshot());

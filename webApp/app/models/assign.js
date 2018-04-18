@@ -1,7 +1,8 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  offeringId: DS.attr('number'),
+  offeringId: DS.belongsTo('offering'),
+  scaleId: DS.belongsTo('scale'),
   score: DS.attr('number'),
   name: DS.attr('string'),
   desc: DS.attr('string'),
