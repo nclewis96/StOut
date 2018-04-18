@@ -7,6 +7,8 @@ import io.dropwizard.hibernate.UnitOfWork;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/student-assigns")
@@ -22,6 +24,21 @@ public class StudentAssignResourceList {
   @UnitOfWork
   public StudentAssign createStudentAssign(StudentAssign studentAssign) {
     return dao.create(studentAssign);
+  }
+
+  @PUT
+  @RolesAllowed({"Admin", "Program Coordinator"})
+  @UnitOfWork
+  public List<StudentAssign> setAssigns(List<StudentAssign> assigns) {
+    ArrayList<StudentAssign> newAssigns = new ArrayList<>();
+    for(StudentAssign assign : assigns){
+      if(dao.findById(assign).isPresent()){
+        newAssigns.add(dao.update(assign));
+      }else {
+        newAssigns.add(dao.create(assign));
+      }
+    }
+    return newAssigns;
   }
 
   @GET

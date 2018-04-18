@@ -10,6 +10,6 @@ public class SemesterTypeDAO extends StOutDAO<SemesterType> {
   }
 
   public List<SemesterType> findAll(){
-    return  list(namedQuery("edu.mtech.stout.core.Semester.findAll"));
+    return  list(namedQuery("edu.mtech.stout.core.SemesterType.findAll"));
   }
 }

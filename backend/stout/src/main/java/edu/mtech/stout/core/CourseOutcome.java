@@ -19,6 +19,12 @@ import java.util.Objects;
             "JOIN Outcome on Course_Outcome.outcome_id = Outcome.outcome_id " +
             "JOIN Metric ON Metric.metric_id = Outcome.metric_id WHERE course_id = ? AND Metric.metric_id = ?;",
           resultClass = CourseOutcome.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.CourseOutcome.findByProgramId",
+            query = "SELECT * FROM Course_Outcome JOIN Course ON " +
+                "Course_Outcome.course_id = Course.course_id WHERE program_id = ?",
+            resultClass = CourseOutcome.class
         )
     })
 
