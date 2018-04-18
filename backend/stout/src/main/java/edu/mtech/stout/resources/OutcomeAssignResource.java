@@ -18,7 +18,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/outcome-assign/{outcomeId}/{assignId}")
+@Path("/outcome-assigns/{outcomeId}/{assignId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeAssignResource {
   OutcomeAssignDAO dao;
