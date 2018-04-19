@@ -5,6 +5,13 @@
     {{/forms/assign-data}}
   {{/each}}
 
+  {{#each model.permissions as |permission|}}
+    {{#forms/permission-data data=permission as |data|}}
+      <button {{action 'submitRecord' data}}> Submit </button>
+      <button {{action 'deleteRecord' data}}> Delete </button>
+    {{/forms/permission-data}}
+  {{/each}}
+
   {{#each model.coursePrefixes as |prefix|}}
     {{#forms/course-prefix-data data=prefix as |data|}}
       <button {{action 'submitRecord' data}}> Submit </button>

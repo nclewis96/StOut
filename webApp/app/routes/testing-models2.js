@@ -5,10 +5,17 @@ const { inject: { service } } = Ember;
 export default Route.extend(CasAuthenticatedRouteMixin,{
   currentUser: service(),
   model: function() {
+    const store = this.store;
+    let userId = this.get('currentUser.userId');
     return Ember.RSVP.hash({
-      assigns: this.store.findAll('assign'),
-      coursePrefixes: this.store.findAll('coursePrefix'),
-      jobTitles: this.store.findAll('jobTitle')
+      assigns: store.findAll('assign'),
+      coursePrefixes: store.findRecord('permission', userId).then(function (permission) {
+          return store.query('coursePrefix', {
+            programId: permission.get('programId').get('id')
+          })
+        }),
+      jobTitles: store.findAll('jobTitle'),
+      permissions: store.findAll('permission')
 
     });
   },
