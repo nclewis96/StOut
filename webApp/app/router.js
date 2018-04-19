@@ -40,6 +40,7 @@ Router.map(function() {
 
   this.route('protos', function() {});
   this.route('testing-models2');
+  this.route('testing-nav');
 });
 
 export default Router;

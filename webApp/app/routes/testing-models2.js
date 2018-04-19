@@ -6,16 +6,16 @@ export default Route.extend(CasAuthenticatedRouteMixin,{
   currentUser: service(),
   model: function() {
     const store = this.store;
-    let userId = this.get('currentUser.userId');
     return Ember.RSVP.hash({
       assigns: store.findAll('assign'),
-      coursePrefixes: store.findRecord('permission', userId).then(function (permission) {
+      coursePrefixes: store.findRecord('permission', this.get('currentUser.userId')).then(function (permission) {
           return store.query('coursePrefix', {
             programId: permission.get('programId').get('id')
           })
         }),
       jobTitles: store.findAll('jobTitle'),
-      permissions: store.findAll('permission')
+      permissions: store.findAll('permission'),
+      metrics: store.findAll('metric')
 
     });
   },
