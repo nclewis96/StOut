@@ -14,4 +14,11 @@ public class CoursePrefixDAO extends StOutDAO<CoursePrefix> {
     return list(namedQuery("edu.mtech.stout.core.CoursePrefix.findAll"));
   }
 
+  public List<CoursePrefix> findByProgramId(Long programId) {
+    return list(namedQuery("edu.mtech.stout.core.CoursePrefix.findByProgramId").setParameter(0, programId));
+  }
+
+  public List<CoursePrefix> findByUserId(Long userId){
+    return list(namedQuery("edu.mtech.stout.core.CoursePrefix.findByUserId").setParameter(0,userId));
+  }
 }

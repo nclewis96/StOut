@@ -3,6 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.core.Course;
 import edu.mtech.stout.core.CoursePrefix;
+import edu.mtech.stout.core.Program;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.CourseDAO;
 import edu.mtech.stout.db.CoursePrefixDAO;
@@ -14,6 +15,7 @@ import io.dropwizard.jersey.params.LongParam;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/course-prefixes")
@@ -23,11 +25,13 @@ public class CoursePrefixResourceList {
   CoursePrefixDAO dao;
   QueryBySelector qbs;
   CourseDAO courseDao;
+  ProgramDAO programDao;
 
-  public CoursePrefixResourceList(CoursePrefixDAO dao, ProgramDAO pDao, CourseDAO courseDao ) {
+  public CoursePrefixResourceList(CoursePrefixDAO dao, ProgramDAO programDao, CourseDAO courseDao ) {
     this.courseDao = courseDao;
     this.dao = dao;
-    qbs = new QueryBySelector(pDao);
+    qbs = new QueryBySelector(programDao);
+    this.programDao = programDao;
   }
 
   @POST
@@ -48,19 +52,37 @@ public class CoursePrefixResourceList {
   }
 
   @GET
-  @RolesAllowed({"Admin", "Program Coordinator"})
+  @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public List<CoursePrefix> getCoursePrefixList(@Auth User user, @QueryParam("coursePrefixId") LongParam coursePrefixId) {
-    //Checks to see if the User has access to the Course Prefix's Program
-    List<Course> c = courseDao.findByCoursePrefixId(coursePrefixId.get());
-    if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
-        return dao.findAll();
+  public List<CoursePrefix> getCoursePrefixList(@Auth User user, @QueryParam("programId") LongParam programId) {
+    //Checks to see if the User has access to the ProgramID, if no programID
+    //return all the stuff from the programs the User has access to
+    if(programId != null){
+      if(qbs.queryByProgramId(user, programId.get()) ){
+        return dao.findByProgramId(programId.get());
       }else{
         throw new NotAuthorizedException("Cannot get Course Prefixes not in your program");
       }
     }else{
-      throw new NotFoundException("No Course Prefixes are available in your program.");
+      //If no Query Params, return all Course Prefix the user has access to.
+      ArrayList<CoursePrefix> fullList = new ArrayList<>();
+      List<Program> programList = programDao.findByUser(user.getId());
+
+      for(int i = 0; i < programList.size(); i++){
+        List<CoursePrefix> tempList = dao.findByProgramId(programList.get(i).getId());
+        for(int j = 0; j < tempList.size(); j++){
+          fullList.add(tempList.get(0));
+        }
+      }
+
+      List<CoursePrefix> tempList = dao.findByUserId(user.getId());
+      for(int i = 0; i < tempList.size();i++){
+        if(!fullList.contains(tempList.get(i))){
+          fullList.add(tempList.get(i));
+        }
+      }
+
+      return fullList;
     }
   }
 
