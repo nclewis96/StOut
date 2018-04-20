@@ -11,7 +11,18 @@ import java.io.Serializable;
       name = "edu.mtech.stout.core.CoursePrefix.findAll",
       query = "SELECT * FROM Course_Prefix",
       resultClass = CoursePrefix.class
-    )
+    ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.CoursePrefix.findByProgramId",
+          query = "SELECT * FROM Course_Prefix JOIN Course ON Course_Prefix.prefix_id = Course.prefix_id WHERE Course.program_id = ?",
+          resultClass =  CoursePrefix.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.CoursePrefix.findByUserId",
+          query = "SELECT DISTINCT(Course_Prefix.prefix_id) FROM Course_Prefix JOIN Course ON Course_Prefix.prefix_id = Course.prefix_id " +
+              "JOIN Offering ON Offering.course_id = Course.course_id WHERE Offering.user_id = ?",
+          resultClass = CoursePrefix.class
+      )
   }
 )
 
