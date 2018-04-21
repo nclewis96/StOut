@@ -24,6 +24,7 @@ import java.util.*;
 
   })
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Outcome  implements Serializable {
 
   private long id;
@@ -71,8 +72,7 @@ public class Outcome  implements Serializable {
   }
 
   @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-  @JoinTable(name="Outcome_Assign",joinColumns={@JoinColumn(name="outcome_id")},inverseJoinColumns={@JoinColumn(name="assign_id")})
-  @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+  @JoinTable(name="Outcome_Assign",joinColumns={@JoinColumn(name="outcome_id", nullable = false, updatable = false)},inverseJoinColumns={@JoinColumn(name="assign_id", nullable = false, updatable = false)})
   public Set<Assign> getAssigns() {
     return assigns;
   }

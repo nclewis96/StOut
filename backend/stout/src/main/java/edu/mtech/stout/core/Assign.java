@@ -24,6 +24,8 @@ import java.util.*;
           resultClass = Assign.class
       )
   })
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Assign  implements Serializable {
 
   private long id;
@@ -91,7 +93,6 @@ public class Assign  implements Serializable {
   }
 
   @ManyToMany(fetch = FetchType.LAZY, mappedBy="assigns")
-  @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
   public Set<Outcome> getOutcomes() {
     return outcomes;
   }
