@@ -1,8 +1,11 @@
 package edu.mtech.stout.core;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 
 @Entity
@@ -22,21 +25,18 @@ import java.util.Objects;
       )
   })
 public class Assign  implements Serializable {
+
+  private long id;
+  private long offeringId;
+  private long score;
+  private String name;
+  private String desc;
+  private long maxScore;
+  private Set<Outcome> outcomes= new HashSet<>(0);
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "assign_id")
-  private long id;
-  @Column(name = "offering_id")
-  private long offeringId;
-  @Column(name = "score")
-  private long score;
-  @Column(name = "name")
-  private String name;
-  @Column(name = "desc")
-  private String desc;
-  @Column(name = "max_score")
-  private long maxScore;
-
   public long getId() {
     return id;
   }
@@ -45,6 +45,7 @@ public class Assign  implements Serializable {
     this.id = id;
   }
 
+  @Column(name = "offering_id")
   public long getOfferingId() {
     return offeringId;
   }
@@ -53,6 +54,7 @@ public class Assign  implements Serializable {
     this.offeringId = offeringId;
   }
 
+  @Column(name = "score")
   public long getScore() {
     return score;
   }
@@ -61,6 +63,7 @@ public class Assign  implements Serializable {
     this.score = score;
   }
 
+  @Column(name = "name")
   public String getName() {
     return name;
   }
@@ -69,6 +72,7 @@ public class Assign  implements Serializable {
     this.name = name;
   }
 
+  @Column(name = "desc")
   public String getDesc() {
     return desc;
   }
@@ -77,12 +81,23 @@ public class Assign  implements Serializable {
     this.desc = desc;
   }
 
+  @Column(name = "max_score")
   public long getMaxScore() {
     return maxScore;
   }
 
   public void setMaxScore(long maxScore) {
     this.maxScore = maxScore;
+  }
+
+  @ManyToMany(fetch = FetchType.LAZY, mappedBy="assigns")
+  @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+  public Set<Outcome> getOutcomes() {
+    return outcomes;
+  }
+
+  public void setOutcomes(Set<Outcome> outcomes) {
+    this.outcomes = outcomes;
   }
 
   @Override

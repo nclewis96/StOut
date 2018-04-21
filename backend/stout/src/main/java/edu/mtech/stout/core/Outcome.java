@@ -1,8 +1,11 @@
 package edu.mtech.stout.core;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "Outcome")
@@ -23,17 +26,15 @@ import java.util.Objects;
 
 public class Outcome  implements Serializable {
 
+  private long id;
+  private long metricId;
+  private String name;
+  private String description;
+  private Set<Assign> assigns = new HashSet<>(0);
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "outcome_id")
-  private long id;
-  @Column(name = "metric_id")
-  private long metricId;
-  @Column(name = "name")
-  private String name;
-  @Column(name = "description")
-  private String description;
-
   public long getId() {
     return id;
   }
@@ -42,6 +43,7 @@ public class Outcome  implements Serializable {
     this.id = id;
   }
 
+  @Column(name = "metric_id")
   public long getMetricId() {
     return metricId;
   }
@@ -50,6 +52,7 @@ public class Outcome  implements Serializable {
     this.metricId = metricId;
   }
 
+  @Column(name = "name")
   public String getName() {
     return name;
   }
@@ -58,12 +61,24 @@ public class Outcome  implements Serializable {
     this.name = name;
   }
 
+  @Column(name = "description")
   public String getDescription() {
     return description;
   }
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+  @JoinTable(name="Outcome_Assign",joinColumns={@JoinColumn(name="outcome_id")},inverseJoinColumns={@JoinColumn(name="assign_id")})
+  @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+  public Set<Assign> getAssigns() {
+    return assigns;
+  }
+
+  public void setAssigns(Set<Assign> assigns) {
+    this.assigns = assigns;
   }
 
   @Override
