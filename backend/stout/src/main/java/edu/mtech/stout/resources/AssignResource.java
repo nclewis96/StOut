@@ -24,12 +24,12 @@ public class AssignResource {
 
   AssignDAO dao;
   CourseDAO courseDao;
-  QueryBySelector qbs;
+  QueryBySelector queryBySelector;
 
   public AssignResource(AssignDAO dao, ProgramDAO programDao, CourseDAO courseDao) {
     this.dao = dao;
     this.courseDao = courseDao;
-    qbs = new QueryBySelector(programDao);
+    queryBySelector = new QueryBySelector(programDao);
   }
 
   @GET
@@ -39,7 +39,13 @@ public class AssignResource {
     //Checks to see if the User has access to the Assign's Program
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i =0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         return findSafely(assignId.get());
       }else{
         throw new NotAuthorizedException("Cannot get assign not in your program");
@@ -61,7 +67,13 @@ public class AssignResource {
   public Assign updateAssign(@Auth User user, @PathParam("assignId") LongParam assignId, Assign assign) {
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if (c.size() > 0) {
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i =0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         return dao.update(assign);
       }else{
         throw new NotAuthorizedException("Cannot update assign not in your program");
@@ -78,7 +90,13 @@ public class AssignResource {
   public Status deleteAssign(@Auth User user, @PathParam("assignId") LongParam assignId) {
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if (c.size() > 0) {
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i =0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         Status status = new Status();
         status.setId(assignId.get().intValue());
         status.setAction("DELETE");

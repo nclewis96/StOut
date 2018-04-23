@@ -23,12 +23,12 @@ public class AssignResourceList {
 
   private AssignDAO dao;
   private CourseDAO courseDao;
-  private QueryBySelector qbs;
+  private QueryBySelector queryBySelector;
 
   public AssignResourceList(AssignDAO dao, ProgramDAO programDao, CourseDAO courseDao) {
     this.courseDao = courseDao;
     this.dao = dao;
-    qbs = new QueryBySelector(programDao);
+    queryBySelector = new QueryBySelector(programDao);
   }
 
   @POST
@@ -38,7 +38,13 @@ public class AssignResourceList {
     //Checks to see if the User has access to the Assign's Program
     List<Course> c = courseDao.findByAssignId(assign.getId());
 
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+    Boolean hasAccess = false;
+    for(int i =0; i < c.size(); i++){
+      if(queryBySelector.queryByProgramId(user, c.get(i).getId())){
+        hasAccess = true;
+      }
+    }
+    if(hasAccess){
         return dao.create(assign);
 
       }else{
@@ -66,7 +72,7 @@ public class AssignResourceList {
   @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public List<Assign> getAssignList(@Auth User user, @QueryParam("programId")LongParam programId) {
-    if(qbs.queryByProgramId(user, programId)){
+    if(queryBySelector.queryByProgramId(user, programId)){
       return dao.findProgramId(programId.get());
     }else{
       return dao.findAll();

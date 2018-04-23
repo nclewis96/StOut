@@ -37,7 +37,13 @@ public class OfferingOutcomeResourceList {
   public OfferingOutcome createOfferingOutcome(@Auth User user, OfferingOutcome offeringOutcome) {
     List<Program> progList = programDao.findByOffering(offeringOutcome.getOfferingId());
     if(progList.size() > 0){
-      if(queryBySelector.queryByProgramId(user, progList.get(0).getId())){
+      Boolean hasAccess = false;
+      for(int i =0; i < progList.size(); i++){
+        if(queryBySelector.queryByProgramId(user, progList.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         return  dao.create(offeringOutcome);
       }else{
         throw new NotAuthorizedException("Cannot create Offering Outcome not in your program");
