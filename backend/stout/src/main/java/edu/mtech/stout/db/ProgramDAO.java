@@ -37,6 +37,10 @@ public class ProgramDAO extends StOutDAO<Program> {
     return programSet;
   }
 
+  public List<Program> findByOffering(Long offeringId){
+    return list(namedQuery("edu.mtech.stout.core.Program.findByOffering").setParameter(0,offeringId));
+  }
+
   public List<Program> findAll() {
     return list(namedQuery("edu.mtech.stout.core.Program.findAll"));
   }

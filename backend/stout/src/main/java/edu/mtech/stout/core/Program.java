@@ -24,7 +24,13 @@ import java.util.Objects;
         " FROM Program JOIN Program_Permissions ON Program.program_id = Program_Permissions.program_id " +
         "JOIN Users ON Users.user_id = Program_Permissions.user_id WHERE Users.user_id = ?)",
       resultClass = Program.class
-    )
+    ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findbyOffering",
+          query = "SELECT DISTINCT(program_id) FROM Program JOIN Course ON Course.program_id = Program.program_id " +
+              "JOIN Offering On Course.course_id = Offering.course_id JOIN Offering_Outcome " +
+              "ON Offering_Outcome.offering_id = Offering.offering_id Where Offering_Outcome.offering_id = ?"
+      )
   })
 
 public class Program  implements Serializable {
