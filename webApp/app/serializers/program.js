@@ -5,6 +5,10 @@ export default ApplicationSerializer.extend({
     outcomes: {
       deserialize: 'records',
       serialize: false
+    },
+    permissions: {
+      deserialize: 'records',
+      serialize: false
     }
   }
 });

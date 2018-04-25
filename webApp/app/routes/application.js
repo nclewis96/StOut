@@ -13,13 +13,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       },	{
 				roleName: 'Observer'
 			}, {
-        roleName: 'testing-models'
-      }, {
-        roleName: 'testing-models2'
-      }, {
         roleName: 'testing-nav'
-      }],
-			selectedRole: false
+      }]
 		};
 	}
 });

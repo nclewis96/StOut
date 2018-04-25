@@ -16,5 +16,7 @@ export default DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin,{
     });
 
     return data;
-  }
+  },
+
+
 });

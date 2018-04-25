@@ -1,14 +1,10 @@
 import ApplicationSerializer from './application';
 
-export default ApplicationSerializer.extend( {
+export default ApplicationSerializer.extend({
   attrs: {
-    jobTitle: {
+    userId: {
       deserialize: 'records',
       serialize: 'ids'
-    },
-    roles: {
-      deserialize: 'records',
-      serialize: false
     },
     permissions: {
       deserialize: 'records',
