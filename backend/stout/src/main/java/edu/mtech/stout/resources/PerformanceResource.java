@@ -26,6 +26,7 @@ public class PerformanceResource {
   @PermitAll
   @UnitOfWork
   public Performance getPerformance(@PathParam("performanceId")LongParam performanceId){
+    
     return findSafely(performanceId.get());
   }
 

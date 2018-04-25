@@ -45,6 +45,12 @@ import java.util.Objects;
           query ="SELECT DISTINCT(program_id) FROM Program JOIN Metric ON Program.program_id = Metric.program_id " +
               "WHERE metric_id = ?",
           resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByPerformance",
+          query = "SELECT DISTINCT(program_id) FROM Program JOIN Scale ON Program.program_id = Scale.program_id " +
+              "JOIN Perf_Indicator ON Scale.scale_id = Perf_Indicator.scale_id WHERE perf_indicator_id =?",
+          resultClass = Program.class
       )
   })
 

@@ -46,7 +46,11 @@ public class ProgramDAO extends StOutDAO<Program> {
   }
 
   public List<Program> findByMetric(Long metricId){
-    return list(namedQuery("edu.mtech.stout.comre.Program.findByMetric").setParameter(0, metricId));
+    return list(namedQuery("edu.mtech.stout.core.Program.findByMetric").setParameter(0, metricId));
+  }
+
+  public List<Program> findByPerformance(Long perfId){
+    return list(namedQuery("edu.mtech.stout.core.Program.findByPerformance").setParameter(0,perfId));
   }
 
   public List<Program> findAll() {
