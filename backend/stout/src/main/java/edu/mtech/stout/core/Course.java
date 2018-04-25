@@ -33,7 +33,14 @@ import java.io.Serializable;
       @NamedNativeQuery(
           name = "edu.mtech.stout.core.Course.findByUserId",
           query = "SELECT DISTINCT(prefix_id) FROM Course JOIN Offering " +
-              "ON Course.course_Id = Offering.course_id WHERE Offering.user_id = ?",
+              "ON Course.course_id = Offering.course_id WHERE Offering.user_id = ?",
+          resultClass = Course.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Course.findByOutcome",
+          query = "SELECT Distinct(program_id) FROM Course JOIN Course_Outcome " +
+              "ON Course.course_id = Course_Outcome.course_id JOIN Outcome " +
+              "ON Course_Outcome.outcome_id = Outcome.outcome_id WHERE Outcome.outcome_id = ?",
           resultClass = Course.class
       )
 
