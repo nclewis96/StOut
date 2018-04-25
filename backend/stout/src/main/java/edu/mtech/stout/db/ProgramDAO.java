@@ -28,6 +28,10 @@ public class ProgramDAO extends StOutDAO<Program> {
     return list(namedQuery("edu.mtech.stout.core.Program.findByUserId").setParameter(0, userId));
   }
 
+  public List<Program> findByStudent(Long studentId){
+    return list(namedQuery("edu.mtech.stout.core.Program.findByStudent").setParameter(0,studentId));
+  }
+
   public HashSet<Long> getProgramIdSetByUser(Long userId) {
     List<Program> programList = findByUser(userId);
     HashSet<Long> programSet = new HashSet<>();

@@ -42,7 +42,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
       CoursePrefix.class, Permissions.class, Performance.class,
         StudentAssign.class, CourseOutcome.class, OfferingOutcome.class,
         SemesterType.class, ProgramCutoff.class, OutcomeAssign.class,
-        StudentOutcome.class) {
+        StudentOutcome.class, OfferingStudent.class) {
 
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
@@ -111,6 +111,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final ProgramCutoffDAO programCutoffDAO = new ProgramCutoffDAO(hibernateBundle.getSessionFactory());
     final StudentOutcomeDAO studentOutcomeDAO = new StudentOutcomeDAO(hibernateBundle.getSessionFactory());
     final OutcomeAssignDAO outcomeAssignDAO = new OutcomeAssignDAO(hibernateBundle.getSessionFactory());
+    final OfferingStudentDAO offeringStudentDao = new OfferingStudentDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     StOutAuthenticator stOutAuthenticator = new UnitOfWorkAwareProxyFactory(hibernateBundle)
@@ -137,7 +138,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new UserResourceList(userDao, jobTitleDAO, programDao, roleDao));
     environment.jersey().register(new ProgramResource(programDao));
     environment.jersey().register(new ProgramResourceList(programDao));
-    environment.jersey().register(new OfferingResource(offeringDao));
+    environment.jersey().register(new OfferingResource(offeringDao, programDao));
     environment.jersey().register(new OfferingResourceList(offeringDao,programDao, permissionsDAO));
     environment.jersey().register(new OutcomeResource(outcomeDao));
     environment.jersey().register(new OutcomeResourceList(outcomeDao));
@@ -175,6 +176,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new OutcomeAssignResourceList(outcomeAssignDAO, programDao, courseDao));
     environment.jersey().register(new RoleResource(roleDao));
     environment.jersey().register(new RoleResourceList(roleDao));
+    environment.jersey().register(new OfferingStudentResource(offeringStudentDao, programDao));
+    environment.jersey().register(new OfferingStudentResourceList(offeringStudentDao, programDao));
 
   }
 }

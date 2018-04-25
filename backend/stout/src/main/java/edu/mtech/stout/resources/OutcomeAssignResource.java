@@ -57,7 +57,13 @@ public class OutcomeAssignResource {
                                            @PathParam("assignId") LongParam assignId, OutcomeAssign outcomeAssign){
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if (c.size() > 0) {
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i = 0; i < c.size(); i++){
+        if(qbs.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess ){
         return dao.update(outcomeAssign);
       }else{
         throw new NotAuthorizedException("Cannot update outcome assign not in your program");
@@ -73,7 +79,13 @@ public class OutcomeAssignResource {
   public Status deleteOutcomeAssign(@Auth User user, @PathParam("outcomeId")LongParam outcomeId, @PathParam("assignId")LongParam assignId){
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if (c.size() > 0) {
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i = 0; i < c.size(); i++){
+        if(qbs.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess ){
         Status status = new Status();
         status.setId(outcomeId.get().intValue());
         status.setAction("DELETE");
