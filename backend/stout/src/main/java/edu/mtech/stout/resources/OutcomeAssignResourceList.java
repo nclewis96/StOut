@@ -36,7 +36,13 @@ public class OutcomeAssignResourceList {
   public OutcomeAssign createOutcomeAssign(@Auth User user, OutcomeAssign outcomeAssign){
     List<Course> c = courseDao.findByAssignId(outcomeAssign.getAssignId());
     if(c.size() > 0){
-      if(queryBySelector.queryByProgramId(user,c.get(0).getProgramId())){
+      Boolean hasAccess = false;
+      for(int i = 0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess ){
         return  dao.create(outcomeAssign);
       }
       throw new NotAuthorizedException("Cannot create outcome assign not in your program");
@@ -51,7 +57,13 @@ public class OutcomeAssignResourceList {
   public List<OutcomeAssign> getOutcomeAssignList(@Auth User user, @QueryParam("assignId")LongParam assignId){
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if(c.size() > 0){
-      if(queryBySelector.queryByProgramId(user, c.get(0).getProgramId())){
+      Boolean hasAccess = false;
+      for(int i = 0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess ){
         return dao.findAll();
     }
       throw new NotAuthorizedException("Cannot get outcome assign not in your program");
