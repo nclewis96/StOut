@@ -168,8 +168,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new OfferingOutcomeResourceList(offeringOutcomeDAO, programDao, permissionsDAO));
     environment.jersey().register(new SemesterTypeResource(semesterTypeDAO));
     environment.jersey().register(new SemesterTypeResourceList(semesterTypeDAO));
-    environment.jersey().register(new ProgramCutoffResource(programCutoffDAO));
-    environment.jersey().register(new ProgramCutoffResourceList(programCutoffDAO));
+    environment.jersey().register(new ProgramCutoffResource(programCutoffDAO, programDao));
+    environment.jersey().register(new ProgramCutoffResourceList(programCutoffDAO, programDao));
     environment.jersey().register(new StudentOutcomeResourceList(studentOutcomeDAO));
     environment.jersey().register(new StudentOutcomeResource(studentOutcomeDAO));
     environment.jersey().register(new OutcomeAssignResource(outcomeAssignDAO, programDao, courseDao));

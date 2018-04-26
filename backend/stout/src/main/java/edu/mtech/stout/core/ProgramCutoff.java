@@ -13,6 +13,11 @@ import java.util.Objects;
           name = "edu.mtech.stout.core.ProgramCutoff.findAll",
             query = "SELECT * FROM Program_Cutoff",
             resultClass = ProgramCutoff.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.ProgramCutoff.findByProgram",
+            query = "SELECT * FROM Program_Cutoff WHERE program_id = ?",
+            resultClass = ProgramCutoff.class
         )
     })
 public class ProgramCutoff implements Serializable{
