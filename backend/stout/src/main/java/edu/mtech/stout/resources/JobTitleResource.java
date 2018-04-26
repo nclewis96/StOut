@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class JobTitleResource {
 
-  JobTitleDAO dao;
+  private JobTitleDAO dao;
 
   public JobTitleResource(JobTitleDAO dao){
     this.dao = dao;

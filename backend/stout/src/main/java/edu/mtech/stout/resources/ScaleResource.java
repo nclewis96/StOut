@@ -19,11 +19,10 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ScaleResource {
 
-  ScaleDAO dao;
-  QueryBySelector queryBySelector;
+  private ScaleDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public ScaleResource(ScaleDAO dao, ProgramDAO programDao) {
-    queryBySelector = new QueryBySelector(programDao);
+  public ScaleResource(ScaleDAO dao) {
     this.dao = dao;
   }
 

@@ -17,7 +17,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class PermissionsResourceList {
 
-  PermissionsDAO dao;
+  private PermissionsDAO dao;
 
   public PermissionsResourceList(PermissionsDAO dao){
     this.dao = dao;

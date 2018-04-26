@@ -15,7 +15,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class StudentAssignResourceList {
 
-  StudentAssignDAO dao;
+  private StudentAssignDAO dao;
 
   public StudentAssignResourceList(StudentAssignDAO dao){this.dao = dao;}
 

@@ -20,12 +20,11 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramCutoffResource {
 
-  ProgramCutoffDAO dao;
-  QueryBySelector queryBySelector;
+  private ProgramCutoffDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public ProgramCutoffResource(ProgramCutoffDAO dao, ProgramDAO programDao){
     this.dao = dao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @GET

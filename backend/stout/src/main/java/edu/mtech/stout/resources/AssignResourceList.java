@@ -23,12 +23,11 @@ public class AssignResourceList {
 
   private AssignDAO dao;
   private CourseDAO courseDao;
-  private QueryBySelector queryBySelector;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public AssignResourceList(AssignDAO dao, ProgramDAO programDao, CourseDAO courseDao) {
+  public AssignResourceList(AssignDAO dao, CourseDAO courseDao) {
     this.courseDao = courseDao;
     this.dao = dao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @POST

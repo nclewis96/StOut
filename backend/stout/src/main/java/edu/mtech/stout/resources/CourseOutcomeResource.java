@@ -22,14 +22,13 @@ import java.util.Optional;
 @Path("course-outcomes/{courseId}/{outcomeId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class CourseOutcomeResource {
-  CourseOutcomeDAO dao;
-  CourseDAO courseDao;
-  QueryBySelector qbs;
+  private CourseOutcomeDAO dao;
+  private CourseDAO courseDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public CourseOutcomeResource(CourseOutcomeDAO dao, ProgramDAO programDAO, CourseDAO courseDao){
     this.dao = dao;
     this.courseDao = courseDao;
-    qbs = new QueryBySelector(programDAO);
   }
 
   @GET
@@ -38,7 +37,7 @@ public class CourseOutcomeResource {
   public CourseOutcome getCourseOutcome(@Auth User user, @PathParam("courseId")LongParam courseId, @PathParam("outcomeId") LongParam outcomeId) {
       Optional<Course> c = courseDao.findById(courseId.get());
       if(c.isPresent()){
-        if(qbs.queryByProgramId(user,c.get().getProgramId())){
+        if(queryBySelector.queryByProgramId(user,c.get().getProgramId())){
           return findSafely(courseId.get(), outcomeId.get());
         }
         throw new NotAuthorizedException("Cannot get course outcome not in your program");
@@ -59,7 +58,7 @@ public class CourseOutcomeResource {
   public CourseOutcome updateCourseOutcome(@Auth User user, @PathParam("courseId") LongParam courseId, @PathParam("outcomeId") LongParam outcomeId, CourseOutcome outcome){
     Optional<Course> c = courseDao.findById(courseId.get());
     if(c.isPresent()){
-      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,c.get().getProgramId())){
         return dao.update(outcome);
       }
       throw new NotAuthorizedException("Cannot update course outcome not in your program");
@@ -74,7 +73,7 @@ public class CourseOutcomeResource {
   public Status deleteCourseOutcome(@Auth User user, @PathParam("courseId")LongParam courseId, @PathParam("outcomeId")LongParam outcomeId){
     Optional<Course> c = courseDao.findById(courseId.get());
     if(c.isPresent()){
-      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,c.get().getProgramId())){
         Status status = new Status();
         status.setId(courseId.get().longValue());
         status.setAction("DELETE");

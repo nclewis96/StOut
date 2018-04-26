@@ -22,14 +22,13 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class AssignResource {
 
-  AssignDAO dao;
-  CourseDAO courseDao;
-  QueryBySelector queryBySelector;
+  private AssignDAO dao;
+  private CourseDAO courseDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public AssignResource(AssignDAO dao, ProgramDAO programDao, CourseDAO courseDao) {
+  public AssignResource(AssignDAO dao, CourseDAO courseDao) {
     this.dao = dao;
     this.courseDao = courseDao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @GET

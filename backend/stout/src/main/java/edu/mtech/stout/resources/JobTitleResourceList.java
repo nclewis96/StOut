@@ -18,7 +18,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class JobTitleResourceList {
 
-  JobTitleDAO dao;
+  private JobTitleDAO dao;
 
   public JobTitleResourceList(JobTitleDAO dao){
     this.dao = dao;

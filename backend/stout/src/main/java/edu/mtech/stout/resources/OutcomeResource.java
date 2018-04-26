@@ -26,12 +26,11 @@ public class OutcomeResource {
 
   OutcomeDAO dao;
   CourseDAO courseDao;
-  QueryBySelector queryBySelector;
+  QueryBySelector queryBySelector = new QueryBySelector();
 
-  public OutcomeResource(OutcomeDAO dao, ProgramDAO programDao, CourseDAO courseDao) {
+  public OutcomeResource(OutcomeDAO dao, CourseDAO courseDao) {
     this.dao = dao;
     this.courseDao = courseDao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @GET

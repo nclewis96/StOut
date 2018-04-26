@@ -19,11 +19,10 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramResource {
 
-  ProgramDAO dao;
-  QueryBySelector queryBySelector;
+  private ProgramDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public ProgramResource(ProgramDAO dao) {
-    queryBySelector = new QueryBySelector(dao);
     this.dao = dao;
   }
 

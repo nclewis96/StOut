@@ -20,11 +20,10 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class CourseResource {
 
-  CourseDAO dao;
-  QueryBySelector qbs;
+  private CourseDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public CourseResource(CourseDAO dao, ProgramDAO pDao) {
-    qbs = new QueryBySelector(pDao);
+  public CourseResource(CourseDAO dao) {
     this.dao = dao;
   }
 
@@ -34,7 +33,7 @@ public class CourseResource {
   public Course getCourse(@Auth User user, @PathParam("courseId") LongParam courseId) {
     Optional<Course> c = dao.findById(courseId.get());
     if(c.isPresent()){
-      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,c.get().getProgramId())){
         return findSafely(courseId.get());
       }
       throw new NotAuthorizedException("Cannot create a course not in your program");
@@ -51,7 +50,7 @@ public class CourseResource {
   @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public Course updateCourse(@Auth User user, @PathParam("courseId") LongParam courseId, Course course) {
-      if(qbs.queryByProgramId(user,course.getProgramId())){
+      if(queryBySelector.queryByProgramId(user,course.getProgramId())){
         return dao.update(course);
       }
       throw new NotAuthorizedException("Cannot create course not in your program");
@@ -64,7 +63,7 @@ public class CourseResource {
   public Status deleteCourse(@Auth User user, @PathParam("courseId") LongParam courseId) {
     Optional<Course> c = dao.findById(courseId.get());
     if(c.isPresent()){
-      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,c.get().getProgramId())){
         Status status = new Status();
         status.setId(courseId.get().intValue());
         status.setAction("DELETE");

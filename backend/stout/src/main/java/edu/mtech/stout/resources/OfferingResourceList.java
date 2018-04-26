@@ -23,14 +23,13 @@ import java.util.List;
 public class OfferingResourceList {
 
 
-  OfferingDAO dao;
-  QueryBySelector queryBySelector;
-  ProgramDAO programDao;
+  private OfferingDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private ProgramDAO programDao;
 
 
-  public OfferingResourceList(OfferingDAO dao, ProgramDAO programDao, PermissionsDAO permissionsDao) {
+  public OfferingResourceList(OfferingDAO dao, ProgramDAO programDao) {
     this.dao = dao;
-    queryBySelector = new QueryBySelector(permissionsDao, programDao);
     this.programDao = programDao;
   }
 

@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class PermissionsResource {
 
-  PermissionsDAO dao;
+  private PermissionsDAO dao;
 
   public PermissionsResource(PermissionsDAO dao){this.dao = dao;}
 

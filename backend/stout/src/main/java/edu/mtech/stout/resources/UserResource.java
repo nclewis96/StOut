@@ -20,9 +20,9 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-  UserDAO dao;
-  RoleDAO roleDao;
-  JobTitleDAO jobTitleDAO;
+  private UserDAO dao;
+  private RoleDAO roleDao;
+  private JobTitleDAO jobTitleDAO;
 
   public UserResource(UserDAO dao, JobTitleDAO jobTitleDAO, RoleDAO roleDao) {
     this.dao = dao;

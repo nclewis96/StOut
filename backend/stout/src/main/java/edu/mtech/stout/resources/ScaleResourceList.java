@@ -21,12 +21,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ScaleResourceList {
 
-  ScaleDAO dao;
-  QueryBySelector queryBySelector;
-  ProgramDAO programDao;
+  private ScaleDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private ProgramDAO programDao;
 
   public ScaleResourceList(ScaleDAO dao, ProgramDAO programDao) {
-    queryBySelector = new QueryBySelector(programDao);
     this.dao = dao;
     this.programDao = programDao;
   }
@@ -50,6 +49,20 @@ public class ScaleResourceList {
       }else{
         throw new NotAuthorizedException("Cannot get scales not in your program");
       }
+    }else if (queryBySelector.getUserPerm(user) == 2){
+      //If no Query Params and is a program coordinator,
+      // return all Course Prefix the user has access to.
+      ArrayList<Scale> fullList = new ArrayList<>();
+      List<Program> programList = programDao.findByUser(user.getId());
+
+      for(int i = 0; i < programList.size(); i++){
+        List<Scale> tempList = dao.findByProgram(programList.get(i).getId());
+        for(int j = 0; j < tempList.size(); j++){
+          fullList.add(tempList.get(0));
+        }
+      }
+      return fullList;
+
     }else{
       //If no Query Params, return all Course Prefix the user has access to.
       ArrayList<Scale> fullList = new ArrayList<>();
@@ -61,8 +74,8 @@ public class ScaleResourceList {
           fullList.add(tempList.get(0));
         }
       }
-
       return fullList;
+
     }
 
   }

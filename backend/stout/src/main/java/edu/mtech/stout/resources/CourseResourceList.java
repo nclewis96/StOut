@@ -19,14 +19,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 
 public class CourseResourceList{
-	CourseDAO dao = null;
-	UserDAO userDao = null;
-	QueryBySelector queryBySelector = null;
+	private CourseDAO dao;
+	private QueryBySelector queryBySelector = new QueryBySelector();
 
-	public CourseResourceList(CourseDAO dao, ProgramDAO programDao, UserDAO userDao){
+	public CourseResourceList(CourseDAO dao){
 		this.dao = dao;
-		queryBySelector = new QueryBySelector(programDao);
-		this.userDao = userDao;
 
 	}
 	

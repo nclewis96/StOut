@@ -21,14 +21,13 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class PerformanceResourceList {
 
-  PerformanceDAO dao;
-  ProgramDAO programDao;
-  QueryBySelector queryBySelector;
+  private PerformanceDAO dao;
+  private ProgramDAO programDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public PerformanceResourceList(PerformanceDAO dao, ProgramDAO programDao){
     this.programDao = programDao;
     this.dao = dao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @POST

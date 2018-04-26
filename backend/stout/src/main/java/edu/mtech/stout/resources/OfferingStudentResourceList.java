@@ -20,14 +20,13 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OfferingStudentResourceList {
 
-  OfferingStudentDAO dao;
-  ProgramDAO programDao;
-  QueryBySelector queryBySelector;
+  private OfferingStudentDAO dao;
+  private ProgramDAO programDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public OfferingStudentResourceList(OfferingStudentDAO dao, ProgramDAO programDao){
     this.dao = dao;
     this.programDao = programDao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @POST

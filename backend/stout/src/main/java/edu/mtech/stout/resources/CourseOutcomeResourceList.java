@@ -22,12 +22,11 @@ import java.util.Optional;
 @Path("/course-outcomes")
 @Produces(MediaType.APPLICATION_JSON)
 public class CourseOutcomeResourceList {
-  CourseOutcomeDAO dao;
-  QueryBySelector qbs;
-  CourseDAO courseDao;
+  private CourseOutcomeDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private CourseDAO courseDao;
 
-  public CourseOutcomeResourceList(CourseOutcomeDAO dao, ProgramDAO pDao, CourseDAO courseDao ){
-    this.qbs = new QueryBySelector(pDao);
+  public CourseOutcomeResourceList(CourseOutcomeDAO dao, CourseDAO courseDao ){
     this.dao = dao;
     this.courseDao = courseDao;
   }
@@ -38,7 +37,7 @@ public class CourseOutcomeResourceList {
   public CourseOutcome createCourseOutcome(@Auth User user, CourseOutcome outcome){
     Optional<Course> c = courseDao.findById(outcome.getCourseId());
     if(c.isPresent()){
-      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,c.get().getProgramId())){
         return  dao.create(outcome);
       }
       throw new NotAuthorizedException("Cannot create course outcome not in your program");
@@ -53,7 +52,7 @@ public class CourseOutcomeResourceList {
   public List<CourseOutcome> getCourseOutcomeList(@Auth User user, @QueryParam("courseId")LongParam courseId){
     Optional<Course> c = courseDao.findById(courseId.get());
     if(c.isPresent()){
-      if(qbs.queryByProgramId(user,c.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,c.get().getProgramId())){
         return dao.findAll();
       }
       throw new NotAuthorizedException("Cannot get course outcomes not in your program");

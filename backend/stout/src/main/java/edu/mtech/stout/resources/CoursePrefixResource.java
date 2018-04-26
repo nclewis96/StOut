@@ -22,12 +22,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class CoursePrefixResource {
 
-  CoursePrefixDAO dao;
-  QueryBySelector queryBySelector;
-  CourseDAO courseDao;
+  private CoursePrefixDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private CourseDAO courseDao;
 
-  public CoursePrefixResource(CoursePrefixDAO dao, ProgramDAO pDao, CourseDAO courseDao) {
-    queryBySelector = new QueryBySelector(pDao);
+  public CoursePrefixResource(CoursePrefixDAO dao, CourseDAO courseDao) {
     this.courseDao = courseDao;
     this.dao = dao;
   }

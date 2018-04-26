@@ -23,15 +23,14 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResourceList {
 
-  UserDAO dao;
-  JobTitleDAO jobTitleDAO;
-  RoleDAO roleDao;
-  QueryBySelector queryBySelector;
+  private UserDAO dao;
+  private JobTitleDAO jobTitleDAO;
+  private RoleDAO roleDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public UserResourceList(UserDAO dao, JobTitleDAO jobTitleDAO, ProgramDAO programDao, RoleDAO roleDao) {
+  public UserResourceList(UserDAO dao, JobTitleDAO jobTitleDAO, RoleDAO roleDao) {
     this.dao = dao;
     this.jobTitleDAO = jobTitleDAO;
-    queryBySelector= new QueryBySelector(programDao);
     this.roleDao = roleDao;
   }
 

@@ -16,7 +16,7 @@ import java.awt.*;
 @Path("/semester-types/{typeId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class SemesterTypeResource {
-  SemesterTypeDAO dao;
+  private SemesterTypeDAO dao;
 
   public SemesterTypeResource(SemesterTypeDAO dao){
     this.dao = dao;

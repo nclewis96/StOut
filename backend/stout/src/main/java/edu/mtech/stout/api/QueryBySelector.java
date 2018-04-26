@@ -16,18 +16,16 @@ import java.util.HashSet;
 
 public class QueryBySelector {
 
-    ProgramDAO programDao;
-    UserDAO userDao;
-    PermissionsDAO permissionsDAO;
+    static ProgramDAO programDao;
+    static UserDAO userDao;
+    static PermissionsDAO permissionsDao;
 
-    public QueryBySelector(PermissionsDAO permissionsDAO){this.permissionsDAO = permissionsDAO;}
-    public QueryBySelector(ProgramDAO programDao){
-        this.programDao = programDao;
-    }
-    public QueryBySelector(UserDAO userDao){this.userDao = userDao; }
-    public QueryBySelector(PermissionsDAO permissionsDAO, ProgramDAO programDao){
-        this.permissionsDAO = permissionsDAO;
-        this.programDao = programDao;
+
+
+  public static void setDAOs(ProgramDAO program, PermissionsDAO permissions, UserDAO user){
+      programDao = program;
+      permissionsDao = permissions;
+      userDao = user;
     }
 
     public boolean queryByProgramId( User user, @QueryParam("programId") LongParam programId){
@@ -56,7 +54,7 @@ public class QueryBySelector {
     //Returns a users Permission level
     public long  getUserPerm( User user){
         if(user != null){
-            return permissionsDAO.findByUserId(user.getId()).get(0).getPermissionId();
+            return permissionsDao.findByUserId(user.getId()).get(0).getPermissionId();
 
         }else{
             return -1;
@@ -66,7 +64,7 @@ public class QueryBySelector {
     //Checks if a logged in user has the needed permissions for a program
     public boolean queryUserPermForProg(User user, long programId, long permissionId){
         if(user != null){
-           Permissions userPerm = permissionsDAO.findByUserId(user.getId()).get(0);
+           Permissions userPerm = permissionsDao.findByUserId(user.getId()).get(0);
            if(userPerm.getPermissionId() == permissionId && userPerm.getProgramId() == programId){
                return true;
            }

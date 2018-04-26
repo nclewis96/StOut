@@ -22,11 +22,10 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeAssignResource {
   OutcomeAssignDAO dao;
-  QueryBySelector qbs;
+  QueryBySelector queryBySelector = new QueryBySelector();
   CourseDAO courseDao;
-  public OutcomeAssignResource(OutcomeAssignDAO dao, ProgramDAO pDao, CourseDAO courseDao){
+  public OutcomeAssignResource(OutcomeAssignDAO dao, CourseDAO courseDao){
     this.dao = dao;
-    qbs = new QueryBySelector(pDao);
     this.courseDao = courseDao;
   }
 
@@ -36,7 +35,7 @@ public class OutcomeAssignResource {
   public OutcomeAssign getOutcomeAssign(@Auth User user, @PathParam("outcomeId")LongParam outcomeId, @PathParam("assignId")LongParam assignId){
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId())){
+      if(queryBySelector.queryByProgramId(user, c.get(0).getProgramId())){
         return findSafely(assignId.get(), outcomeId.get());
       }else{
         throw new NotAuthorizedException("Cannot get OutcomeAssign not in your program");
@@ -59,7 +58,7 @@ public class OutcomeAssignResource {
     if (c.size() > 0) {
       Boolean hasAccess = false;
       for(int i = 0; i < c.size(); i++){
-        if(qbs.queryByProgramId(user, c.get(i).getProgramId())){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
           hasAccess = true;
         }
       }
@@ -81,7 +80,7 @@ public class OutcomeAssignResource {
     if (c.size() > 0) {
       Boolean hasAccess = false;
       for(int i = 0; i < c.size(); i++){
-        if(qbs.queryByProgramId(user, c.get(i).getProgramId())){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
           hasAccess = true;
         }
       }

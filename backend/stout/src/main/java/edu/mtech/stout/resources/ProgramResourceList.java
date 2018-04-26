@@ -17,7 +17,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramResourceList {
 
-  ProgramDAO dao;
+  private ProgramDAO dao;
 
   public ProgramResourceList(ProgramDAO dao) {
     this.dao = dao;

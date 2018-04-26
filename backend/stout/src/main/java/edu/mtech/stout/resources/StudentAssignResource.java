@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/student-assigns/{studentId}/{assignId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class StudentAssignResource {
-  StudentAssignDAO dao;
+  private StudentAssignDAO dao;
 
   public StudentAssignResource(StudentAssignDAO dao){this.dao = dao;}
 

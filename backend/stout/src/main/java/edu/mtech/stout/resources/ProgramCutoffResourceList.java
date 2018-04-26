@@ -19,11 +19,10 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramCutoffResourceList {
 
-  QueryBySelector queryBySelector;
-  ProgramCutoffDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private ProgramCutoffDAO dao;
 
-  public ProgramCutoffResourceList(ProgramCutoffDAO dao, ProgramDAO programDao){
-    queryBySelector = new QueryBySelector(programDao);
+  public ProgramCutoffResourceList(ProgramCutoffDAO dao){
     this.dao = dao;
   }
 

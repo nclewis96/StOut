@@ -22,15 +22,14 @@ import java.util.List;
 @Produces
 public class PerformanceResource {
 
-  PerformanceDAO dao;
-  ProgramDAO programDao;
-  QueryBySelector queryBySelector;
+  private PerformanceDAO dao;
+  private ProgramDAO programDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public PerformanceResource(PerformanceDAO dao, ProgramDAO programDao){
 
     this.dao = dao;
     this.programDao = programDao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @GET

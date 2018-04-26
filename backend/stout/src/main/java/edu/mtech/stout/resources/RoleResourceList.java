@@ -16,7 +16,7 @@ import java.util.List;
 @Path("/roles")
 @Produces(MediaType.APPLICATION_JSON)
 public class RoleResourceList {
-  RoleDAO dao;
+  private RoleDAO dao;
 
 
   public RoleResourceList(RoleDAO dao){

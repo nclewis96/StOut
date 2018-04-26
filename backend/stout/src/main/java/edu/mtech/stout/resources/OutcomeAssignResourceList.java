@@ -21,12 +21,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeAssignResourceList {
   OutcomeAssignDAO dao;
-  QueryBySelector queryBySelector;
+  QueryBySelector queryBySelector = new QueryBySelector();
   CourseDAO courseDao;
 
-  public OutcomeAssignResourceList(OutcomeAssignDAO dao, ProgramDAO programDAO, CourseDAO courseDao){
+  public OutcomeAssignResourceList(OutcomeAssignDAO dao, CourseDAO courseDao){
     this.dao = dao;
-    queryBySelector = new QueryBySelector(programDAO);
     this.courseDao = courseDao;
   }
 

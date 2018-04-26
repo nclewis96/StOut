@@ -22,14 +22,13 @@ import java.util.List;
 @Path("/offering-students/{studentId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class OfferingStudentResource {
-  OfferingStudentDAO dao;
-  QueryBySelector queryBySelector;
-  ProgramDAO programDao;
+  private OfferingStudentDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private ProgramDAO programDao;
 
   public OfferingStudentResource(OfferingStudentDAO dao, ProgramDAO programDao){
     this.dao = dao;
     this.programDao = programDao;
-    queryBySelector = new QueryBySelector(programDao);
   }
 
   @GET

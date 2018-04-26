@@ -17,7 +17,7 @@ import java.awt.*;
 @Produces(MediaType.APPLICATION_JSON)
 public class StudentOutcomeResource {
 
-  StudentOutcomeDAO dao;
+  private StudentOutcomeDAO dao;
 
   public StudentOutcomeResource(StudentOutcomeDAO dao){
     this.dao = dao;
