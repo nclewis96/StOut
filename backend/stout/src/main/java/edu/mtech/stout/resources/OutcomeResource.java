@@ -1,6 +1,6 @@
 package edu.mtech.stout.resources;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Course;

@@ -17,6 +17,6 @@ public class ProgramCutoffDAO extends StOutDAO<ProgramCutoff>{
   }
 
   public List<ProgramCutoff> findByProgram(Long programId){
-    return list(namedQuery("edu.mtech.stout.core.ProgramCutoff.findByProgram").setParameter(0,programId))
+    return list(namedQuery("edu.mtech.stout.core.ProgramCutoff.findByProgram").setParameter(0,programId));
   }
 }

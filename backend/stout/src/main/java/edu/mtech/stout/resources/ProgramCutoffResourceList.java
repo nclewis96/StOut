@@ -1,8 +1,7 @@
 package edu.mtech.stout.resources;
 
-import com.sun.tools.corba.se.idl.constExpr.Not;
+
 import edu.mtech.stout.api.QueryBySelector;
-import edu.mtech.stout.core.Program;
 import edu.mtech.stout.core.ProgramCutoff;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.ProgramCutoffDAO;
