@@ -14,4 +14,7 @@ public class ScaleDAO extends StOutDAO<Scale> {
     return list(namedQuery("edu.mtech.stout.core.Scale.findAll"));
   }
 
+  public List<Scale> findByProgram(Long programId){
+    return list(namedQuery("edu.mtech.stout.core.Scale.findByProgram").setParameter(0,programId));
+  }
 }
