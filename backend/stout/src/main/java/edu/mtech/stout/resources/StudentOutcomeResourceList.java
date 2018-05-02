@@ -1,6 +1,8 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.core.StudentOutcome;
+import edu.mtech.stout.db.ProgramDAO;
 import edu.mtech.stout.db.StudentOutcomeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
@@ -14,8 +16,11 @@ import java.util.List;
 public class StudentOutcomeResourceList {
 
   private StudentOutcomeDAO dao;
+  private ProgramDAO programDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public StudentOutcomeResourceList(StudentOutcomeDAO dao){
+  public StudentOutcomeResourceList(StudentOutcomeDAO dao, ProgramDAO programDao){
+    this.programDao = programDao;
     this.dao = dao;
   }
 

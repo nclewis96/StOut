@@ -161,9 +161,9 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new PermissionsResourceList(permissionsDAO));
     environment.jersey().register(new PerformanceResource(performanceDAO, programDao));
     environment.jersey().register(new PerformanceResourceList(performanceDAO, programDao));
-    environment.jersey().register(new StudentAssignResource(studentAssignDAO));
-    environment.jersey().register(new StudentAssignResourceList(studentAssignDAO));
-    environment.jersey().register(new CourseOutcomeResource(courseOutcomeDAO, programDao, courseDao));
+    environment.jersey().register(new StudentAssignResource(studentAssignDAO, programDao));
+    environment.jersey().register(new StudentAssignResourceList(studentAssignDAO, programDao));
+    environment.jersey().register(new CourseOutcomeResource(courseOutcomeDAO, courseDao));
     environment.jersey().register(new CourseOutcomeResourceList(courseOutcomeDAO, courseDao));
     environment.jersey().register(new OfferingOutcomeResource(offeringOutcomeDAO, programDao));
     environment.jersey().register(new OfferingOutcomeResourceList(offeringOutcomeDAO, programDao));
@@ -171,8 +171,8 @@ public class StOutApplication extends Application<StOutConfiguration> {
     environment.jersey().register(new SemesterTypeResourceList(semesterTypeDAO));
     environment.jersey().register(new ProgramCutoffResource(programCutoffDAO, programDao));
     environment.jersey().register(new ProgramCutoffResourceList(programCutoffDAO));
-    environment.jersey().register(new StudentOutcomeResourceList(studentOutcomeDAO));
-    environment.jersey().register(new StudentOutcomeResource(studentOutcomeDAO));
+    environment.jersey().register(new StudentOutcomeResourceList(studentOutcomeDAO, programDao));
+    environment.jersey().register(new StudentOutcomeResource(studentOutcomeDAO, programDao));
     environment.jersey().register(new OutcomeAssignResource(outcomeAssignDAO, courseDao));
     environment.jersey().register(new OutcomeAssignResourceList(outcomeAssignDAO, courseDao));
     environment.jersey().register(new RoleResource(roleDao));

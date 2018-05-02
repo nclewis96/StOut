@@ -26,7 +26,7 @@ public class CourseOutcomeResource {
   private CourseDAO courseDao;
   private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public CourseOutcomeResource(CourseOutcomeDAO dao, ProgramDAO programDAO, CourseDAO courseDao){
+  public CourseOutcomeResource(CourseOutcomeDAO dao, CourseDAO courseDao){
     this.dao = dao;
     this.courseDao = courseDao;
   }

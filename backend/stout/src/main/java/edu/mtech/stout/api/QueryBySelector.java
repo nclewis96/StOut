@@ -16,9 +16,9 @@ import java.util.HashSet;
 
 public class QueryBySelector {
 
-    static ProgramDAO programDao;
-    static UserDAO userDao;
-    static PermissionsDAO permissionsDao;
+    private static ProgramDAO programDao;
+    private static UserDAO userDao;
+    private static PermissionsDAO permissionsDao;
 
 
 

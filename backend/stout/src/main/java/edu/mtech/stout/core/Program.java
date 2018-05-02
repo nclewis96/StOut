@@ -34,10 +34,11 @@ import java.util.Objects;
           resultClass = Program.class
       ),
       @NamedNativeQuery(
-          name = "edu.mtech.stout.core.Program.findByStudent",
+          name = "edu.mtech.stout.core.Program.findByOfferingStudent",
           query = "SELECT DISTINCT(program_id) FROM Program JOIN Course ON Course.program_id = Program.program_id " +
               "JOIN Offering On Course.course_id = Offering.course_id JOIN Offering_Student " +
-              "ON Offering_Student.offering_id = Offering.offering_id Where Offering_Student.student_id = ?",
+              "ON Offering_Student.offering_id = Offering.offering_id Where Offering_Student.student_id = ? " +
+              "AND Offering_Student.offering_id = ?",
           resultClass = Program.class
       ),
       @NamedNativeQuery(
@@ -50,6 +51,22 @@ import java.util.Objects;
           name = "edu.mtech.stout.core.Program.findByPerformance",
           query = "SELECT DISTINCT(program_id) FROM Program JOIN Scale ON Program.program_id = Scale.program_id " +
               "JOIN Perf_Indicator ON Scale.scale_id = Perf_Indicator.scale_id WHERE perf_indicator_id =?",
+          resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByStudentId",
+          query = "SELECT DISTINCT(program_id) FROM Program JOIN Course ON Program.program_id = Course.program_id " +
+              "JOIN Offering ON Course.course_id = Offering.course_id JOIN Student_Outcome " +
+              "ON Offering.offering_id = Student_Outcome.offering_id WHERE Student_Outcome.student_id = ?",
+          resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByStudentAssign",
+          query = "SELECT DISTINCT(program_id) FROM Program JOIN Course ON Course.program_id = Program.program_id " +
+              "JOIN Offering On Course.course_id = Offering.course_id " +
+              "JOIN Offering_Student ON Offering_Student.offering_id = Offering.offering_id " +
+              "JOIN Student_Assign ON Offering_Student.student_id = Student_Assign.student_id " +
+              "Where Student_Assign.student_id = ? AND Student_Assign.assign_id = ?",
           resultClass = Program.class
       )
   })

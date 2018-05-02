@@ -1,8 +1,13 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.api.Status;
+import edu.mtech.stout.core.Program;
 import edu.mtech.stout.core.StudentOutcome;
+import edu.mtech.stout.core.User;
+import edu.mtech.stout.db.ProgramDAO;
 import edu.mtech.stout.db.StudentOutcomeDAO;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
@@ -12,22 +17,41 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.awt.*;
+import java.util.List;
 
 @Path("/student-outcomes/{studentId}/{outcomeId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class StudentOutcomeResource {
 
   private StudentOutcomeDAO dao;
+  private ProgramDAO programDao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
-  public StudentOutcomeResource(StudentOutcomeDAO dao){
+  public StudentOutcomeResource(StudentOutcomeDAO dao, ProgramDAO programDao){
+    this.programDao = programDao;
     this.dao = dao;
   }
 
   @GET
   @PermitAll
   @UnitOfWork
-  public StudentOutcome getStudentOutcome(@PathParam("studentId")LongParam studentId, @PathParam("outcomeId") LongParam outcomeId){
-    return findSafely(studentId.get(),outcomeId.get());
+  public StudentOutcome getStudentOutcome(@Auth User user, @PathParam("studentId")LongParam studentId, @PathParam("outcomeId") LongParam outcomeId){
+    List<Program> p = programDao.findByStudentId(studentId.get());
+    if(p.size()>0){
+      Boolean hasAccess = false;
+      for(int i =0; i < p.size(); i++){
+        if(queryBySelector.queryByProgramId(user, p.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
+        return findSafely(studentId.get(),outcomeId.get());
+      }else{
+        throw new NotAuthorizedException("Cannot get a student not in your program");
+      }
+    }else{
+      throw new NotFoundException("No Students are available with that Id");
+    }
   }
 
   private StudentOutcome findSafely(long studentId, long outcomeId){

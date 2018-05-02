@@ -28,8 +28,8 @@ public class ProgramDAO extends StOutDAO<Program> {
     return list(namedQuery("edu.mtech.stout.core.Program.findByUserId").setParameter(0, userId));
   }
 
-  public List<Program> findByStudent(Long studentId){
-    return list(namedQuery("edu.mtech.stout.core.Program.findByStudent").setParameter(0,studentId));
+  public List<Program> findByOfferingStudent(Long studentId, Long offeringId){
+    return list(namedQuery("edu.mtech.stout.core.Program.findByStudent").setParameter(0, studentId).setParameter(1,offeringId));
   }
 
   public HashSet<Long> getProgramIdSetByUser(Long userId) {
@@ -39,6 +39,13 @@ public class ProgramDAO extends StOutDAO<Program> {
       programSet.add(prog.getId());
     }
     return programSet;
+  }
+
+  public List<Program> findByStudentAssign(Long studentId, Long assignId){
+    return list(namedQuery("edu.mtech.stout.core.Program.findByStudentAssign").setParameter(0,studentId).setParameter(1,assignId));
+  }
+  public List<Program> findByStudentId(Long studentId){
+    return list(namedQuery("edu.mtech.stout.core.Program.findByStudentId").setParameter(0,studentId));
   }
 
   public List<Program> findByOffering(Long offeringId){

@@ -76,7 +76,7 @@ public class CoursePrefixResourceList {
       for(int i = 0; i < programList.size(); i++){
         List<CoursePrefix> tempList = dao.findByProgramId(programList.get(i).getId());
         for(int j = 0; j < tempList.size(); j++){
-          fullList.add(tempList.get(0));
+          fullList.add(tempList.get(j));
         }
       }
 
