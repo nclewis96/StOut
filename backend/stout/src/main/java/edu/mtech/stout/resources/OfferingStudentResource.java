@@ -35,7 +35,7 @@ public class OfferingStudentResource {
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public OfferingStudent getOfferingStudent(@Auth User user, @PathParam("studentId") LongParam studentId) {
-    List<Program> p = programDao.findByStudent(studentId.get());
+    List<Program> p = programDao.findByStudentId(studentId.get());
 
     if(p.size() > 0){
       Boolean hasAccess = false;
@@ -85,7 +85,7 @@ public class OfferingStudentResource {
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public Status deleteOfferingStudent(@Auth User user, @PathParam("studentId") LongParam studentId){
-    List<Program> p = programDao.findByStudent(studentId.get());
+    List<Program> p = programDao.findByStudentId(studentId.get());
 
     if(p.size() > 0){
       Boolean hasAccess = false;
