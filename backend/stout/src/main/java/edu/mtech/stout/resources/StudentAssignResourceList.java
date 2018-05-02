@@ -97,7 +97,7 @@ public class StudentAssignResourceList {
       if(queryBySelector.queryByProgramId(user, programId.get())){
         return dao.findByProgramId(programId.get());
       }else{
-        throw new NotAuthorizedException("Cannot get students not in your program");
+        throw new NotAuthorizedException("Cannot get student assignments not in your program");
       }
     }else{
       ArrayList<StudentAssign> fullList = new ArrayList<>();
@@ -115,7 +115,7 @@ public class StudentAssignResourceList {
           fullList.add(tempList.get(i));
         }
       }
+      return fullList;
     }
-    return dao.findAll();
   }
 }

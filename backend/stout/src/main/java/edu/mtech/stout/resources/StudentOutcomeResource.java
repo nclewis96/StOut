@@ -61,28 +61,59 @@ public class StudentOutcomeResource {
   @PATCH
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public StudentOutcome updateStudentOutcome(@PathParam("studentId")LongParam studentId, @PathParam("outcomeId")LongParam outcomeId, StudentOutcome outcome){
-    return dao.update(outcome);
+  public StudentOutcome updateStudentOutcome(@Auth User user, @PathParam("studentId")LongParam studentId, @PathParam("outcomeId")LongParam outcomeId, StudentOutcome outcome){
+    List<Program> p = programDao.findByStudentId(studentId.get());
+    if(p.size()>0){
+      Boolean hasAccess = false;
+      for(int i =0; i < p.size(); i++){
+        if(queryBySelector.queryByProgramId(user, p.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
+        return dao.update(outcome);
+      }else{
+        throw new NotAuthorizedException("Cannot update a student not in your program");
+      }
+    }else{
+      throw new NotFoundException("No Students are available with that Id");
+    }
   }
 
   @DELETE
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Status deleteStudentOutcome(@PathParam("studentId")LongParam studentId, @PathParam("outcomeId")LongParam outcomeId) {
-    Status status = new Status();
-    status.setId(outcomeId.get().longValue());
-    status.setAction("DELETE");
-    status.setResource("StudentOutcome");
+  public Status deleteStudentOutcome(@Auth User user, @PathParam("studentId")LongParam studentId, @PathParam("outcomeId")LongParam outcomeId) {
+    List<Program> p = programDao.findByStudentId(studentId.get());
+    if(p.size()>0){
+      Boolean hasAccess = false;
+      for(int i =0; i < p.size(); i++){
+        if(queryBySelector.queryByProgramId(user, p.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
+        Status status = new Status();
+        status.setId(outcomeId.get().longValue());
+        status.setAction("DELETE");
+        status.setResource("StudentOutcome");
 
-    boolean success = dao.delete(findSafely(studentId.get().longValue(), outcomeId.get().longValue()));
+        boolean success = dao.delete(findSafely(studentId.get().longValue(), outcomeId.get().longValue()));
 
-    if (success) {
-      status.setMessage("Successfully deleted Student Outcome");
-      status.setStatus(200);
-    } else {
-      status.setMessage("Error deleting Student Outcome");
-      status.setStatus(500);
+        if (success) {
+          status.setMessage("Successfully deleted Student Outcome");
+          status.setStatus(200);
+        } else {
+          status.setMessage("Error deleting Student Outcome");
+          status.setStatus(500);
+        }
+        return status;
+      }else{
+        throw new NotAuthorizedException("Cannot delete a student not in your program");
+      }
+    }else{
+      throw new NotFoundException("No Students are available with that Id");
     }
-    return status;
+
   }
 }
