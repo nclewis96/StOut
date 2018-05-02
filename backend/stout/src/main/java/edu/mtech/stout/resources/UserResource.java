@@ -31,7 +31,7 @@ public class UserResource {
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public UserApi getUser(@PathParam("userId") LongParam userId) {
     Optional<User> user;
@@ -44,6 +44,7 @@ public class UserResource {
   }
 
   @PATCH
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public User updateUser(@PathParam("userId") LongParam userId, User user) {
     return dao.update(user);

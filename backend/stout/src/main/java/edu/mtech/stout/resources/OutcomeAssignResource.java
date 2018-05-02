@@ -41,7 +41,7 @@ public class OutcomeAssignResource {
         throw new NotAuthorizedException("Cannot get OutcomeAssign not in your program");
       }
     }else{
-      throw new NotFoundException("No assigns are available in your program.");
+      throw new NotFoundException("No outcome assignments are available in your program.");
     }
   }
 
@@ -65,10 +65,10 @@ public class OutcomeAssignResource {
       if(hasAccess ){
         return dao.update(outcomeAssign);
       }else{
-        throw new NotAuthorizedException("Cannot update outcome assign not in your program");
+        throw new NotAuthorizedException("Cannot update outcome assignment not in your program");
       }
     }else{
-      throw new NotFoundException("The outcome assign you are trying to update is not in your program.");
+      throw new NotFoundException("The outcome assignments you are trying to update is not in your program.");
     }
   }
 
@@ -101,10 +101,10 @@ public class OutcomeAssignResource {
         }
         return status;
       }else{
-        throw new NotAuthorizedException("Cannot delete outcome assign not in your program");
+        throw new NotAuthorizedException("Cannot delete outcome assignment not in your program");
       }
     }else{
-      throw new NotFoundException("The outcome assign you are trying to delete is in your program.");
+      throw new NotFoundException("The outcome assignment you are trying to delete is in your program.");
     }
   }
 }

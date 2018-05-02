@@ -17,7 +17,7 @@ import java.util.Objects;
         ),
         @NamedNativeQuery(
             name = "edu.mtech.stout.core.OfferingOutcome.findProgramId",
-            query = "SELECT * FROM Offering_Outcome JOIN Offering ON Offering_Outcome.offering_id = Outcome.offering_id " +
+            query = "SELECT * FROM Offering_Outcome JOIN Offering ON Offering_Outcome.offering_id = Offering.offering_id " +
                 "JOIN Course ON Offering.course_id = Course.course_id WHERE Course.program_id = ?",
             resultClass = OfferingOutcome.class
         )

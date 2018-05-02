@@ -48,7 +48,7 @@ public class MetricResource {
   @PATCH
   @UnitOfWork
   public Metric updateMetric(@Auth User user, @PathParam("metricId") LongParam metricId, Metric metric) {
-    Optional<Metric> m = dao.findById(metric.getId());
+    Optional<Metric> m = dao.findById(metricId.get());
     if(m.isPresent()){
       if(queryBySelector.queryByProgramId(user,m.get().getProgramId())){
         return dao.update(metric);

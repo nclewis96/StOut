@@ -33,7 +33,7 @@ public class StudentOutcomeResource {
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public StudentOutcome getStudentOutcome(@Auth User user, @PathParam("studentId")LongParam studentId, @PathParam("outcomeId") LongParam outcomeId){
     List<Program> p = programDao.findByStudentId(studentId.get());

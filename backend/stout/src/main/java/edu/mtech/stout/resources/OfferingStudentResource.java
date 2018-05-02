@@ -62,7 +62,7 @@ public class OfferingStudentResource {
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
   public OfferingStudent updateOfferingStudent(@Auth User user,@PathParam("studentId")LongParam studentId, OfferingStudent offeringStudent){
-    List<Program> p = programDao.findByOffering(offeringStudent.getOfferingId());
+    List<Program> p = programDao.findByOffering(studentId.get());
 
     if(p.size() > 0){
       Boolean hasAccess = false;

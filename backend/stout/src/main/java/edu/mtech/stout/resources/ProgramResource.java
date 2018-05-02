@@ -10,7 +10,6 @@ import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -27,7 +26,7 @@ public class ProgramResource {
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Amdin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public Program getProgram(@Auth User user, @PathParam("programId") LongParam programId) {
     if(queryBySelector.getUserPerm(user) == 1 || queryBySelector.queryByProgramId(user,programId.get()))

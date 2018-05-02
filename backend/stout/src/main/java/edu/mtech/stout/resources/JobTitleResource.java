@@ -23,7 +23,7 @@ public class JobTitleResource {
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Amdin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public JobTitle getJobTitle(@PathParam("jobTitleId") LongParam jobtitleId){return findSafely(jobtitleId.get());}
 

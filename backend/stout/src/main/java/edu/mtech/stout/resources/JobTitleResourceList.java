@@ -8,7 +8,6 @@ import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -30,7 +29,7 @@ public class JobTitleResourceList {
   public JobTitle createJobTitle(JobTitle jobTitle) { return dao.create(jobTitle);}
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Amdin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public List<JobTitle> getJobTitleList(@Auth User user, @QueryParam("userId") LongParam userId){
     if(userId != null){

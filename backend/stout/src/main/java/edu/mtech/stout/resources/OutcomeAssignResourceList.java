@@ -53,20 +53,25 @@ public class OutcomeAssignResourceList {
   @GET
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public List<OutcomeAssign> getOutcomeAssignList(@Auth User user, @QueryParam("assignId")LongParam assignId){
-    List<Course> c = courseDao.findByAssignId(assignId.get());
-    if(c.size() > 0){
-      Boolean hasAccess = false;
-      for(int i = 0; i < c.size(); i++){
-        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
-          hasAccess = true;
+  public List<OutcomeAssign> getOutcomeAssignList(@Auth User user, @QueryParam("assignId")LongParam assignId) {
+    if (assignId != null) {
+
+      List<Course> c = courseDao.findByAssignId(assignId.get());
+      if (c.size() > 0) {
+        Boolean hasAccess = false;
+        for (int i = 0; i < c.size(); i++) {
+          if (queryBySelector.queryByProgramId(user, c.get(i).getProgramId())) {
+            hasAccess = true;
+          }
         }
+        if (hasAccess) {
+          return dao.findAll();
+        }
+        throw new NotAuthorizedException("Cannot get outcome assign not in your program");
       }
-      if(hasAccess ){
-        return dao.findAll();
-    }
-      throw new NotAuthorizedException("Cannot get outcome assign not in your program");
+
     }
     throw new NotFoundException("No outcome Assigns are available in your program");
+
   }
 }

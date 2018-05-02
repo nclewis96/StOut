@@ -33,7 +33,7 @@ public class PerformanceResource {
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public Performance getPerformance(@Auth User user, @PathParam("performanceId")LongParam performanceId){
     List<Program> p = programDao.findByPerformance(performanceId.get());
@@ -60,6 +60,7 @@ public class PerformanceResource {
   }
 
   @PATCH
+  @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public Performance updatePeformance(@Auth User user, @PathParam("performanceId") LongParam performanceId, Performance performance){
     List<Program> p = programDao.findByPerformance(performanceId.get());

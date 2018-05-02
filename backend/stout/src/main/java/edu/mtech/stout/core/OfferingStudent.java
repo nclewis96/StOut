@@ -9,7 +9,7 @@ import java.util.Objects;
 @NamedNativeQueries(
     {
         @NamedNativeQuery(
-            name = "edu.mtech.stout.core.OfferingStudent.findAll()",
+            name = "edu.mtech.stout.core.OfferingStudent.findAll",
             query = "SELECT * FROM Offering_Student",
             resultClass =  OfferingStudent.class
         )

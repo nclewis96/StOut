@@ -23,6 +23,7 @@ public class SemesterTypeResource {
   }
 
   @GET
+  @RolesAllowed({"Admin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public SemesterType getSemesterType(@PathParam("typeId")LongParam typeId){
     return  findSafely(typeId.get());
@@ -33,13 +34,14 @@ public class SemesterTypeResource {
   }
 
   @PATCH
+  @RolesAllowed({"Admin"})
   @UnitOfWork
   public SemesterType updateSemesterType(@PathParam("typeId") LongParam typeId, SemesterType type){
     return dao.update(type);
   }
 
   @DELETE
-  @RolesAllowed({"Admin", "Program Coordinator"})
+  @RolesAllowed({"Admin"})
   @UnitOfWork
   public Status deleteSemesterType(@PathParam("typeId") LongParam typeId){
     Status status = new Status();
