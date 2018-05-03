@@ -16,13 +16,13 @@ import java.util.Objects;
         ),
         @NamedNativeQuery(
             name = "edu.mtech.stout.core.StudentOutcome.findByProgramId",
-            query = "SELECT DISTINCT(student_id) FROM Student_Outcome JOIN Offering ON Student_Outcome.offering_id = Offering.offering_id " +
+            query = "SELECT * FROM Student_Outcome JOIN Offering ON Student_Outcome.offering_id = Offering.offering_id " +
                 "JOIN Course ON Offering.course_id = Course.course_id WHERE Course.program_id = ?",
             resultClass = StudentOutcome.class
         ),
         @NamedNativeQuery(
             name = "edu.mtech.stout.core.StudentOutcome.findByUserId",
-            query = "SELECT DISTINCT(student_id) FROM Student_Outcome JOIN Offering ON Student_Outcome.offering_id = Offering.offering_id WHERE Offering.user_id = ?",
+            query = "SELECT * FROM Student_Outcome JOIN Offering ON Student_Outcome.offering_id = Offering.offering_id WHERE Offering.user_id = ?",
             resultClass = StudentOutcome.class
         )
     }

@@ -38,7 +38,7 @@ import java.io.Serializable;
       ),
       @NamedNativeQuery(
           name = "edu.mtech.stout.core.Course.findByOutcome",
-          query = "SELECT DISTINCT(Course.program_id) FROM Course JOIN Course_Outcome " +
+          query = "SELECT * FROM Course JOIN Course_Outcome " +
               "ON Course.course_id = Course_Outcome.course_id JOIN Outcome " +
               "ON Course_Outcome.outcome_id = Outcome.outcome_id WHERE Outcome.outcome_id = ?",
           resultClass = Course.class
