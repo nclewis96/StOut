@@ -36,6 +36,11 @@ Router.map(function() {
   this.route('secret');
   this.route('unauthorizedUser');
   this.route('unauthorized-user');
+  this.route('testing-models');
+
+  this.route('protos', function() {});
+  this.route('testing-models2');
+  this.route('testing-nav');
 });
 
 export default Router;

@@ -7,13 +7,13 @@ export default Ember.Route.extend({
 			observer:	{
 				name: 'observer',
 				actionList:	[{
-					actionName: 'Outcomes'
-				},	{
 					actionName: 'Courses'
+				},	{
+					actionName: 'Outcomes'
 				},	{
 					actionName: 'Reports'
 				}]
 			}
 		};
-	}			
+	}
 });

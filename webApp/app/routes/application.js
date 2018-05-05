@@ -9,11 +9,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 			},	{
 				roleName: 'Program-Coordinator'
 			},	{
+        roleName: 'Faculty'
+      },	{
 				roleName: 'Observer'
-			},	{
-				roleName: 'Faculty'
-			}],
-			selectedRole: false
+			}, {
+        roleName: 'testing-nav'
+      }]
 		};
 	}
 });
