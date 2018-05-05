@@ -21,12 +21,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeAssignResourceList {
   OutcomeAssignDAO dao;
-  QueryBySelector queryBySelector;
+  QueryBySelector queryBySelector = new QueryBySelector();
   CourseDAO courseDao;
 
-  public OutcomeAssignResourceList(OutcomeAssignDAO dao, ProgramDAO programDAO, CourseDAO courseDao){
+  public OutcomeAssignResourceList(OutcomeAssignDAO dao, CourseDAO courseDao){
     this.dao = dao;
-    queryBySelector = new QueryBySelector(programDAO);
     this.courseDao = courseDao;
   }
 
@@ -36,7 +35,13 @@ public class OutcomeAssignResourceList {
   public OutcomeAssign createOutcomeAssign(@Auth User user, OutcomeAssign outcomeAssign){
     List<Course> c = courseDao.findByAssignId(outcomeAssign.getAssignId());
     if(c.size() > 0){
-      if(queryBySelector.queryByProgramId(user,c.get(0).getProgramId())){
+      Boolean hasAccess = false;
+      for(int i = 0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess ){
         return  dao.create(outcomeAssign);
       }
       throw new NotAuthorizedException("Cannot create outcome assign not in your program");
@@ -48,14 +53,25 @@ public class OutcomeAssignResourceList {
   @GET
   @RolesAllowed({"Program Coordinator", "Faculty"})
   @UnitOfWork
-  public List<OutcomeAssign> getOutcomeAssignList(@Auth User user, @QueryParam("assignId")LongParam assignId){
-    List<Course> c = courseDao.findByAssignId(assignId.get());
-    if(c.size() > 0){
-      if(queryBySelector.queryByProgramId(user, c.get(0).getProgramId())){
-        return dao.findAll();
-    }
-      throw new NotAuthorizedException("Cannot get outcome assign not in your program");
+  public List<OutcomeAssign> getOutcomeAssignList(@Auth User user, @QueryParam("assignId")LongParam assignId) {
+    if (assignId != null) {
+
+      List<Course> c = courseDao.findByAssignId(assignId.get());
+      if (c.size() > 0) {
+        Boolean hasAccess = false;
+        for (int i = 0; i < c.size(); i++) {
+          if (queryBySelector.queryByProgramId(user, c.get(i).getProgramId())) {
+            hasAccess = true;
+          }
+        }
+        if (hasAccess) {
+          return dao.findAll();
+        }
+        throw new NotAuthorizedException("Cannot get outcome assign not in your program");
+      }
+
     }
     throw new NotFoundException("No outcome Assigns are available in your program");
+
   }
 }

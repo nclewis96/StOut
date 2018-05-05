@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/roles/{roleId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class RoleResource {
-  RoleDAO dao;
+  private RoleDAO dao;
 
   public RoleResource(RoleDAO dao){
     this.dao = dao;

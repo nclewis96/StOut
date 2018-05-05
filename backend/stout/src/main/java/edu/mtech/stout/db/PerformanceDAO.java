@@ -11,4 +11,9 @@ public class PerformanceDAO extends  StOutDAO<Performance>{
   public List<Performance> findAll() {
     return  list(namedQuery("edu.mtech.stout.core.Performance.findAll"));
   }
+
+  public List<Performance> findByProgram(Long programId){
+    return list(namedQuery("edu.mtech.stout.core.Performance.findByProgram").setParameter(0, programId));
+  }
 }
+

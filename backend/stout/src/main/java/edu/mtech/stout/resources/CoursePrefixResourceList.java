@@ -22,15 +22,14 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class CoursePrefixResourceList {
 
-  CoursePrefixDAO dao;
-  QueryBySelector qbs;
-  CourseDAO courseDao;
-  ProgramDAO programDao;
+  private CoursePrefixDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private CourseDAO courseDao;
+  private ProgramDAO programDao;
 
   public CoursePrefixResourceList(CoursePrefixDAO dao, ProgramDAO programDao, CourseDAO courseDao ) {
     this.courseDao = courseDao;
     this.dao = dao;
-    qbs = new QueryBySelector(programDao);
     this.programDao = programDao;
   }
 
@@ -41,7 +40,13 @@ public class CoursePrefixResourceList {
     //Checks to see if the User has access to the Course Prefix's Program
     List<Course> c = courseDao.findByCoursePrefixId(coursePrefix.getId());
     if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i =0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         return dao.create(coursePrefix);
       }else{
         throw new NotAuthorizedException("Cannot create Course Prefix not in your program");
@@ -58,7 +63,7 @@ public class CoursePrefixResourceList {
     //Checks to see if the User has access to the ProgramID, if no programID
     //return all the stuff from the programs the User has access to
     if(programId != null){
-      if(qbs.queryByProgramId(user, programId.get()) ){
+      if(queryBySelector.queryByProgramId(user, programId.get()) ){
         return dao.findByProgramId(programId.get());
       }else{
         throw new NotAuthorizedException("Cannot get Course Prefixes not in your program");
@@ -71,7 +76,7 @@ public class CoursePrefixResourceList {
       for(int i = 0; i < programList.size(); i++){
         List<CoursePrefix> tempList = dao.findByProgramId(programList.get(i).getId());
         for(int j = 0; j < tempList.size(); j++){
-          fullList.add(tempList.get(0));
+          fullList.add(tempList.get(j));
         }
       }
 

@@ -1,6 +1,7 @@
 package edu.mtech.stout;
 
 import edu.mtech.stout.api.AuthenticationObject;
+import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.auth.StOutAuthenticator;
 import edu.mtech.stout.auth.StOutAuthorizer;
 import edu.mtech.stout.client.CASValidator;
@@ -42,7 +43,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
       CoursePrefix.class, Permissions.class, Performance.class,
         StudentAssign.class, CourseOutcome.class, OfferingOutcome.class,
         SemesterType.class, ProgramCutoff.class, OutcomeAssign.class,
-        StudentOutcome.class) {
+        StudentOutcome.class, OfferingStudent.class) {
 
       @Override
       public DataSourceFactory getDataSourceFactory(StOutConfiguration configuration) {
@@ -111,6 +112,7 @@ public class StOutApplication extends Application<StOutConfiguration> {
     final ProgramCutoffDAO programCutoffDAO = new ProgramCutoffDAO(hibernateBundle.getSessionFactory());
     final StudentOutcomeDAO studentOutcomeDAO = new StudentOutcomeDAO(hibernateBundle.getSessionFactory());
     final OutcomeAssignDAO outcomeAssignDAO = new OutcomeAssignDAO(hibernateBundle.getSessionFactory());
+    final OfferingStudentDAO offeringStudentDao = new OfferingStudentDAO(hibernateBundle.getSessionFactory());
 
     //Set up auth
     StOutAuthenticator stOutAuthenticator = new UnitOfWorkAwareProxyFactory(hibernateBundle)
@@ -134,47 +136,53 @@ public class StOutApplication extends Application<StOutConfiguration> {
 
     //Set up routes
     environment.jersey().register(new UserResource(userDao, jobTitleDAO, roleDao));
-    environment.jersey().register(new UserResourceList(userDao, jobTitleDAO, programDao, roleDao));
+    environment.jersey().register(new UserResourceList(userDao, jobTitleDAO, roleDao));
     environment.jersey().register(new ProgramResource(programDao));
     environment.jersey().register(new ProgramResourceList(programDao));
-    environment.jersey().register(new OfferingResource(offeringDao));
-    environment.jersey().register(new OfferingResourceList(offeringDao,programDao, permissionsDAO));
-    environment.jersey().register(new OutcomeResource(outcomeDao));
-    environment.jersey().register(new OutcomeResourceList(outcomeDao));
-    environment.jersey().register(new AssignResource(assignDao, programDao, courseDao));
-    environment.jersey().register(new AssignResourceList(assignDao,programDao, courseDao));
+    environment.jersey().register(new OfferingResource(offeringDao, programDao));
+    environment.jersey().register(new OfferingResourceList(offeringDao,programDao));
+    environment.jersey().register(new OutcomeResource(outcomeDao, courseDao));
+    environment.jersey().register(new OutcomeResourceList(outcomeDao, programDao, courseDao));
+    environment.jersey().register(new AssignResource(assignDao, courseDao));
+    environment.jersey().register(new AssignResourceList(assignDao, courseDao));
 	  environment.jersey().register(new MetricResource(metricDao, programDao));
-    environment.jersey().register(new MetricResourceList(metricDao, programDao,permissionsDAO));
+    environment.jersey().register(new MetricResourceList(metricDao));
 	  environment.jersey().register(new SemesterResource(semesterDao));
     environment.jersey().register(new JobTitleResource(jobTitleDAO));
     environment.jersey().register(new JobTitleResourceList(jobTitleDAO));
     environment.jersey().register(new SemesterResourceList(semesterDao));
     environment.jersey().register(new ScaleResource(scaleDao));
-    environment.jersey().register(new ScaleResourceList(scaleDao));
-	  environment.jersey().register(new CourseResource(courseDao, programDao));
-	  environment.jersey().register(new CourseResourceList(courseDao, programDao, userDao));
-	  environment.jersey().register(new CoursePrefixResource(courseprefixDAO, programDao, courseDao));
+    environment.jersey().register(new ScaleResourceList(scaleDao, programDao));
+	  environment.jersey().register(new CourseResource(courseDao));
+	  environment.jersey().register(new CourseResourceList( courseDao));
+	  environment.jersey().register(new CoursePrefixResource(courseprefixDAO, courseDao));
     environment.jersey().register(new CoursePrefixResourceList(courseprefixDAO, programDao, courseDao));
     environment.jersey().register(new PermissionsResource(permissionsDAO));
     environment.jersey().register(new PermissionsResourceList(permissionsDAO));
-    environment.jersey().register(new PerformanceResource(performanceDAO));
-    environment.jersey().register(new PerformanceResourceList(performanceDAO));
-    environment.jersey().register(new StudentAssignResource(studentAssignDAO));
-    environment.jersey().register(new StudentAssignResourceList(studentAssignDAO));
-    environment.jersey().register(new CourseOutcomeResource(courseOutcomeDAO, programDao, courseDao));
-    environment.jersey().register(new CourseOutcomeResourceList(courseOutcomeDAO, programDao, courseDao));
-    environment.jersey().register(new OfferingOutcomeResource(offeringOutcomeDAO));
-    environment.jersey().register(new OfferingOutcomeResourceList(offeringOutcomeDAO));
+    environment.jersey().register(new PerformanceResource(performanceDAO, programDao));
+    environment.jersey().register(new PerformanceResourceList(performanceDAO, programDao));
+    environment.jersey().register(new StudentAssignResource(studentAssignDAO, programDao));
+    environment.jersey().register(new StudentAssignResourceList(studentAssignDAO, programDao));
+    environment.jersey().register(new CourseOutcomeResource(courseOutcomeDAO, courseDao));
+    environment.jersey().register(new CourseOutcomeResourceList(courseOutcomeDAO, courseDao));
+    environment.jersey().register(new OfferingOutcomeResource(offeringOutcomeDAO, programDao));
+    environment.jersey().register(new OfferingOutcomeResourceList(offeringOutcomeDAO, programDao));
     environment.jersey().register(new SemesterTypeResource(semesterTypeDAO));
     environment.jersey().register(new SemesterTypeResourceList(semesterTypeDAO));
-    environment.jersey().register(new ProgramCutoffResource(programCutoffDAO));
+    environment.jersey().register(new ProgramCutoffResource(programCutoffDAO, programDao));
     environment.jersey().register(new ProgramCutoffResourceList(programCutoffDAO));
-    environment.jersey().register(new StudentOutcomeResourceList(studentOutcomeDAO));
-    environment.jersey().register(new StudentOutcomeResource(studentOutcomeDAO));
-    environment.jersey().register(new OutcomeAssignResource(outcomeAssignDAO, programDao, courseDao));
-    environment.jersey().register(new OutcomeAssignResourceList(outcomeAssignDAO, programDao, courseDao));
+    environment.jersey().register(new StudentOutcomeResourceList(studentOutcomeDAO, programDao));
+    environment.jersey().register(new StudentOutcomeResource(studentOutcomeDAO, programDao));
+    environment.jersey().register(new OutcomeAssignResource(outcomeAssignDAO, courseDao));
+    environment.jersey().register(new OutcomeAssignResourceList(outcomeAssignDAO, courseDao));
     environment.jersey().register(new RoleResource(roleDao));
     environment.jersey().register(new RoleResourceList(roleDao));
+    environment.jersey().register(new OfferingStudentResource(offeringStudentDao, programDao));
+    environment.jersey().register(new OfferingStudentResourceList(offeringStudentDao, programDao));
+
+    //Query By Selector instantiation and input of static variables to keep do required queries
+    QueryBySelector queryBySelector = new QueryBySelector();
+    queryBySelector.setDAOs(programDao,permissionsDAO,userDao);
 
   }
 }

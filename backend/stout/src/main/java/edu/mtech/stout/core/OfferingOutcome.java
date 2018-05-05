@@ -14,6 +14,12 @@ import java.util.Objects;
             name = "edu.mtech.stout.core.OfferingOutcome.findAll",
             query = "SELECT * FROM Offering_Outcome",
             resultClass =  OfferingOutcome.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.OfferingOutcome.findProgramId",
+            query = "SELECT * FROM Offering_Outcome JOIN Offering ON Offering_Outcome.offering_id = Offering.offering_id " +
+                "JOIN Course ON Offering.course_id = Course.course_id WHERE Course.program_id = ?",
+            resultClass = OfferingOutcome.class
         )
     })
 

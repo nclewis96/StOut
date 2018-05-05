@@ -1,6 +1,8 @@
 package edu.mtech.stout.core;
 
 
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,6 +15,19 @@ import java.util.Objects;
             name = "edu.mtech.stout.core.StudentAssign.findAll",
             query = "SELECT * FROM Student_Assign",
             resultClass =  StudentAssign.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.StudentAssign.findByProgramId",
+            query = "SELECT DISTINCT(student_id) FROM Student_Assign JOIN Offering_Assign ON Student_Assign.assign_id = Offering_Assign.assign_id " +
+                "JOIN Offering ON Offering_Assign.offering_id = Offering.offering_id JOIN Course ON Offering.course_id = Course.course_id " +
+                "WHERE Course.program_id = ?",
+            resultClass = StudentAssign.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.StudentAssign.findByUserId",
+            query = "SELECT DISTINCT(student_id) FROM Student_Assign JOIN Offering_Assign ON Student_Assign.assign_id = Offering_Assign.assign_id " +
+                "JOIN Offering ON Offering_Assign.offering_id = Offering.offering_id WHERE Offering.user_id = ?",
+            resultClass = StudentAssign.class
         )
     }
 )

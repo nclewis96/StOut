@@ -13,7 +13,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class SemesterTypeResourceList {
 
-  SemesterTypeDAO dao;
+  private SemesterTypeDAO dao;
 
   public SemesterTypeResourceList(SemesterTypeDAO dao){
     this.dao = dao;

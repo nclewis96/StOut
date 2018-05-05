@@ -20,11 +20,10 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class MetricResource {
 
-  MetricDAO dao;
-  QueryBySelector qbs;
+  private MetricDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public MetricResource(MetricDAO dao, ProgramDAO pDao) {
-    qbs = new QueryBySelector(pDao);
     this.dao = dao;
   }
 
@@ -33,7 +32,7 @@ public class MetricResource {
   public Metric getMetric(@Auth User user, @PathParam("metricId") LongParam metricId) {
     Optional<Metric> m = dao.findById(metricId.get());
     if(m.isPresent()){
-      if(qbs.queryByProgramId(user,m.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,m.get().getProgramId())){
         return findSafely(metricId.get());
       }
       throw new NotAuthorizedException("Cannot get Metric not in your program");
@@ -49,9 +48,9 @@ public class MetricResource {
   @PATCH
   @UnitOfWork
   public Metric updateMetric(@Auth User user, @PathParam("metricId") LongParam metricId, Metric metric) {
-    Optional<Metric> m = dao.findById(metric.getId());
+    Optional<Metric> m = dao.findById(metricId.get());
     if(m.isPresent()){
-      if(qbs.queryByProgramId(user,m.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,m.get().getProgramId())){
         return dao.update(metric);
       }
       throw new NotAuthorizedException("Cannot update Metric not in your program");
@@ -66,7 +65,7 @@ public class MetricResource {
   public Status deleteMetric(@Auth User user, @PathParam("metricId") LongParam metricId) {
     Optional<Metric> m = dao.findById(metricId.get());
     if(m.isPresent()){
-      if(qbs.queryByProgramId(user,m.get().getProgramId())){
+      if(queryBySelector.queryByProgramId(user,m.get().getProgramId())){
         Status status = new Status();
         status.setId(metricId.get().intValue());
         status.setAction("DELETE");

@@ -13,6 +13,11 @@ import java.util.Objects;
             name = "edu.mtech.stout.core.Performance.findAll",
             query = "SELECT * FROM Perf_Indicator",
             resultClass = Performance.class
+        ),
+        @NamedNativeQuery(
+            name = "edu.mtech.stout.core.Performance.findByProgram",
+            query = "SELECT * FROM Perf_Indicator JOIN Scale ON Perf_Indicator.scale_id = Scale.scale_id WHERE program_id = ?",
+            resultClass = Performance.class
         )
     })
 

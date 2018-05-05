@@ -3,6 +3,7 @@ package edu.mtech.stout.resources;
 import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.core.Offering;
 import edu.mtech.stout.core.Permissions;
+import edu.mtech.stout.core.Program;
 import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.OfferingDAO;
 import edu.mtech.stout.db.PermissionsDAO;
@@ -22,20 +23,36 @@ import java.util.List;
 public class OfferingResourceList {
 
 
-  OfferingDAO dao;
-  QueryBySelector queryBySelector;
+  private OfferingDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private ProgramDAO programDao;
 
 
-  public OfferingResourceList(OfferingDAO dao, ProgramDAO programDao, PermissionsDAO permissionsDao) {
+  public OfferingResourceList(OfferingDAO dao, ProgramDAO programDao) {
     this.dao = dao;
-    queryBySelector = new QueryBySelector(permissionsDao, programDao);
+    this.programDao = programDao;
   }
 
   @POST
   @RolesAllowed({"Program Coordinator"})
   @UnitOfWork
-  public Offering createOffering(Offering offering) {
-    return dao.create(offering);
+  public Offering createOffering(@Auth User user, Offering offering) {
+    List<Program> progList = programDao.findByOffering(offering.getId());
+    if(progList.size() > 0){
+      Boolean hasAccess = false;
+      for(int i =0; i < progList.size(); i++){
+        if(queryBySelector.queryByProgramId(user, progList.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
+        return dao.create(offering);
+      }else{
+        throw new NotAuthorizedException("Cannot create Offering not in your program");
+      }
+    }else{
+      throw new NotFoundException("The offering is not associated with any programs");
+    }
   }
 
   @GET

@@ -1,5 +1,6 @@
 package edu.mtech.stout.db;
 
+import edu.mtech.stout.core.Program;
 import edu.mtech.stout.core.ProgramCutoff;
 import org.hibernate.SessionFactory;
 
@@ -15,4 +16,7 @@ public class ProgramCutoffDAO extends StOutDAO<ProgramCutoff>{
     return list(namedQuery("edu.mtech.stout.core.ProgramCutoff.findAll"));
   }
 
+  public List<ProgramCutoff> findByProgram(Long programId){
+    return list(namedQuery("edu.mtech.stout.core.ProgramCutoff.findByProgram").setParameter(0,programId));
+  }
 }

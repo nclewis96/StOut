@@ -22,11 +22,10 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OutcomeAssignResource {
   OutcomeAssignDAO dao;
-  QueryBySelector qbs;
+  QueryBySelector queryBySelector = new QueryBySelector();
   CourseDAO courseDao;
-  public OutcomeAssignResource(OutcomeAssignDAO dao, ProgramDAO pDao, CourseDAO courseDao){
+  public OutcomeAssignResource(OutcomeAssignDAO dao, CourseDAO courseDao){
     this.dao = dao;
-    qbs = new QueryBySelector(pDao);
     this.courseDao = courseDao;
   }
 
@@ -36,13 +35,13 @@ public class OutcomeAssignResource {
   public OutcomeAssign getOutcomeAssign(@Auth User user, @PathParam("outcomeId")LongParam outcomeId, @PathParam("assignId")LongParam assignId){
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId())){
+      if(queryBySelector.queryByProgramId(user, c.get(0).getProgramId())){
         return findSafely(assignId.get(), outcomeId.get());
       }else{
         throw new NotAuthorizedException("Cannot get OutcomeAssign not in your program");
       }
     }else{
-      throw new NotFoundException("No assigns are available in your program.");
+      throw new NotFoundException("No outcome assignments are available in your program.");
     }
   }
 
@@ -57,13 +56,19 @@ public class OutcomeAssignResource {
                                            @PathParam("assignId") LongParam assignId, OutcomeAssign outcomeAssign){
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if (c.size() > 0) {
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i = 0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess ){
         return dao.update(outcomeAssign);
       }else{
-        throw new NotAuthorizedException("Cannot update outcome assign not in your program");
+        throw new NotAuthorizedException("Cannot update outcome assignment not in your program");
       }
     }else{
-      throw new NotFoundException("The outcome assign you are trying to update is not in your program.");
+      throw new NotFoundException("The outcome assignments you are trying to update is not in your program.");
     }
   }
 
@@ -73,7 +78,13 @@ public class OutcomeAssignResource {
   public Status deleteOutcomeAssign(@Auth User user, @PathParam("outcomeId")LongParam outcomeId, @PathParam("assignId")LongParam assignId){
     List<Course> c = courseDao.findByAssignId(assignId.get());
     if (c.size() > 0) {
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i = 0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getProgramId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess ){
         Status status = new Status();
         status.setId(outcomeId.get().intValue());
         status.setAction("DELETE");
@@ -90,10 +101,10 @@ public class OutcomeAssignResource {
         }
         return status;
       }else{
-        throw new NotAuthorizedException("Cannot delete outcome assign not in your program");
+        throw new NotAuthorizedException("Cannot delete outcome assignment not in your program");
       }
     }else{
-      throw new NotFoundException("The outcome assign you are trying to delete is in your program.");
+      throw new NotFoundException("The outcome assignment you are trying to delete is in your program.");
     }
   }
 }

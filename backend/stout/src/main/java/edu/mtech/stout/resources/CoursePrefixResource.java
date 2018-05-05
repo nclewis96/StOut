@@ -22,12 +22,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class CoursePrefixResource {
 
-  CoursePrefixDAO dao;
-  QueryBySelector qbs;
-  CourseDAO courseDao;
+  private CoursePrefixDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
+  private CourseDAO courseDao;
 
-  public CoursePrefixResource(CoursePrefixDAO dao, ProgramDAO pDao, CourseDAO courseDao) {
-    qbs = new QueryBySelector(pDao);
+  public CoursePrefixResource(CoursePrefixDAO dao, CourseDAO courseDao) {
     this.courseDao = courseDao;
     this.dao = dao;
   }
@@ -38,7 +37,13 @@ public class CoursePrefixResource {
     //Checks to see if the User has access to the Course Prefix's Program
     List<Course> c = courseDao.findByCoursePrefixId(coursePrefixId.get());
     if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i =0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         return findSafely(coursePrefixId.get());
       }else{
         throw new NotAuthorizedException("Cannot get Course Prefix not in your program");
@@ -58,7 +63,13 @@ public class CoursePrefixResource {
     //Checks to see if the User has access to the Course Prefix's Program
     List<Course> c = courseDao.findByCoursePrefixId(coursePrefixId.get());
     if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i =0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(i).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         return dao.update(coursePref);
       }else{
         throw new NotAuthorizedException("Cannot update Course Prefix not in your program");
@@ -75,7 +86,13 @@ public class CoursePrefixResource {
     //Checks to see if the User has access to the Course Prefix's Program
     List<Course> c = courseDao.findByCoursePrefixId(coursePrefixId.get());
     if(c.size() > 0){
-      if(qbs.queryByProgramId(user, c.get(0).getProgramId()) ){
+      Boolean hasAccess = false;
+      for(int i =0; i < c.size(); i++){
+        if(queryBySelector.queryByProgramId(user, c.get(0).getId())){
+          hasAccess = true;
+        }
+      }
+      if(hasAccess){
         Status status = new Status();
         status.setId(coursePrefixId.get().intValue());
         status.setAction("DELETE");

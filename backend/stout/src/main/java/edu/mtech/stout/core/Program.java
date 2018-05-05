@@ -1,5 +1,6 @@
 package edu.mtech.stout.core;
 
+import javax.inject.Named;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,7 +25,47 @@ import java.util.Objects;
         " FROM Program JOIN Program_Permissions ON Program.program_id = Program_Permissions.program_id " +
         "JOIN Users ON Users.user_id = Program_Permissions.user_id WHERE Users.user_id = ?)",
       resultClass = Program.class
-    )
+    ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByOffering",
+          query = "SELECT * FROM Program WHERE program_id IN " +
+              "(SELECT program_id FROM Course JOIN Offering ON Course.course_id = Offering.course_id WHERE offering_id = ?)",
+          resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByOfferingStudent",
+          query = "SELECT * FROM Program WHERE program_id IN " +
+              "(SELECT program_id FROM Course JOIN Offering ON Course.course_id = Offering.course_id " +
+              "JOIN Offering_Student ON Offering_Student.offering_id = Offering.offering_id " +
+              "WHERE Offering_Student.student_id = ? AND Offering_Student.offering_id = ?)",
+          resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByMetric",
+          query ="SELECT DISTINCT(Program.program_id) FROM Program JOIN Metric ON Program.program_id = Metric.program_id " +
+              "WHERE metric_id = ?",
+          resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByPerformance",
+          query = "SELECT DISTINCT(Program.program_id) FROM Program JOIN Scale ON Program.program_id = Scale.program_id " +
+              "JOIN Perf_Indicator ON Scale.scale_id = Perf_Indicator.scale_id WHERE perf_indicator_id =?",
+          resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByStudentId",
+          query = "SELECT * FROM Program WHERE program_id IN (SELECT program_id FROM Course JOIN Offering ON Course.course_id = Offering.course_id JOIN Student_Outcome " +
+              "ON Offering.offering_id = Student_Outcome.offering_id WHERE Student_Outcome.student_id = ?)",
+          resultClass = Program.class
+      ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Program.findByStudentAssign",
+          query = "SELECT * FROM Program WHERE program_id IN (SELECT program_id FROM Course JOIN Offering On Course.course_id = Offering.course_id " +
+              "JOIN Offering_Student ON Offering_Student.offering_id = Offering.offering_id " +
+              "JOIN Student_Assign ON Offering_Student.student_id = Student_Assign.student_id " +
+              "Where Student_Assign.student_id = ? AND Student_Assign.assign_id = ?)",
+          resultClass = Program.class
+      )
   })
 
 public class Program  implements Serializable {

@@ -20,13 +20,12 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class MetricResourceList {
 
-  MetricDAO dao = null;
-  QueryBySelector queryBySelector = null;
+  private MetricDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
 
-  public MetricResourceList(MetricDAO dao, ProgramDAO programDao, PermissionsDAO permissionsDAO) {
+  public MetricResourceList(MetricDAO dao) {
     this.dao = dao;
-    queryBySelector = new QueryBySelector(permissionsDAO,programDao);
   }
 
   @POST

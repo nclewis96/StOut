@@ -12,7 +12,12 @@ import java.util.Objects;
       name = "edu.mtech.stout.core.Scale.findAll",
       query = "SELECT * FROM Scale",
       resultClass = Scale.class
-    )
+    ),
+      @NamedNativeQuery(
+          name = "edu.mtech.stout.core.Scale.findByProgram",
+          query = "SELECT * FROM Scale WHERE program_id = ?",
+          resultClass = Scale.class
+      )
   })
 public class Scale  implements Serializable {
   @Id

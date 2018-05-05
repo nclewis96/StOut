@@ -1,13 +1,15 @@
 package edu.mtech.stout.resources;
 
+import edu.mtech.stout.api.QueryBySelector;
 import edu.mtech.stout.api.Status;
 import edu.mtech.stout.core.Program;
+import edu.mtech.stout.core.User;
 import edu.mtech.stout.db.ProgramDAO;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
 import io.dropwizard.jersey.params.LongParam;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,17 +18,20 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramResource {
 
-  ProgramDAO dao;
+  private ProgramDAO dao;
+  private QueryBySelector queryBySelector = new QueryBySelector();
 
   public ProgramResource(ProgramDAO dao) {
     this.dao = dao;
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Amdin", "Program Coordinator", "Faculty"})
   @UnitOfWork
-  public Program getProgram(@PathParam("programId") LongParam programId) {
-    return findSafely(programId.get());
+  public Program getProgram(@Auth User user, @PathParam("programId") LongParam programId) {
+    if(queryBySelector.getUserPerm(user) == 1 || queryBySelector.queryByProgramId(user,programId.get()))
+      return findSafely(programId.get());
+    throw new NotAuthorizedException("Cannot get a program you're not associated with.");
   }
 
   private Program findSafely(long programId) {
@@ -34,7 +39,7 @@ public class ProgramResource {
   }
 
   @PATCH
-  @RolesAllowed({"Program Coordinator"})
+  @RolesAllowed({"Admin"})
   @UnitOfWork
   public Program updateProgram(@PathParam("programId") LongParam programId, Program program) {
     return dao.update(program);

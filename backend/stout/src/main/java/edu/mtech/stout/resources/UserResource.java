@@ -20,9 +20,9 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-  UserDAO dao;
-  RoleDAO roleDao;
-  JobTitleDAO jobTitleDAO;
+  private UserDAO dao;
+  private RoleDAO roleDao;
+  private JobTitleDAO jobTitleDAO;
 
   public UserResource(UserDAO dao, JobTitleDAO jobTitleDAO, RoleDAO roleDao) {
     this.dao = dao;
@@ -31,7 +31,7 @@ public class UserResource {
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public UserApi getUser(@PathParam("userId") LongParam userId) {
     Optional<User> user;
@@ -44,6 +44,7 @@ public class UserResource {
   }
 
   @PATCH
+  @RolesAllowed({"Admin", "Program Coordinator"})
   @UnitOfWork
   public User updateUser(@PathParam("userId") LongParam userId, User user) {
     return dao.update(user);

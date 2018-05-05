@@ -16,14 +16,14 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class JobTitleResource {
 
-  JobTitleDAO dao;
+  private JobTitleDAO dao;
 
   public JobTitleResource(JobTitleDAO dao){
     this.dao = dao;
   }
 
   @GET
-  @PermitAll
+  @RolesAllowed({"Amdin", "Program Coordinator", "Faculty"})
   @UnitOfWork
   public JobTitle getJobTitle(@PathParam("jobTitleId") LongParam jobtitleId){return findSafely(jobtitleId.get());}
 
